@@ -1,15 +1,29 @@
-import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
-import {WebView} from 'react-native-webview';
+import {NavigationContainer} from '@react-navigation/native';
+import React, {useEffect} from 'react';
+import {RootNavigator} from './src/navigators/stack.navigator';
 
-const App = () => {
+//store
+import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {store, persistor} from './src/store/store';
+
+//third party
+// import messaging from '@react-native-firebase/messaging';
+
+export default App = () => {
+  console.disableYellowBox = true;
+
+  // CDM
+
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <WebView
-        source={{uri: 'https://cosmic-nasturtium-e0d795.netlify.app/'}}
-      />
-    </SafeAreaView>
+    <>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </PersistGate>
+      </Provider>
+    </>
   );
 };
-
-export default App;
