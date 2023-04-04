@@ -12,6 +12,7 @@ import {
   PermissionsAndroid,
   Platform,
   Dimensions,
+  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -31,13 +32,51 @@ import {useSelector, useDispatch} from 'react-redux';
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
 
+  const [data, setData] = useState([
+    {name: 'Frequently Asked Question', image: '', onPress: ''},
+    {name: 'Terms and Condition', image: '', onPress: ''},
+    {name: 'About OneDayOnly', image: '', onPress: ''},
+    {name: 'Privacy Policy', image: '', onPress: ''},
+    {name: 'About Returns', image: '', onPress: ''},
+    {name: 'Report Bug/New Feature', image: '', onPress: ''},
+  ]);
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header title={'Help'} />
-        <ScrollView className={'flex-1 pb-16'}>
-          <Text>Help</Text>
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
+          <FlatList
+            data={data}
+            renderItem={({item}) => {
+              return (
+                <TouchableOpacity
+                  // onPress={() => navigation.navigate('SignIn')}
+                  activeOpacity={0.7}
+                  style={{width: width}}
+                  className={
+                    'py-2 flex flex-row justify-between items-center mt-5 px-4 border-b-2 border-slate-500'
+                  }>
+                  <View className={'flex flex-row items-center'}>
+                    <Image
+                      source={Images.Login}
+                      className={'w-7 h-7 mr-3'}
+                      resizeMode={'contain'}
+                    />
+                    <Text className={'text-base text-slate-500'}>
+                      {item.name}
+                    </Text>
+                  </View>
+                  <Image
+                    source={Images.Arrow}
+                    className={'w-6 h-6'}
+                    resizeMode={'contain'}
+                  />
+                </TouchableOpacity>
+              );
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
     </>

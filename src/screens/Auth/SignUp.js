@@ -31,6 +31,10 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   return (
     <>
@@ -39,9 +43,54 @@ const Index = ({navigation, ...props}) => {
         title={'Create Account'}
         isTimer={false}
         _handleBack={() => navigation.goBack()}
+        isBack
       />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <ScrollView className={'flex-1 pb-16'}></ScrollView>
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
+          <View className={'flex items-center mt-6'}>
+            <Input
+              title={'first name'}
+              placeholderText={'Enter First Name'}
+              value={firstName}
+              handleOnChangeTxt={text => setFirstName(text)}
+            />
+            <Input
+              title={'last name'}
+              placeholderText={'Enter Last Name'}
+              value={lastName}
+              handleOnChangeTxt={text => setLastName(text)}
+              marginTop={height * 0.02}
+            />
+            <Input
+              title={'email address'}
+              placeholderText={'Enter Email'}
+              value={email}
+              handleOnChangeTxt={text => setEmail(text)}
+              keyboardType={'email-address'}
+              marginTop={height * 0.02}
+            />
+            <Input
+              title={'password'}
+              placeholderText={'Enter Password'}
+              value={password}
+              handleOnChangeTxt={text => setPassword(text)}
+              keyboardType={'email-address'}
+              marginTop={height * 0.02}
+              isPassword
+            />
+
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={{width: width * 0.9}}
+              className={
+                'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md'
+              }>
+              <Text className={'text-white font-semibold text-lg uppercase'}>
+                Sign up
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </>
   );

@@ -10,7 +10,14 @@ import React, {useState, useEffect} from 'react';
 import {Images} from '../assets/images';
 const {width, height} = Dimensions.get('window');
 
-const Header = ({_handleBack, title, isHome, isTimer = true, ...props}) => {
+const Header = ({
+  _handleBack,
+  title,
+  isHome,
+  isTimer = true,
+  isBack,
+  ...props
+}) => {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
 
   useEffect(() => {
@@ -46,11 +53,14 @@ const Header = ({_handleBack, title, isHome, isTimer = true, ...props}) => {
         activeOpacity={1}
         onPress={_handleBack}
         className={'flex flex-row items-center'}>
-        <Image
-          source={Images.back}
-          className={'w-4 h-4 mr-2'}
-          resizeMode={'contain'}
-        />
+        {isBack && (
+          <Image
+            source={Images.back}
+            className={'w-4 h-4 mr-2'}
+            resizeMode={'contain'}
+          />
+        )}
+
         {isHome ? (
           <Image
             source={Images.Logo}

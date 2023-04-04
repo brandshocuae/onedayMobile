@@ -9,14 +9,12 @@ const {width, height} = Dimensions.get('window');
 export default StyleSheet.create({
   container: {
     width: '93%',
-    height: height * 0.06,
-    marginVertical: height * 0.007,
+    height: height * 0.055,
     // paddingHorizontal: width * 0.02,
     backgroundColor: '#F9F9F9',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#f44336',
-    marginTop: height * 0.01,
+    borderColor: 'gray',
     borderRadius: 6,
   },
   textInput: {
@@ -26,7 +24,6 @@ export default StyleSheet.create({
     // backgroundColor: 'blue',
     color: 'black',
     marginLeft: width * 0.04,
-    
   },
   errorMessage: {
     fontSize: width * 0.032,
@@ -39,5 +36,14 @@ export default StyleSheet.create({
     fontSize: width * 0.035,
     color: 'black',
     fontWeight: 'bold',
+  },
+  titleTxt: {
+    fontSize: width * 0.04,
+    textTransform: 'uppercase',
+    textAlign: 'left',
+    alignSelf: 'flex-start',
+    marginLeft: width * 0.05,
+    fontWeight: 'bold',
+    marginBottom: height * 0.01,
   },
 });

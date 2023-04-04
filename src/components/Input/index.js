@@ -16,10 +16,13 @@ const Index = ({
   handleOnChangeTxt,
   keyboardType,
   editable = true,
+  title,
+  marginTop,
   ...props
 }) => {
   return (
     <>
+      <Text style={[styles.titleTxt, {marginTop: marginTop}]}>{title}</Text>
       <View style={styles.container}>
         <View>
           <TextInput

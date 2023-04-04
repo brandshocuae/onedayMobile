@@ -36,7 +36,7 @@ const Index = ({navigation, ...props}) => {
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header isHome />
-        <ScrollView className={'flex-1 pb-16'}>
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <Text>Home</Text>
         </ScrollView>
       </SafeAreaView>
