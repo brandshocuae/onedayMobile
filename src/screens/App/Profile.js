@@ -48,7 +48,7 @@ const Index = ({navigation, ...props}) => {
             activeOpacity={0.7}
             style={{width: width}}
             className={
-              'py-2 flex flex-row justify-between items-center mt-4 px-4 border-b-2 border-slate-500'
+              'py-3 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
             }>
             <View className={'flex flex-row items-center'}>
               <Image
@@ -70,7 +70,7 @@ const Index = ({navigation, ...props}) => {
             activeOpacity={0.7}
             style={{width: width}}
             className={
-              'py-2 flex flex-row justify-between items-center mt-6 px-4 border-b-2 border-slate-500'
+              'py-3 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
             }>
             <View className={'flex flex-row items-center'}>
               <Image
