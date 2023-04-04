@@ -5,6 +5,10 @@ import {Image, View, Dimensions, Platform, Text} from 'react-native';
 import {Images} from '../assets/images';
 
 //Screens
+import Home from '../screens/App/Home';
+import Cart from '../screens/App/Cart';
+import Profile from '../screens/App/Profile';
+import Help from '../screens/App/Help';
 
 // dimenstion
 const {width, height} = Dimensions.get('window');
@@ -17,39 +21,25 @@ const TabImage =
   ({focused}) => {
     return (
       <View
-        style={
-          !focused
-            ? {
-                width: width * 0.04,
-                height: width * 0.04,
-              }
-            : {
-                // width: width * 0.25,
-                height: width * 0.12,
-                backgroundColor: '#FFCCCB',
-                borderRadius: 30,
-                paddingHorizontal: width * 0.02,
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'row',
-              }
-        }>
+        style={{
+          width: width * 0.16,
+          height: height * 0.06,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
         <Image
-          source={Images[name]}
-          style={{width: width * 0.04, height: width * 0.04}}
+          source={Images[(!focused ? 'Un' : '') + name]}
+          style={{width: width * 0.06, height: width * 0.06}}
           resizeMode="contain"
         />
-        {focused && (
-          <Text
-            style={{
-              marginLeft: 10,
-              fontSize: width * 0.034,
-              color: '#f44336',
-              fontWeight: 'bold',
-            }}>
-            {name}
-          </Text>
-        )}
+        <Text
+          style={{
+            fontSize: width * 0.035,
+            marginTop: height * 0.005,
+            color: !focused ? 'black' : '#0070b5',
+          }}>
+          {name}
+        </Text>
       </View>
     );
   };
@@ -66,38 +56,37 @@ export function HomeTab() {
   );
 }
 
-export function UsersTab() {
+export function CartTab() {
   return (
     <Stack.Navigator
-      initialRouteName="Users"
+      initialRouteName="Cart"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Users" component={Users} />
+      <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>
   );
 }
-export function MessagesTab() {
+export function ProfileTab() {
   return (
     <Stack.Navigator
-      initialRouteName="Messages"
+      initialRouteName="Profile"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Messages" component={Messages} />
-      {/* <Stack.Screen name="Chat" component={Chat} /> */}
+      <Stack.Screen name="Profile" component={Profile} />
     </Stack.Navigator>
   );
 }
 
-export function AccountTab() {
+export function HelpTab() {
   return (
     <Stack.Navigator
-      initialRouteName="Account"
+      initialRouteName="Help"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Help" component={Help} />
     </Stack.Navigator>
   );
 }
@@ -131,25 +120,25 @@ export const BottomNavigator = ({}) => {
         component={HomeTab}
       />
       <Tab.Screen
-        name="Users"
+        name="Cart"
         options={{
-          tabBarIcon: TabImage('Users'),
+          tabBarIcon: TabImage('Cart'),
         }}
-        component={UsersTab}
+        component={CartTab}
       />
       <Tab.Screen
-        name="Messages"
+        name="Profile"
         options={{
-          tabBarIcon: TabImage('Messages'),
+          tabBarIcon: TabImage('Profile'),
         }}
-        component={MessagesTab}
+        component={ProfileTab}
       />
       <Tab.Screen
-        name="Account"
+        name="Help"
         options={{
-          tabBarIcon: TabImage('Account'),
+          tabBarIcon: TabImage('Help'),
         }}
-        component={AccountTab}
+        component={HelpTab}
       />
     </Tab.Navigator>
   );
