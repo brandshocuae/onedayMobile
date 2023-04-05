@@ -7,7 +7,9 @@ import SignIn from '../screens/Auth/SignIn';
 import SignUp from '../screens/Auth/SignUp';
 
 //main screen
-import ProductDetail from '../screens/App/ProductDetail'
+import ProductDetail from '../screens/App/ProductDetail';
+import Address from '../screens/App/Address';
+import Checkout from '../screens/App/Checkout';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -25,6 +27,8 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
+      <Stack.Screen name="Address" component={Address} />
+      <Stack.Screen name="Checkout" component={Checkout} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

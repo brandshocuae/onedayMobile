@@ -135,6 +135,16 @@ const Index = ({navigation, ...props}) => {
                 </TouchableOpacity>
               </View>
             </View>
+            <TouchableOpacity
+              activeOpacity={0.7}
+              style={{width: width * 0.95}}
+              className={
+                'pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center bg-[#8ecc2d]'
+              }>
+              <Text className={'text-lg text-white font-semibold uppercase'}>
+                i want one
+              </Text>
+            </TouchableOpacity>
           </View>
           <View
             style={{borderBottomWidth: 1}}

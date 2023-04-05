@@ -19,15 +19,16 @@ const dress4 = require('./dress4.jpeg');
 const dress5 = require('./dress5.jpeg');
 const Plus = require('./Plus.png');
 const Minus = require('./Minus.png');
-
 const FAQ = require('./FAQ.png');
 const About = require('./About.png');
 const TermsCondition = require('./TermsCondition.png');
 const Privacy = require('./Privacy.png');
 const Return = require('./Return.png');
 const Report = require('./Report.png');
+const Delete = require('./Delete.png');
 
 export const Images = {
+  Delete,
   FAQ,
   About,
   TermsCondition,
