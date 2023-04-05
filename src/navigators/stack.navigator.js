@@ -7,6 +7,7 @@ import SignIn from '../screens/Auth/SignIn';
 import SignUp from '../screens/Auth/SignUp';
 
 //main screen
+import ProductDetail from '../screens/App/ProductDetail'
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -23,6 +24,7 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="Splash" component={Splash} />
       <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="ProductDetail" component={ProductDetail} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

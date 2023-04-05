@@ -78,6 +78,14 @@ const Index = ({navigation, ...props}) => {
                 Log In
               </Text>
             </TouchableOpacity>
+            <Text
+              onPress={() => navigation.navigate('SignUp')}
+              className={'text-base text-slate-600 mt-2'}>
+              Don't have an account?{' '}
+              <Text className={'text-[#0283c3] font-semibold'}>
+                Create one now
+              </Text>
+            </Text>
           </View>
         </ScrollView>
       </SafeAreaView>

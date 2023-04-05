@@ -12,6 +12,7 @@ import {
   PermissionsAndroid,
   Platform,
   Dimensions,
+  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -24,6 +25,8 @@ import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
+import Deal from '../../components/Deals';
+import DealsMedium from '../../components/DealsMedium';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -37,7 +40,77 @@ const Index = ({navigation, ...props}) => {
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header isHome />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
-          <Text>Home</Text>
+          <View className={'flex self-center mt-6'}>
+            <FlatList
+              data={[1, 2]}
+              renderItem={({}) => {
+                return (
+                  <Deal
+                    title={'Wedding Dress'}
+                    subtitle={'Color, detail, and gold.'}
+                    price={'5,000'}
+                    onPress={() => navigation.navigate('ProductDetail')}
+                  />
+                );
+              }}
+            />
+            <FlatList
+              data={[1, 2, 3, 4]}
+              renderItem={({}) => {
+                return (
+                  <DealsMedium
+                    title={'Wedding Dress'}
+                    subtitle={'Color, detail, and gold.'}
+                    price={'5,000'}
+                  />
+                );
+              }}
+              contentContainerStyle={{
+                width: width * 0.9,
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: width * 0.025,
+                alignContent: 'center',
+                marginTop: height * 0.01,
+                alignSelf: 'center',
+              }}
+            />
+            <FlatList
+              data={[1, 2]}
+              renderItem={({}) => {
+                return (
+                  <Deal
+                    title={'Wedding Dress'}
+                    subtitle={'Color, detail, and gold.'}
+                    price={'5,000'}
+                  />
+                );
+              }}
+            />
+            <FlatList
+              data={[1, 2, 3, 4]}
+              renderItem={({}) => {
+                return (
+                  <DealsMedium
+                    title={'Wedding Dress'}
+                    subtitle={'Color, detail, and gold.'}
+                    price={'5,000'}
+                  />
+                );
+              }}
+              contentContainerStyle={{
+                width: width * 0.9,
+                flexWrap: 'wrap',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginLeft: width * 0.025,
+                alignContent: 'center',
+                marginTop: height * 0.01,
+                alignSelf: 'center',
+              }}
+            />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>
