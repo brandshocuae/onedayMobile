@@ -33,12 +33,36 @@ const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState([
-    {name: 'Frequently Asked Question', image: Images.FAQ, onPress: ''},
-    {name: 'Terms and Condition', image: Images.TermsCondition, onPress: ''},
-    {name: 'About OneDayOnly', image: Images.About, onPress: ''},
-    {name: 'Privacy Policy', image: Images.Privacy, onPress: ''},
-    {name: 'About Returns', image: Images.Return, onPress: ''},
-    {name: 'Report Bug/New Feature', image: Images.Report, onPress: ''},
+    {
+      name: 'Frequently Asked Question',
+      image: Images.FAQ,
+      onPress: () => navigation.navigate('FAQ'),
+    },
+    {
+      name: 'Terms and Condition',
+      image: Images.TermsCondition,
+      onPress: () => navigation.navigate('TermsCondition'),
+    },
+    {
+      name: 'About OneDayOnly',
+      image: Images.About,
+      onPress: () => navigation.navigate('About'),
+    },
+    {
+      name: 'Privacy Policy',
+      image: Images.Privacy,
+      onPress: () => navigation.navigate('PrivacyPolicy'),
+    },
+    {
+      name: 'About Returns',
+      image: Images.Return,
+      onPress: () => navigation.navigate('AboutReturn'),
+    },
+    {
+      name: 'Report Bug/New Feature',
+      image: Images.Report,
+      onPress: () => navigation.navigate('ReportBug'),
+    },
   ]);
 
   return (
@@ -52,9 +76,9 @@ const Index = ({navigation, ...props}) => {
             renderItem={({item}) => {
               return (
                 <TouchableOpacity
-                  // onPress={() => navigation.navigate('SignIn')}
+                  onPress={item.onPress}
                   activeOpacity={0.7}
-                  style={{width: width,borderBottomWidth:1}}
+                  style={{width: width, borderBottomWidth: 1}}
                   className={
                     'py-3 flex flex-row justify-between items-center mt-3 px-4 border-slate-500'
                   }>

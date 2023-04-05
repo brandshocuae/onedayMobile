@@ -12,6 +12,12 @@ import Help from '../screens/App/Help';
 import ProfileInfo from '../screens/App/ProfileInfo';
 import ChangePassword from '../screens/App/ChangePassword';
 import PersonalDetail from '../screens/App/PersonalDetail';
+import FAQ from '../screens/App/FAQ';
+import TermsCondition from '../screens/App/TermsCondition';
+import About from '../screens/App/About';
+import PrivacyPolicy from '../screens/App/PrivacyPolicy';
+import AboutReturn from '../screens/App/AboutReturn';
+import ReportBug from '../screens/App/ReportBug';
 
 // dimenstion
 const {width, height} = Dimensions.get('window');
@@ -93,6 +99,12 @@ export function HelpTab() {
         headerShown: false,
       }}>
       <Stack.Screen name="Help" component={Help} />
+      <Stack.Screen name="FAQ" component={FAQ} />
+      <Stack.Screen name="TermsCondition" component={TermsCondition} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+      <Stack.Screen name="AboutReturn" component={AboutReturn} />
+      <Stack.Screen name="ReportBug" component={ReportBug} />
     </Stack.Navigator>
   );
 }
