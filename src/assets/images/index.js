@@ -27,7 +27,16 @@ const Return = require('./Return.png');
 const Report = require('./Report.png');
 const Delete = require('./Delete.png');
 
+const Logout = require('./Logout.png');
+const Order = require('./Order.png');
+const ReturnProduct = require('./ReturnProduct.png');
+const Wallet = require('./Wallet.png');
+
 export const Images = {
+  Logout,
+  Order,
+  ReturnProduct,
+  Wallet,
   Delete,
   FAQ,
   About,

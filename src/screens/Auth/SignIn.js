@@ -69,6 +69,9 @@ const Index = ({navigation, ...props}) => {
               forget password
             </Text>
             <TouchableOpacity
+              onPress={() => {
+                dispatch(login({data: 'zaryan'}));
+              }}
               activeOpacity={0.7}
               style={{width: width * 0.9}}
               className={
