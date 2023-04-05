@@ -20,7 +20,7 @@ export default function Deal({image, title, subtitle, price, onPress}) {
       className={'flex items-center mt-5'}>
       <View className={'rounded-lg overflow-hidden'}>
         <ImageBackground
-          source={Images.dress}
+          source={image}
           className={'h-80'}
           style={{width: width * 0.9}}
           resizeMode={'stretch'}>

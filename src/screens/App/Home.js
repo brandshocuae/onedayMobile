@@ -1,16 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StatusBar,
-  ImageBackground,
   View,
-  Image,
   SafeAreaView,
-  Text,
-  TouchableOpacity,
   ScrollView,
-  Alert,
-  PermissionsAndroid,
-  Platform,
   Dimensions,
   FlatList,
 } from 'react-native';
@@ -46,6 +38,7 @@ const Index = ({navigation, ...props}) => {
               renderItem={({}) => {
                 return (
                   <Deal
+                    image={Images.dress1}
                     title={'Wedding Dress'}
                     subtitle={'Color, detail, and gold.'}
                     price={'5,000'}
@@ -59,6 +52,7 @@ const Index = ({navigation, ...props}) => {
               renderItem={({}) => {
                 return (
                   <DealsMedium
+                    image={Images.dress2}
                     title={'Wedding Dress'}
                     subtitle={'Color, detail, and gold.'}
                     price={'5,000'}
@@ -81,6 +75,7 @@ const Index = ({navigation, ...props}) => {
               renderItem={({}) => {
                 return (
                   <Deal
+                    image={Images.dress3}
                     title={'Wedding Dress'}
                     subtitle={'Color, detail, and gold.'}
                     price={'5,000'}
@@ -93,6 +88,7 @@ const Index = ({navigation, ...props}) => {
               renderItem={({}) => {
                 return (
                   <DealsMedium
+                    image={Images.dress5}
                     title={'Wedding Dress'}
                     subtitle={'Color, detail, and gold.'}
                     price={'5,000'}

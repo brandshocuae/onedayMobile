@@ -33,12 +33,12 @@ const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
 
   const [data, setData] = useState([
-    {name: 'Frequently Asked Question', image: '', onPress: ''},
-    {name: 'Terms and Condition', image: '', onPress: ''},
-    {name: 'About OneDayOnly', image: '', onPress: ''},
-    {name: 'Privacy Policy', image: '', onPress: ''},
-    {name: 'About Returns', image: '', onPress: ''},
-    {name: 'Report Bug/New Feature', image: '', onPress: ''},
+    {name: 'Frequently Asked Question', image: Images.FAQ, onPress: ''},
+    {name: 'Terms and Condition', image: Images.TermsCondition, onPress: ''},
+    {name: 'About OneDayOnly', image: Images.About, onPress: ''},
+    {name: 'Privacy Policy', image: Images.Privacy, onPress: ''},
+    {name: 'About Returns', image: Images.Return, onPress: ''},
+    {name: 'Report Bug/New Feature', image: Images.Report, onPress: ''},
   ]);
 
   return (
@@ -60,7 +60,7 @@ const Index = ({navigation, ...props}) => {
                   }>
                   <View className={'flex flex-row items-center'}>
                     <Image
-                      source={Images.Login}
+                      source={item.image}
                       className={'w-7 h-7 mr-3'}
                       resizeMode={'contain'}
                     />

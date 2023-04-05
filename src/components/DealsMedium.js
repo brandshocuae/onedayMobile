@@ -19,7 +19,7 @@ export default function Deal({image, title, subtitle, price}) {
       className={'flex items-center mt-5'}>
       <View className={'rounded-lg overflow-hidden'}>
         <ImageBackground
-          source={Images.dress}
+          source={image}
           className={'w-40 h-40'}
           resizeMode={'stretch'}>
           <View
