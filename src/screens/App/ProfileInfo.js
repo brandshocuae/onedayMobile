@@ -53,7 +53,12 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header title={'Profile Info'} />
+        <Header
+          title={'Profile Info'}
+          isBack
+          _handleBack={() => navigation.goBack()}
+          isTimer={false}
+        />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View>
             <FlatList

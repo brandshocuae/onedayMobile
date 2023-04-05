@@ -12,6 +12,7 @@ import {
   PermissionsAndroid,
   Platform,
   Dimensions,
+  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -22,59 +23,36 @@ import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
-import {login} from '../../store/action/user';
-import MyStatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
+import MyStatusBar from '../../components/StatusBar';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
-      <Header
-        title={'Log In'}
-        isTimer={false}
-        _handleBack={() => navigation.goBack()}
-        isBack
-      />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
+        <Header
+          title={'My Wallet'}
+          isBack
+          _handleBack={() => navigation.goBack()}
+          isTimer={false}
+        />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
-            <Input
-              title={'email address'}
-              placeholderText={'Enter Email'}
-              value={email}
-              handleOnChangeTxt={text => setEmail(text)}
-              keyboardType={'email-address'}
-            />
-            <Input
-              title={'password'}
-              placeholderText={'Enter Password'}
-              value={password}
-              handleOnChangeTxt={text => setPassword(text)}
-              keyboardType={'email-address'}
-              marginTop={height * 0.02}
-              isPassword
-            />
-            <Text
-              className={
-                'flex self-end mr-4 mt-2 text-base font-semibold uppercase text-[#0283c3]'
-              }>
-              forget password
-            </Text>
+            <View className={'w-80 flex flex-row justify-between'}>
+              <Text className={'text-xl font-semibold text-black'}>
+                Available:
+              </Text>
+              <Text className={'text-xl font-semibold text-black'}>AED 0</Text>
+            </View>
             <TouchableOpacity
               onPress={() => {
-                navigation.reset({
-                  index: 0,
-                  routes: [{name: 'Splash'}],
-                });
-                dispatch(login({data: 'zaryan'}));
+                navigation.navigate('Home');
               }}
               activeOpacity={0.7}
               style={{width: width * 0.9}}
@@ -82,15 +60,25 @@ const Index = ({navigation, ...props}) => {
                 'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md'
               }>
               <Text className={'text-white font-semibold text-lg uppercase'}>
-                Log In
+                start shopping
               </Text>
             </TouchableOpacity>
             <Text
-              onPress={() => navigation.navigate('SignUp')}
-              className={'text-base text-slate-600 mt-2'}>
-              Don't have an account?{' '}
-              <Text className={'text-[#0283c3] font-semibold'}>
-                Create one now
+              style={{width: width * 0.9}}
+              className={'mt-5 font-semibold text-black text-base'}>
+              What is my wallet?{'\n\n'}
+              <Text className={'mt-5 font-normal text-black text-sm'}>
+                Wallet credit can be either refunded to you instead of cash or
+                could be awarded to you as a competition prize.{'\n\n'}
+              </Text>
+              How do I use it?{'\n\n'}
+              <Text className={'mt-5 font-normal text-black text-sm'}>
+                The next time you make a purchase and proceed to checkout, your
+                available "Wallet" will be applied automatically to the order.
+                You will be able to edit the wallet amount applied or remove it
+                completely - up to you! Any outstanding amount required after
+                applying your wallet to the order can be paid by any of our
+                other payment methods.
               </Text>
             </Text>
           </View>

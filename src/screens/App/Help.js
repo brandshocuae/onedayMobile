@@ -54,9 +54,9 @@ const Index = ({navigation, ...props}) => {
                 <TouchableOpacity
                   // onPress={() => navigation.navigate('SignIn')}
                   activeOpacity={0.7}
-                  style={{width: width}}
+                  style={{width: width,borderBottomWidth:1}}
                   className={
-                    'py-3 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
+                    'py-3 flex flex-row justify-between items-center mt-3 px-4 border-slate-500'
                   }>
                   <View className={'flex flex-row items-center'}>
                     <Image

@@ -10,6 +10,7 @@ import SignUp from '../screens/Auth/SignUp';
 import ProductDetail from '../screens/App/ProductDetail';
 import Address from '../screens/App/Address';
 import Checkout from '../screens/App/Checkout';
+import MyWallet from '../screens/App/MyWallet';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -19,7 +20,7 @@ const Stack = createNativeStackNavigator();
 export const RootNavigator = ({}) => {
   return (
     <Stack.Navigator
-      initialRouteName="BottomNavigator"
+      initialRouteName="Splash"
       screenOptions={{
         headerShown: false,
       }}>
@@ -29,6 +30,7 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="Address" component={Address} />
       <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen name="MyWallet" component={MyWallet} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

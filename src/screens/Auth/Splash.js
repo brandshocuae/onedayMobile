@@ -8,27 +8,24 @@ import {Images} from '../../assets/images';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const isLogin = useSelector(state => state.userReducer.isLogin);
   useEffect(() => {
     setTimeout(() => {
-      if (isLogin === false) {
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'SignIn'}],
-        });
-      } else {
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'BottomNavigator'}],
-        });
-      }
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'BottomNavigator'}],
+      });
     }, 3000);
   }, []);
 
   return (
     <>
-      <View
-        className={'flex-1 bg-red-400 justify-center items-center'}></View>
+      <View className={'flex-1 bg-[#0283c3] justify-center items-center'}>
+        <Image
+          source={Images.Logo}
+          className={'w-80 h-80'}
+          resizeMode={'contain'}
+        />
+      </View>
     </>
   );
 };
