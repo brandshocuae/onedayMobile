@@ -17,7 +17,7 @@ export default function Deal({image, title, subtitle, price, onPress}) {
       onPress={onPress}
       activeOpacity={0.7}
       style={{width: width * 0.9}}
-      className={'flex items-center mt-5'}>
+      className={'flex items-center mt-5 self-center'}>
       <View className={'rounded-lg overflow-hidden'}>
         <ImageBackground
           source={image}
