@@ -9,6 +9,9 @@ import Home from '../screens/App/Home';
 import Cart from '../screens/App/Cart';
 import Profile from '../screens/App/Profile';
 import Help from '../screens/App/Help';
+import ProfileInfo from '../screens/App/ProfileInfo';
+import ChangePassword from '../screens/App/ChangePassword';
+import PersonalDetail from '../screens/App/PersonalDetail';
 
 // dimenstion
 const {width, height} = Dimensions.get('window');
@@ -75,6 +78,9 @@ export function ProfileTab() {
         headerShown: false,
       }}>
       <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="ProfileInfo" component={ProfileInfo} />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="PersonalDetail" component={PersonalDetail} />
     </Stack.Navigator>
   );
 }

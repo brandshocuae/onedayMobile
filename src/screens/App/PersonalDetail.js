@@ -37,7 +37,7 @@ const Index = ({navigation, ...props}) => {
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'Add Address'}
+          title={'Personal Detail'}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
@@ -57,44 +57,10 @@ const Index = ({navigation, ...props}) => {
               // handleOnChangeTxt={text => setEmail(text)}
               marginTop={height * 0.02}
             />
+
             <Input
-              title={'contact number'}
-              placeholderText={'+971 XXX-XXXX'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'location nickname (optional)'}
-              placeholderText={'Location Nickname'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'company or building (optional)'}
-              placeholderText={'Company or building'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'street line 1'}
-              placeholderText={'Street Line 1'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'street line 2 (optional)'}
-              placeholderText={'Street Line 2'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'delivery instruction (optional)'}
-              placeholderText={'Delivery instruction'}
+              title={'email address'}
+              placeholderText={'Email Address'}
               // value={email}
               // handleOnChangeTxt={text => setEmail(text)}
               marginTop={height * 0.02}

@@ -37,7 +37,7 @@ const Index = ({navigation, ...props}) => {
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'Add Address'}
+          title={'Change Password'}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
@@ -45,60 +45,29 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
             <Input
-              title={'first name'}
-              placeholderText={'First Name'}
+              title={'current password'}
+              placeholderText={'Current Password'}
               // value={email}
               // handleOnChangeTxt={text => setEmail(text)}
+              isPassword
             />
             <Input
-              title={'last name'}
-              placeholderText={'Last Name'}
+              title={'new password'}
+              placeholderText={'New Password'}
               // value={email}
               // handleOnChangeTxt={text => setEmail(text)}
               marginTop={height * 0.02}
+              isPassword
             />
             <Input
-              title={'contact number'}
-              placeholderText={'+971 XXX-XXXX'}
+              title={'confirm new password'}
+              placeholderText={'Confirm New Password'}
               // value={email}
               // handleOnChangeTxt={text => setEmail(text)}
               marginTop={height * 0.02}
+              isPassword
             />
-            <Input
-              title={'location nickname (optional)'}
-              placeholderText={'Location Nickname'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'company or building (optional)'}
-              placeholderText={'Company or building'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'street line 1'}
-              placeholderText={'Street Line 1'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'street line 2 (optional)'}
-              placeholderText={'Street Line 2'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
-            <Input
-              title={'delivery instruction (optional)'}
-              placeholderText={'Delivery instruction'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
+
             <TouchableOpacity
               onPress={() => navigation.navigate('Checkout')}
               activeOpacity={0.7}
@@ -107,7 +76,7 @@ const Index = ({navigation, ...props}) => {
                 'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md self-center mb-3'
               }>
               <Text className={'text-white font-semibold text-lg uppercase'}>
-                save
+                update password
               </Text>
             </TouchableOpacity>
           </View>

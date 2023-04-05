@@ -35,7 +35,12 @@ const Index = ({navigation, ...props}) => {
   console.log(isLogin);
 
   const [data, setData] = useState([
-    {id: 1, name: 'Profile Information', image: Images.Login, onPress: ''},
+    {
+      id: 1,
+      name: 'Profile Information',
+      image: Images.Login,
+      onPress: () => navigation.navigate('ProfileInfo'),
+    },
     {id: 2, name: 'Orders', image: Images.Order, onPress: ''},
     {id: 3, name: 'Log a Return', image: Images.ReturnProduct, onPress: ''},
     {id: 4, name: 'Wallet', image: Images.Wallet, onPress: ''},
@@ -58,9 +63,9 @@ const Index = ({navigation, ...props}) => {
               <TouchableOpacity
                 onPress={() => navigation.navigate('SignIn')}
                 activeOpacity={0.7}
-                style={{width: width}}
+                style={{width: width, borderBottomWidth: 1}}
                 className={
-                  'py-3 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
+                  'py-4 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
                 }>
                 <View className={'flex flex-row items-center'}>
                   <Image
@@ -80,9 +85,9 @@ const Index = ({navigation, ...props}) => {
               <TouchableOpacity
                 onPress={() => navigation.navigate('SignUp')}
                 activeOpacity={0.7}
-                style={{width: width}}
+                style={{width: width, borderBottomWidth: 1}}
                 className={
-                  'py-3 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
+                  'py-4 flex flex-row justify-between items-center mt-3 px-4 border-b-2 border-slate-500'
                 }>
                 <View className={'flex flex-row items-center'}>
                   <Image
@@ -109,11 +114,11 @@ const Index = ({navigation, ...props}) => {
                   return (
                     <TouchableOpacity
                       key={item.id}
-                      onPress={() => navigation.navigate('SignUp')}
+                      onPress={item.onPress}
                       activeOpacity={0.7}
                       style={{width: width, borderBottomWidth: 1}}
                       className={
-                        'py-3 flex flex-row justify-between items-center mt-3 px-4 border-slate-500'
+                        'py-4 flex flex-row justify-between items-center mt-3 px-4 border-slate-500'
                       }>
                       <View className={'flex flex-row items-center'}>
                         <Image
