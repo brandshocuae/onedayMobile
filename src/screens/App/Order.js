@@ -5,6 +5,10 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  TouchableOpacity,
+  Image,
+  View,
+  Modal,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -15,6 +19,7 @@ import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
+import ReturnLog from '../../components/ReturnLog/index';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 
@@ -22,14 +27,14 @@ import MyStatusBar from '../../components/StatusBar';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
 
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'About OneDayDeals'}
+          title={'Orders'}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
@@ -37,49 +42,81 @@ const Index = ({navigation, ...props}) => {
         <ScrollView
           contentContainerStyle={{
             paddingBottom: height * 0.07,
-            alignItems: 'center',
           }}>
           <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            className={'ml-4 mt-4 text-lg font-semibold text-black underline'}
+            onPress={() => {
+              setModal(true);
+            }}>
+            How to log a return:
           </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
+          <FlatList
+            data={[1, 2, 3, 4, 5, 6]}
+            renderItem={({}) => {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => navigation.navigate('OrderDetail')}
+                  style={{width: width * 0.95, borderBottomWidth: 1}}
+                  className={
+                    'flex self-center flex-row justify-between py-3 border-[#D4D4D4] mt-4'
+                  }>
+                  <View className={'flex flex-row'}>
+                    <View
+                      className={
+                        'h-24 w-24 overflow-hidden bg-red-200 rounded-md mr-2'
+                      }>
+                      <Image
+                        source={Images.dress1}
+                        className={'w-[100%] h-[100%]'}
+                        resizeMode={'stretch'}
+                      />
+                    </View>
+                    <View>
+                      <Text className={'text-sm text-black font-semibold'}>
+                        Order #0283c3
+                      </Text>
+                      <Text className={'text-sm text-slate-500 font-semibold'}>
+                        Date ordered{' '}
+                        <Text className={'text-sm text-black font-semibold'}>
+                          10-02-23
+                        </Text>
+                      </Text>
+                      <Text className={'text-sm text-slate-500 font-semibold'}>
+                        Item{' '}
+                        <Text className={'text-sm text-black font-semibold'}>
+                          2
+                        </Text>
+                      </Text>
+                      <Text className={'text-sm text-slate-500 font-semibold'}>
+                        Total{' '}
+                        <Text className={'text-sm text-black font-semibold'}>
+                          AED 5,000
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    className={
+                      'rounded-full bg-green-600 flex items-center justify-center h-6 px-4'
+                    }>
+                    <Text
+                      className={'text-xs text-white font-semibold uppercase'}>
+                      Shipped
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              );
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
+      <ReturnLog
+        isVisible={modal}
+        onPress={() => {
+          setModal(false);
+        }}
+      />
     </>
   );
 };

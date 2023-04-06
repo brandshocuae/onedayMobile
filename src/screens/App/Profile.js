@@ -37,21 +37,21 @@ const Index = ({navigation, ...props}) => {
       image: Images.Login,
       onPress: () => navigation.navigate('ProfileInfo'),
     },
-    {id: 2, name: 'Orders', image: Images.Order, onPress: () => {}},
+    {
+      id: 2,
+      name: 'Orders',
+      image: Images.Order,
+      onPress: () => navigation.navigate('Order'),
+    },
+
     {
       id: 3,
-      name: 'Log a Return',
-      image: Images.ReturnProduct,
-      onPress: () => {},
-    },
-    {
-      id: 4,
       name: 'Wallet',
       image: Images.Wallet,
       onPress: () => navigation.navigate('MyWallet'),
     },
     {
-      id: 5,
+      id: 4,
       name: 'Logout',
       image: Images.Logout,
       onPress: () => {

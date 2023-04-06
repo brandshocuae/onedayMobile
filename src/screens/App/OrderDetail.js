@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  Dimensions,
+  View,
+  Image,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -23,7 +30,7 @@ const Index = ({navigation, ...props}) => {
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'About OneDayDeals'}
+          title={'Order Detail'}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
@@ -31,47 +38,88 @@ const Index = ({navigation, ...props}) => {
         <ScrollView
           contentContainerStyle={{
             paddingBottom: height * 0.07,
-            alignItems: 'center',
           }}>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
+          <View
+            style={{width: width * 0.95, borderBottomWidth: 1}}
+            className={'flex self-center border-[#D4D4D4] py-2 mt-4'}>
+            <Text className={'text-black font-semibold text-base'}>
+              Delivery to
+            </Text>
+            <Text className={'text-slate-500 text-xs'}>
+              1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai -
+              United Arab Emirates
+            </Text>
+          </View>
+
+          <View
+            style={{width: width * 0.95, borderBottomWidth: 1}}
+            className={'flex self-center border-[#D4D4D4] py-2'}>
+            <Text className={'text-black font-semibold text-base'}>
+              Order Summary
+            </Text>
+            <Text className={'text-slate-500 text-xs'}>
+              Order placed{'          '}{' '}
+              <Text className={'text-black'}>10-03-23</Text>
+            </Text>
+            <Text className={'text-black font-bold mt-5 text-xs'}>
+              To be shipped
+            </Text>
+            <Text className={'text-black font-bold mb-5 text-xs'}>
+              ETA: 5-10 working days from order date
+            </Text>
+            <View className={'flex flex-row'}>
+              <View
+                className={
+                  'h-24 w-24 overflow-hidden bg-red-200 rounded-md mr-2'
+                }>
+                <Image
+                  source={Images.dress1}
+                  className={'w-[100%] h-[100%]'}
+                  resizeMode={'stretch'}
+                />
+              </View>
+              <View>
+                <Text className={'text-sm text-black font-semibold'}>
+                  Wedding dress
+                </Text>
+                <Text className={'text-sm text-slate-500 font-semibold'}>
+                  Color, detail, and gold.
+                </Text>
+                <Text className={'text-sm text-slate-500 font-semibold'}>
+                  Item{' '}
+                  <Text className={'text-sm text-black font-semibold'}>2</Text>
+                </Text>
+                <Text className={'text-sm text-slate-500 font-semibold'}>
+                  AED 5,000 x1
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={{width: width * 0.95, borderBottomWidth: 1}}
+            className={'flex self-center border-[#D4D4D4] py-2'}>
+            <Text className={'text-black font-semibold text-base'}>Payment</Text>
+            <View className={'flex flex-row w-52 justify-between'}>
+              <Text className={'text-slate-500 text-xs'}>Subtotal</Text>
+              <Text className={'text-black font-bold text-xs'}>AED 2,000</Text>
+            </View>
+            <View className={'flex flex-row w-52 justify-between'}>
+              <Text className={'text-slate-500 text-xs'}>Vat(incl.)</Text>
+              <Text className={'text-black font-bold text-xs'}>AED 100</Text>
+            </View>
+            <View className={'flex flex-row w-52 justify-between'}>
+              <Text className={'text-slate-500 text-xs'}>Delivery</Text>
+              <Text className={'text-black font-bold text-xs'}>AED 140</Text>
+            </View>
+            <View className={'flex flex-row w-52 justify-between'}>
+              <Text className={'text-slate-500 text-xs'}>Total</Text>
+              <Text className={'text-black font-bold text-xs'}>AED 2,500</Text>
+            </View>
+            <View className={'flex flex-row w-52 justify-between'}>
+              <Text className={'text-slate-500 text-xs'}>Paid via</Text>
+              <Text className={'text-black font-bold text-xs'}>EFT</Text>
+            </View>
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>
