@@ -1,18 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StatusBar,
-  ImageBackground,
   View,
-  Image,
   SafeAreaView,
   Text,
   TouchableOpacity,
-  ScrollView,
-  Alert,
-  PermissionsAndroid,
-  Platform,
   Dimensions,
-  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -63,7 +55,9 @@ const Index = ({navigation, ...props}) => {
         <View
           style={{borderBottomWidth: 1, borderBottomColor: '#D4D4D4'}}
           className={'w-full py-1 px-3 mt-4'}>
-          <Text className={'text-black font-semibold text-lg'}>Having any problem?</Text>
+          <Text className={'text-black font-semibold text-lg'}>
+            Having any problem?
+          </Text>
           <Text className={'text-slate-600 text-sm underline'}>Contact Us</Text>
         </View>
 

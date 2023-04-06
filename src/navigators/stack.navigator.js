@@ -12,6 +12,8 @@ import Address from '../screens/App/Address';
 import Checkout from '../screens/App/Checkout';
 import MyWallet from '../screens/App/MyWallet';
 import Shop from '../screens/App/Shop';
+import Order from '../screens/App/Order';
+import OrderDetail from '../screens/App/OrderDetail';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -33,6 +35,8 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="MyWallet" component={MyWallet} />
       <Stack.Screen name="Shop" component={Shop} />
+      <Stack.Screen name="Order" component={Order} />
+      <Stack.Screen name="OrderDetail" component={OrderDetail} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

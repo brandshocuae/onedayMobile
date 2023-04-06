@@ -8,7 +8,6 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
-  Alert,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');

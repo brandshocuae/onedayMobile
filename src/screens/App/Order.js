@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -23,7 +29,7 @@ const Index = ({navigation, ...props}) => {
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'Report Bugs / New Feature'}
+          title={'About OneDayDeals'}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}

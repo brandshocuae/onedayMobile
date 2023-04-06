@@ -5,8 +5,6 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
-  Text,
-  Image,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -40,8 +38,6 @@ const Index = ({navigation, ...props}) => {
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex self-center mt-6'}>
-       
-
             <FlatList
               data={[1, 2, 3, 4]}
               renderItem={({}) => {
@@ -65,7 +61,7 @@ const Index = ({navigation, ...props}) => {
                 alignSelf: 'center',
               }}
             />
-        
+
             <FlatList
               data={[1, 2, 3, 4]}
               renderItem={({}) => {

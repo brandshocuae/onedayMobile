@@ -1,18 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {
-  StatusBar,
-  ImageBackground,
   View,
-  Image,
   SafeAreaView,
   Text,
   TouchableOpacity,
   ScrollView,
-  Alert,
-  PermissionsAndroid,
-  Platform,
   Dimensions,
-  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
