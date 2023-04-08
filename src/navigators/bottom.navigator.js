@@ -117,7 +117,7 @@ export const BottomNavigator = ({}) => {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: Platform.OS === 'ios' ? height * 0.1 : height * 0.06,
+          height: Platform.OS === 'ios' ? height * 0.1 : height * 0.08,
           backgroundColor: 'white',
           shadowColor: '#000',
           shadowOffset: {

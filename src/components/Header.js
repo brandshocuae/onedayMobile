@@ -63,7 +63,7 @@ const Header = ({
 
         {isHome ? (
           <Image
-            source={Images.Logo}
+            source={Images.LogoVertical}
             className={'w-28 h-10'}
             resizeMode={'contain'}
           />
@@ -72,8 +72,8 @@ const Header = ({
         )}
       </TouchableOpacity>
       {isTimer && (
-        <View className={'flex items-center'}>
-          <Text className={'text-white uppercase text-[10px] font-normal'}>
+        <View className={'flex items-center py-1'}>
+          <Text className={'text-white uppercase text-xs font-normal'}>
             Deals Expire in
           </Text>
           <Text

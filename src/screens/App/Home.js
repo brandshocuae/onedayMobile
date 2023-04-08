@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   TouchableOpacity,
+  StyleSheet,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -27,7 +28,22 @@ import DealsMedium from '../../components/DealsMedium';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const [shop, setShop] = useState([
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
+  ]);
+
+  // const arrays = [];
+  // const size = shop.length / 2;
+  // while (shop.length > 0) arrays.push(shop.splice(0, size));
 
   return (
     <>
@@ -87,17 +103,25 @@ const Index = ({navigation, ...props}) => {
                 style={{width: width * 0.98}}
                 className={'flex self-center ml-2'}>
                 <FlatList
-                  data={[1, 2, 3, 4]}
+                  data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
                   horizontal
                   showsHorizontalScrollIndicator={false}
-                  renderItem={({}) => {
+                  renderItem={({item}) => {
                     return (
-                      <DealsMedium
-                        image={Images.dress5}
-                        title={'Wedding Dress'}
-                        subtitle={'Color, detail, and gold.'}
-                        price={'5,000'}
-                      />
+                      <View>
+                        <DealsMedium
+                          image={Images.dress5}
+                          title={'Wedding Dress'}
+                          subtitle={'Color, detail, and gold.'}
+                          price={'5,000'}
+                        />
+                        <DealsMedium
+                          image={Images.dress5}
+                          title={'Wedding Dress'}
+                          subtitle={'Color, detail, and gold.'}
+                          price={'5,000'}
+                        />
+                      </View>
                     );
                   }}
                 />
@@ -165,3 +189,48 @@ const Index = ({navigation, ...props}) => {
 };
 
 export default Index;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  item: {
+    padding: 10,
+    margin: 5,
+    backgroundColor: '#f0f0f0',
+    borderRadius: 5,
+  },
+});
+
+{
+  /* <FlatList
+  data={shop}
+  horizontal
+  showsHorizontalScrollIndicator={false}
+  renderItem={({item}) => {
+    return (
+      <View>
+        <DealsMedium
+          image={Images.dress5}
+          title={'Wedding Dress'}
+          subtitle={'Color, detail, and gold.'}
+          price={'5,000'}
+        />
+        {item.length > 1 ? (
+          <DealsMedium
+            image={Images.dress5}
+            title={'Wedding Dress'}
+            subtitle={'Color, detail, and gold.'}
+            price={'5,000'}
+          />
+        ) : null}
+      </View>
+    );
+  }}
+/>; */
+}

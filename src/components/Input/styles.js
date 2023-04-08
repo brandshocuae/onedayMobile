@@ -45,5 +45,6 @@ export default StyleSheet.create({
     marginLeft: width * 0.05,
     fontWeight: 'bold',
     marginBottom: height * 0.01,
+    color:'black'
   },
 });

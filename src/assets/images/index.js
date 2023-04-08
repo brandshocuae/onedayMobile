@@ -1,4 +1,5 @@
-const Logo = require('./Logo.jpg');
+const Logo = require('./Logo.png');
+const LogoVertical = require('./LogoVertical.jpg');
 const Home = require('./Home.png');
 const UnHome = require('./UnHome.png');
 const Cart = require('./Cart.png');
@@ -26,7 +27,6 @@ const Privacy = require('./Privacy.png');
 const Return = require('./Return.png');
 const Report = require('./Report.png');
 const Delete = require('./Delete.png');
-
 const Logout = require('./Logout.png');
 const Order = require('./Order.png');
 const ReturnProduct = require('./ReturnProduct.png');
@@ -65,4 +65,5 @@ export const Images = {
   Help,
   UnHelp,
   Logo,
+  LogoVertical,
 };

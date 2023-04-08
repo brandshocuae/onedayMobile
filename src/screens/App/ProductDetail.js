@@ -57,6 +57,17 @@ const Index = ({navigation, ...props}) => {
       image: Images.dress5,
     },
   ];
+
+  const [quantity, setQuantity] = useState(1);
+
+  const plus = () => {
+    setQuantity(quantity + 1);
+  };
+  const minus = () => {
+    if (!quantity <= 0) {
+      setQuantity(quantity - 1);
+    }
+  };
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -79,7 +90,7 @@ const Index = ({navigation, ...props}) => {
                     width: width,
                     height: height * 0.4,
                   }}
-                  resizeMode={'stretch'}
+                  resizeMode={'contain'}
                 />
               );
             }}
@@ -94,12 +105,15 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-slate-500 text-sm'}>
               Color, detail, and gold.
             </Text>
+            <View className={'flex flex-row items-end mt-2'}>
             <Text className={'text-black font-bold text-xl'}>
               AED 5,000{' '}
-              <Text className={'text-sm text-slate-500 line-through'}>
-                AED 12,000
-              </Text>
             </Text>
+            <Text className={'text-sm text-slate-500 line-through'}>
+              AED 12,000
+            </Text>
+            </View>
+            
             <Text className={'text-red-600 text-base font-bold'}>-30%</Text>
             <Text className={'text-slate-600 text-xs'}>
               ETA: 3-5 working days.
@@ -116,17 +130,17 @@ const Index = ({navigation, ...props}) => {
               className={
                 'p-3 rounded-md mt-4 felx flex-row items-center justify-between'
               }>
-              <Text>Quatity</Text>
+              <Text className={'text-slate-600 text-sm'}>Quatity</Text>
               <View className={'flex flex-row items-center'}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => minus()}>
                   <Image
                     source={Images.Minus}
                     className={'w-3 h-3 mr-4'}
                     resizeMode={'contain'}
                   />
                 </TouchableOpacity>
-                <Text>1</Text>
-                <TouchableOpacity>
+                <Text className={'text-slate-600 text-sm'}>{quantity}</Text>
+                <TouchableOpacity onPress={() => plus()}>
                   <Image
                     source={Images.Plus}
                     className={'w-3 h-3 ml-4'}

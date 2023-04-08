@@ -33,7 +33,7 @@ const Index = ({navigation, ...props}) => {
         <Header title={'Cart'} />
         <View className={'h-2'} />
 
-        <View style={{height: height * 0.5}}>
+        <View style={{height: height * 0.6}}>
           <FlatList
             data={[1, 2, 3, 4, 5, 6]}
             showsVerticalScrollIndicator={false}
@@ -76,7 +76,7 @@ const Index = ({navigation, ...props}) => {
                         className={
                           'p-2 rounded-md felx flex-row items-center justify-between'
                         }>
-                        <Text>Qty</Text>
+                        <Text className={'text-slate-600 text-sm'}>Qty</Text>
                         <View className={'flex flex-row items-center'}>
                           <TouchableOpacity>
                             <Image
@@ -85,7 +85,7 @@ const Index = ({navigation, ...props}) => {
                               resizeMode={'contain'}
                             />
                           </TouchableOpacity>
-                          <Text>1</Text>
+                          <Text className={'text-slate-600 text-sm'}>1</Text>
                           <TouchableOpacity>
                             <Image
                               source={Images.Plus}
