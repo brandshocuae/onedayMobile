@@ -18,6 +18,7 @@ import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
+import ActionButton from '../../components/ActionButton'
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -61,17 +62,10 @@ const Index = ({navigation, ...props}) => {
               isPassword
             />
 
-            <TouchableOpacity
+            <ActionButton
               onPress={() => navigation.navigate('Checkout')}
-              activeOpacity={0.7}
-              style={{width: width * 0.9}}
-              className={
-                'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md self-center mb-3'
-              }>
-              <Text className={'text-white font-semibold text-lg uppercase'}>
-                update password
-              </Text>
-            </TouchableOpacity>
+              title={'update password'}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>

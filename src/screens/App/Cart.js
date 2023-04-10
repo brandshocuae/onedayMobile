@@ -18,6 +18,7 @@ import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
+import ActionButton from '../../components/ActionButton'
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -144,17 +145,11 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-black text-lg font-bold'}>Total</Text>
             <Text className={'text-black text-lg font-bold'}>AED 5,000</Text>
           </View>
-          <TouchableOpacity
+
+          <ActionButton
             onPress={() => navigation.navigate('Address')}
-            activeOpacity={0.7}
-            style={{width: width * 0.9}}
-            className={
-              'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md self-center mb-3'
-            }>
-            <Text className={'text-white font-semibold text-lg uppercase'}>
-              proceed to checkout
-            </Text>
-          </TouchableOpacity>
+            title={'proceed to checkout'}
+          />
         </View>
       </SafeAreaView>
     </>
