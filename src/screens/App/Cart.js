@@ -33,7 +33,7 @@ const Index = ({navigation, ...props}) => {
         <Header title={'Cart'} />
         <View className={'h-2'} />
 
-        <View style={{height: height * 0.6}}>
+        <View style={{height: height * 0.52}}>
           <FlatList
             data={[1, 2, 3, 4, 5, 6]}
             showsVerticalScrollIndicator={false}

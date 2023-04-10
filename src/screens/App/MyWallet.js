@@ -18,6 +18,7 @@ import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
+import ActionButton from '../../components/ActionButton';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -43,19 +44,13 @@ const Index = ({navigation, ...props}) => {
               </Text>
               <Text className={'text-xl font-semibold text-black'}>AED 0</Text>
             </View>
-            <TouchableOpacity
+
+            <ActionButton
               onPress={() => {
                 navigation.navigate('Home');
               }}
-              activeOpacity={0.7}
-              style={{width: width * 0.9}}
-              className={
-                'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md'
-              }>
-              <Text className={'text-white font-semibold text-lg uppercase'}>
-                start shopping
-              </Text>
-            </TouchableOpacity>
+              title={'start shopping'}
+            />
             <Text
               style={{width: width * 0.9}}
               className={'mt-5 font-semibold text-black text-base'}>

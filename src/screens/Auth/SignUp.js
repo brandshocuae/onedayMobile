@@ -25,6 +25,7 @@ import Loader from '../../components/Loader.component';
 import {login} from '../../store/action/user';
 import MyStatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
+import ActionButton from '../../components/ActionButton';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -106,16 +107,7 @@ const Index = ({navigation, ...props}) => {
               isPassword
             />
 
-            <TouchableOpacity
-              activeOpacity={0.7}
-              style={{width: width * 0.9}}
-              className={
-                'py-2 flex items-center justify-center bg-[#0283c3] mt-3 rounded-md'
-              }>
-              <Text className={'text-white font-semibold text-lg uppercase'}>
-                Sign up
-              </Text>
-            </TouchableOpacity>
+            <ActionButton onPress={() => {}} title={'Sign up'} />
             <Text
               onPress={() => navigation.navigate('SignIn')}
               className={'text-base text-slate-600 mt-2'}>

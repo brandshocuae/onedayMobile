@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  Dimensions,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -11,12 +18,13 @@ import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
+import ActionButton from '../../components/ActionButton';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const [reportBug, setReportBug] = useState('');
 
   return (
     <>
@@ -33,45 +41,15 @@ const Index = ({navigation, ...props}) => {
             paddingBottom: height * 0.07,
             alignItems: 'center',
           }}>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
-          </Text>
+          <Input
+            title={'Report Bug'}
+            value={reportBug}
+            handleOnChangeTxt={text => setReportBug(text)}
+            placeholderText={'Report Bug'}
+            marginTop={height * 0.04}
+          />
+
+          <ActionButton onPress={() => {}} title={'report bugs'} />
         </ScrollView>
       </SafeAreaView>
     </>
