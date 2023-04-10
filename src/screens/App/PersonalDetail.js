@@ -24,7 +24,10 @@ import ActionButton from '../../components/ActionButton';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const user = useSelector(state => state.userReducer.userData);
+  console.log(user.user);
+  const [userName, setUserName] = useState(user.user.username);
+  const [email, setEmail] = useState(user.user.email);
 
   return (
     <>
@@ -39,24 +42,17 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
             <Input
-              title={'first name'}
-              placeholderText={'First Name'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-            />
-            <Input
-              title={'last name'}
-              placeholderText={'Last Name'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
+              title={'user name'}
+              placeholderText={'User Name'}
+              value={userName}
+              handleOnChangeTxt={text => setUserName(text)}
             />
 
             <Input
               title={'email address'}
               placeholderText={'Email Address'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={email}
+              handleOnChangeTxt={text => setEmail(text)}
               marginTop={height * 0.02}
             />
 

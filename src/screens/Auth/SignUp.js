@@ -32,17 +32,17 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
 
   const _handleSignUp = () => {
     setIsLoader(true);
 
     let params = {
       email: email,
-      username: firstName,
+      username: userName,
       password: password,
       role: 'seller',
     };
@@ -77,18 +77,12 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
             <Input
-              title={'first name'}
-              placeholderText={'Enter First Name'}
-              value={firstName}
-              handleOnChangeTxt={text => setFirstName(text)}
+              title={'user name'}
+              placeholderText={'Enter User Name'}
+              value={userName}
+              handleOnChangeTxt={text => setUserName(text)}
             />
-            <Input
-              title={'last name'}
-              placeholderText={'Enter Last Name'}
-              value={lastName}
-              handleOnChangeTxt={text => setLastName(text)}
-              marginTop={height * 0.02}
-            />
+
             <Input
               title={'email address'}
               placeholderText={'Enter Email'}
@@ -107,7 +101,7 @@ const Index = ({navigation, ...props}) => {
               isPassword
             />
 
-            <ActionButton onPress={() => {}} title={'Sign up'} />
+            <ActionButton onPress={() => _handleSignUp()} title={'Sign up'} />
             <Text
               onPress={() => navigation.navigate('SignIn')}
               className={'text-base text-slate-600 mt-2'}>
@@ -119,6 +113,7 @@ const Index = ({navigation, ...props}) => {
           </View>
         </ScrollView>
       </SafeAreaView>
+      {isLoader && <Loader />}
     </>
   );
 };

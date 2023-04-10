@@ -1,5 +1,6 @@
 const Logo = require('./Logo.png');
 const LogoVertical = require('./LogoVertical.jpg');
+const LogoWhiteBackground = require('./LogoWhiteBackground.png');
 const Home = require('./Home.png');
 const UnHome = require('./UnHome.png');
 const Cart = require('./Cart.png');
@@ -66,4 +67,5 @@ export const Images = {
   UnHelp,
   Logo,
   LogoVertical,
+  LogoWhiteBackground,
 };

@@ -16,10 +16,11 @@ const Index = ({navigation, ...props}) => {
     <Modal animationType="fade" transparent={true} visible={isVisible}>
       <View style={styles.centeredView}>
         <View style={styles.lModalView}>
-          <View style={styles.logoBox}>
-            <Image source={Images.logo} style={styles.logoStyle} />
-          </View>
-
+          <Image
+            source={Images.LogoWhiteBackground}
+            style={styles.imgStyleCont}
+            resizeMode={'contain'}
+          />
           <Text style={styles.msgText}>{message}</Text>
           <TouchableOpacity onPress={onPress} style={styles.okBox}>
             <Text style={styles.okText}>OK</Text>

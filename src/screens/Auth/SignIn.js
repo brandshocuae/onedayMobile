@@ -1,18 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  StatusBar,
-  ImageBackground,
-  View,
-  Image,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-  PermissionsAndroid,
-  Platform,
-  Dimensions,
-} from 'react-native';
+import {View, SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -26,6 +13,7 @@ import {login} from '../../store/action/user';
 import MyStatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
 import ActionButton from '../../components/ActionButton';
+import Alert from '../../components/Alert/index';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -35,8 +23,20 @@ const Index = ({navigation, ...props}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoader, setIsLoader] = useState(false);
+  const [showAlert, setShowAlert] = useState(true);
+  const [alertText, setAlertText] = useState('');
+
+  function ValidateEmail() {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return true;
+    }
+    setShowAlert(true)
+    setAlertText('You have entered an invalid email address!');
+    return false;
+  }
 
   const _handleLogin = () => {
+    console.log('working');
     setIsLoader(true);
 
     let params = {
@@ -47,7 +47,7 @@ const Index = ({navigation, ...props}) => {
     axios
       .post(`${BaseURL.LOGIN}`, params)
       .then(res => {
-        console.log(res.data);
+        console.log('Data ===>', res.data);
         setIsLoader(false);
         dispatch(login(res.data));
         navigation.reset({
@@ -56,7 +56,7 @@ const Index = ({navigation, ...props}) => {
         });
       })
       .catch(err => {
-        console.log(err);
+        console.log('Error ===>', err);
         setIsLoader(false);
       });
   };
@@ -98,11 +98,9 @@ const Index = ({navigation, ...props}) => {
 
             <ActionButton
               onPress={() => {
-                navigation.reset({
-                  index: 0,
-                  routes: [{name: 'Splash'}],
-                });
-                dispatch(login({data: 'zaryan'}));
+                if (ValidateEmail()) {
+                  _handleLogin();
+                }
               }}
               title={'login'}
             />
@@ -118,6 +116,14 @@ const Index = ({navigation, ...props}) => {
         </ScrollView>
       </SafeAreaView>
       {isLoader && <Loader />}
+      <Alert
+        isVisible={showAlert}
+        onPress={() => {
+          setShowAlert(false);
+          setAlertText('');
+        }}
+        message={alertText}
+      />
     </>
   );
 };

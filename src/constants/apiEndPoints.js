@@ -1,6 +1,6 @@
 const _Environments = {
   development: {
-    BASE_URL: `https://ondedaydeal-cms-dev.up.railway.app/`,
+    BASE_URL: `https://onedaydeal-production.up.railway.app/`,
     LOGIN: `api/auth/local`,
     SIGN_UP: `api/auth/local/register`,
     CHANGE_PASSWORD: `api/auth/change-password`,
