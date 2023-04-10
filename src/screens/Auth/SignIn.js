@@ -33,6 +33,32 @@ const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
+
+  const _handleLogin = () => {
+    setIsLoader(true);
+
+    let params = {
+      identifier: email,
+      password: password,
+    };
+
+    axios
+      .post(`${BaseURL.LOGIN}`, params)
+      .then(res => {
+        console.log(res.data);
+        setIsLoader(false);
+        dispatch(login(res.data));
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Splash'}],
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoader(false);
+      });
+  };
 
   return (
     <>
@@ -96,6 +122,7 @@ const Index = ({navigation, ...props}) => {
           </View>
         </ScrollView>
       </SafeAreaView>
+      {isLoader && <Loader />}
     </>
   );
 };

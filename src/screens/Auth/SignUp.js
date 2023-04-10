@@ -36,6 +36,33 @@ const Index = ({navigation, ...props}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const _handleSignUp = () => {
+    setIsLoader(true);
+
+    let params = {
+      email: email,
+      username: firstName,
+      password: password,
+      role: 'seller',
+    };
+
+    axios
+      .post(`${BaseURL.SIGN_UP}`, params)
+      .then(res => {
+        console.log(res.data);
+        setIsLoader(false);
+        dispatch(login(res.data));
+        navigation.reset({
+          index: 0,
+          routes: [{name: 'Splash'}],
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoader(false);
+      });
+  };
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
