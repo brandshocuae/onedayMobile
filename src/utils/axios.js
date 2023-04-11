@@ -5,11 +5,14 @@ import endPoints from '../constants/apiEndPoints';
 import {store} from '../store/store';
 import {logout} from '../store/action/user';
 
+//third party
+import RNRestart from 'react-native-restart';
+
 // setup base thing
 const apiRequest = axios.create({
   baseURL: endPoints.BASE_URL,
   responseType: 'json',
-  headers: {'Content-Type': 'multipart/form-data'},
+  headers: {'Content-Type': 'application/json'},
 });
 
 apiRequest.interceptors.response.use(
@@ -23,9 +26,13 @@ apiRequest.interceptors.response.use(
     // console.log('interceptors error', error, error.response.status);
 
     // todo for login
-    if (error.response.status == 401 && error.response.data.code == 401) {
+    if (error.response.status == 401) {
       store.dispatch(logout()); //Temporarily disabled this as other 401 calls logs out the user
-      // alert(error.response.data.message);
+      setTimeout(() => {
+        RNRestart.Restart();
+      }, 500);
+
+      // RNRestart.restart();
     }
     return Promise.reject(error.response);
   },

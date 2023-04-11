@@ -8,6 +8,7 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
+  Alert,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -26,48 +27,61 @@ import DealsMedium from '../../components/DealsMedium';
 import {useSelector, useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 
-const Index = ({navigation, ...props}) => {
-  // const _renderItem = ({item, index}) => {
-  //   return (
-  //     <Image
-  //       source={item.}
-  //     />
-  //   );
-  // };
+//redux
+import {addCart} from '../../store/action/cart';
 
-  const carouselImage = [
-    {
-      id: 1,
-      image: Images.dress1,
-    },
-    {
-      id: 2,
-      image: Images.dress2,
-    },
-    {
-      id: 3,
-      image: Images.dress3,
-    },
-    {
-      id: 4,
-      image: Images.dress4,
-    },
-    {
-      id: 5,
-      image: Images.dress5,
-    },
-  ];
+const Index = ({navigation, route, ...props}) => {
+  const dispatch = useDispatch();
+
+  const cartItems = useSelector(state => state.cartReducer.addCart);
+
+  const data = route.params.data;
+
+  const [carouselImage, setCarouselImage] = useState(
+    data.attributes.productImages.data,
+  );
 
   const [quantity, setQuantity] = useState(1);
 
   const plus = () => {
-    setQuantity(quantity + 1);
+    if (!(quantity >= 10)) {
+      setQuantity(quantity + 1);
+    }
   };
   const minus = () => {
-    if (!quantity <= 0) {
+    if (!(quantity <= 1)) {
       setQuantity(quantity - 1);
     }
   };
+
+  const numberAplhabet = [
+    {numeric: 1, alphabet: 'one'},
+    {numeric: 2, alphabet: 'two'},
+    {numeric: 3, alphabet: 'three'},
+    {numeric: 4, alphabet: 'four'},
+    {numeric: 5, alphabet: 'five'},
+    {numeric: 6, alphabet: 'six'},
+    {numeric: 7, alphabet: 'seven'},
+    {numeric: 8, alphabet: 'eight'},
+    {numeric: 9, alphabet: 'nine'},
+    {numeric: 10, alphabet: 'ten'},
+  ];
+  let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
+
+  const handleCart = () => {
+    var tempArr = cartItems;
+    let items = cartItems.filter(x => x.id === data.id);
+    console.log(items);
+
+    if (items.length === 0) {
+      tempArr.push(data);
+      console.log('tempArr ===>', tempArr);
+      dispatch(addCart(tempArr));
+    } else {
+      Alert.alert('Already in cart');
+    }
+  };
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -76,7 +90,7 @@ const Index = ({navigation, ...props}) => {
           isBack
           isTimer={false}
           _handleBack={() => navigation.goBack()}
-          title={'   '}
+          title={'              '}
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'h-4'} />
@@ -85,7 +99,7 @@ const Index = ({navigation, ...props}) => {
             renderItem={({item}) => {
               return (
                 <Image
-                  source={item.image}
+                  source={{uri: item.attributes.url}}
                   style={{
                     width: width,
                     height: height * 0.4,
@@ -100,20 +114,18 @@ const Index = ({navigation, ...props}) => {
           <View className={'h-4'} />
           <View className={'mt-1 ml-3'}>
             <Text className={'text-black font-semibold text-lg'}>
-              Wedding Dress
+              {data.attributes.productName}
             </Text>
             <Text className={'text-slate-500 text-sm'}>
-              Color, detail, and gold.
+              {data.attributes.productDescription}
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
-            <Text className={'text-black font-bold text-xl'}>
-              AED 5,000{' '}
-            </Text>
-            <Text className={'text-sm text-slate-500 line-through'}>
-              AED 12,000
-            </Text>
+              <Text className={'text-black font-bold text-xl'}>AED 5,000 </Text>
+              <Text className={'text-sm text-slate-500 line-through'}>
+                AED 12,000
+              </Text>
             </View>
-            
+
             <Text className={'text-red-600 text-base font-bold'}>-30%</Text>
             <Text className={'text-slate-600 text-xs'}>
               ETA: 3-5 working days.
@@ -150,13 +162,14 @@ const Index = ({navigation, ...props}) => {
               </View>
             </View>
             <TouchableOpacity
+              onPress={() => handleCart()}
               activeOpacity={0.7}
               style={{width: width * 0.95}}
               className={
                 'pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center bg-[#8ecc2d]'
               }>
               <Text className={'text-lg text-white font-semibold uppercase'}>
-                i want one
+                i want {alphabet[0]?.alphabet}
               </Text>
             </TouchableOpacity>
           </View>
@@ -200,7 +213,7 @@ const Index = ({navigation, ...props}) => {
               </View>
             ))}
           </View>
-          <View
+          {/* <View
             style={{width: width * 0.98}}
             className={'flex self-center ml-2'}>
             <FlatList
@@ -218,7 +231,7 @@ const Index = ({navigation, ...props}) => {
                 );
               }}
             />
-          </View>
+          </View> */}
         </ScrollView>
       </SafeAreaView>
     </>

@@ -4,7 +4,7 @@ const _Environments = {
     LOGIN: `api/auth/local`,
     SIGN_UP: `api/auth/local/register`,
     CHANGE_PASSWORD: `api/auth/change-password`,
-    TODAYS_DEAL: `api/todays-deals?populate[shops][populate][0]=deals`,
+    TODAYS_DEAL: `api/todays-deals`,
   },
 };
 

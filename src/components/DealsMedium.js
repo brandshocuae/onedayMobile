@@ -11,15 +11,16 @@ import {
 import {Images} from '../assets/images';
 const {width, height} = Dimensions.get('window');
 
-export default function Deal({image, title, subtitle, price}) {
+export default function Deal({image, title, subtitle, price, onPress}) {
   return (
     <TouchableOpacity
+      onPress={onPress}
       activeOpacity={0.7}
       style={{width: width * 0.4, marginRight: width * 0.05}}
       className={'flex items-center mt-5'}>
       <View className={'rounded-lg overflow-hidden'}>
         <ImageBackground
-          source={image}
+          source={{uri: image}}
           className={'w-40 h-40'}
           resizeMode={'stretch'}>
           <View
@@ -31,9 +32,15 @@ export default function Deal({image, title, subtitle, price}) {
         </ImageBackground>
       </View>
       <View className={'flex self-start mt-1'}>
-        <Text className={'text-black font-semibold text-lg'}>{title}</Text>
-        <Text className={'text-slate-500 text-sm'}>{subtitle}</Text>
-        <Text className={'text-black font-bold text-xl'}>AED {price}</Text>
+        <Text numberOfLines={1} className={'text-black font-semibold text-lg'}>
+          {title}
+        </Text>
+        <Text numberOfLines={1} className={'text-slate-500 text-sm'}>
+          {subtitle}
+        </Text>
+        <Text numberOfLines={1} className={'text-black font-bold text-xl'}>
+          AED {price}
+        </Text>
       </View>
     </TouchableOpacity>
   );

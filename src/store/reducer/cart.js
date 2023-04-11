@@ -19,6 +19,7 @@ export default reducer = (state = initState, action) => {
       return {
         ...state,
         addCart: action.addCart,
+        quantity: action.quantity,
       };
     default:
       return state;

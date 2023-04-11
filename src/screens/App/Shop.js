@@ -23,15 +23,16 @@ import DealsMedium from '../../components/DealsMedium';
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
-const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+const Index = ({navigation, route, ...props}) => {
+  const data = route.params.data;
+  console.log(data);
 
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header
-          title={'Shop'}
+          title={data.name}
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
@@ -39,38 +40,19 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex self-center mt-6'}>
             <FlatList
-              data={[1, 2, 3, 4]}
-              renderItem={({}) => {
+              data={data?.deals?.data}
+              renderItem={({item}) => {
                 return (
                   <DealsMedium
-                    image={Images.dress2}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
-                  />
-                );
-              }}
-              contentContainerStyle={{
-                width: width * 0.9,
-                flexWrap: 'wrap',
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginLeft: width * 0.025,
-                alignContent: 'center',
-                marginTop: height * 0.01,
-                alignSelf: 'center',
-              }}
-            />
-
-            <FlatList
-              data={[1, 2, 3, 4]}
-              renderItem={({}) => {
-                return (
-                  <DealsMedium
-                    image={Images.dress5}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
+                    onPress={() =>
+                      navigation.navigate('ProductDetail', {
+                        data: item,
+                      })
+                    }
+                    image={item.attributes.productImages.data[0].attributes.url}
+                    title={item.attributes.productName}
+                    subtitle={item.attributes.productDescription}
+                    price={'500'}
                   />
                 );
               }}

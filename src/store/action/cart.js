@@ -7,10 +7,11 @@ import {
   REMOVE_SIZE,
 } from '../actionType';
 
-export const addCart = addCart => {
+export const addCart = (addCart, quantity) => {
   return {
     type: ADD_CART,
     addCart,
+    quantity,
   };
 };
 

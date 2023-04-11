@@ -23,7 +23,7 @@ const Index = ({navigation, ...props}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoader, setIsLoader] = useState(false);
-  const [showAlert, setShowAlert] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
   function ValidateEmail() {

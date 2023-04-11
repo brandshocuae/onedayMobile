@@ -28,31 +28,56 @@ import DealsMedium from '../../components/DealsMedium';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const [shop, setShop] = useState([
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-    {title: 'Wedding', subtitle: 'Color, detail, and gold.', price: '5,000'},
-  ]);
+  const [isLoader, setIsLoader] = useState(false);
 
   // const arrays = [];
   // const size = shop.length / 2;
   // while (shop.length > 0) arrays.push(shop.splice(0, size));
+  useEffect(() => {
+    getTodayDeal();
+  }, []);
+
+  const [mainBanner, setMainBanner] = useState('');
+  const [quadroDeal, setQuadroDeal] = useState([]);
+  const [shops, setShops] = useState([]);
+
+  const getTodayDeal = () => {
+    setIsLoader(true);
+    axios
+      .get(`${BaseURL.TODAYS_DEAL}?populate=deep`)
+      .then(res => {
+        console.log('Data ===>', res.data.data[0].attributes);
+        setMainBanner(
+          res.data.data[0].attributes.dealMainBanner.data.attributes.formats
+            .large.url,
+        );
+        setQuadroDeal(res.data.data[0].attributes.quadroDeal.data);
+        setShops(res.data.data[0].attributes.shops.data[0].attributes);
+        setIsLoader(false);
+      })
+      .catch(err => {
+        console.log('Error ====>', err);
+        setIsLoader(false);
+      });
+  };
 
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header isHome />
-        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
-          <View className={'flex self-center mt-6'}>
-            <FlatList
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.7}}>
+          <View
+            style={{width: width * 0.9}}
+            className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
+            <Image
+              style={{width: '100%', height: '100%'}}
+              resizeMode={'stretch'}
+              source={{uri: mainBanner}}
+            />
+          </View>
+          <View className={'flex self-center mt-1'}>
+            {/* <FlatList
               data={[1, 2]}
               renderItem={({}) => {
                 return (
@@ -65,16 +90,21 @@ const Index = ({navigation, ...props}) => {
                   />
                 );
               }}
-            />
+            /> */}
 
             <FlatList
-              data={[1, 2, 3, 4]}
-              renderItem={({}) => {
+              data={quadroDeal}
+              renderItem={({item}) => {
                 return (
                   <DealsMedium
-                    image={Images.dress2}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
+                    onPress={() =>
+                      navigation.navigate('ProductDetail', {
+                        data: item,
+                      })
+                    }
+                    image={item.attributes.productImages.data[0].attributes.url}
+                    title={item.attributes.productName}
+                    subtitle={item.attributes.productDescription}
                     price={'5,000'}
                   />
                 );
@@ -96,39 +126,42 @@ const Index = ({navigation, ...props}) => {
                   className={
                     'text-xl font-bold text-white uppercase flex text-center'
                   }>
-                  Atom shop
+                  {shops.name}
                 </Text>
               </View>
               <View
                 style={{width: width * 0.98}}
-                className={'flex self-center ml-2'}>
+                className={'flex self-center'}>
                 <FlatList
-                  data={[1, 2, 3, 4, 5, 6, 7, 8, 9]}
+                  data={shops?.deals?.data}
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   renderItem={({item}) => {
                     return (
-                      <View>
-                        <DealsMedium
-                          image={Images.dress5}
-                          title={'Wedding Dress'}
-                          subtitle={'Color, detail, and gold.'}
-                          price={'5,000'}
-                        />
-                        <DealsMedium
-                          image={Images.dress5}
-                          title={'Wedding Dress'}
-                          subtitle={'Color, detail, and gold.'}
-                          price={'5,000'}
-                        />
-                      </View>
+                      <DealsMedium
+                        onPress={() =>
+                          navigation.navigate('ProductDetail', {
+                            data: item,
+                          })
+                        }
+                        image={
+                          item.attributes.productImages.data[0].attributes.url
+                        }
+                        title={item.attributes.productName}
+                        subtitle={item.attributes.productDescription}
+                        price={'500'}
+                      />
                     );
                   }}
                 />
               </View>
               <TouchableOpacity
                 activeOpacity={0.7}
-                onPress={() => navigation.navigate('Shop')}
+                onPress={() =>
+                  navigation.navigate('Shop', {
+                    data: shops
+                  })
+                }
                 className={
                   'w-full bg-green-800 py-1 flex flex-row items-center justify-center mt-2'
                 }>
@@ -145,7 +178,8 @@ const Index = ({navigation, ...props}) => {
                 />
               </TouchableOpacity>
             </View>
-            <FlatList
+
+            {/* <FlatList
               data={[1, 2]}
               renderItem={({}) => {
                 return (
@@ -157,8 +191,8 @@ const Index = ({navigation, ...props}) => {
                   />
                 );
               }}
-            />
-            <FlatList
+            /> */}
+            {/* <FlatList
               data={[1, 2, 3, 4]}
               renderItem={({}) => {
                 return (
@@ -180,32 +214,33 @@ const Index = ({navigation, ...props}) => {
                 marginTop: height * 0.01,
                 alignSelf: 'center',
               }}
-            />
+            /> */}
           </View>
         </ScrollView>
       </SafeAreaView>
+      {isLoader && <Loader />}
     </>
   );
 };
 
 export default Index;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  row: {
-    flexDirection: 'row',
-  },
-  item: {
-    padding: 10,
-    margin: 5,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     justifyContent: 'center',
+//     alignItems: 'center',
+//   },
+//   row: {
+//     flexDirection: 'row',
+//   },
+//   item: {
+//     padding: 10,
+//     margin: 5,
+//     backgroundColor: '#f0f0f0',
+//     borderRadius: 5,
+//   },
+// });
 
 {
   /* <FlatList
