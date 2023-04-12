@@ -22,6 +22,7 @@ import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import DealsMedium from '../../components/DealsMedium';
 import Alert from '../../components/Alert/index';
+import Dropdown from '../../components/Dropdown';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -103,6 +104,34 @@ const Index = ({navigation, route, ...props}) => {
   | - | - | - |
   |40 Inches|50 Inches|60 Inches |`;
 
+  const data1 = [
+    {
+      id: 1,
+      quantity: 100,
+      values: {
+        size: 'small',
+        color: 'blue',
+      },
+    },
+    {
+      id: 2,
+      quantity: 10,
+      values: {
+        size: 'large',
+        color: 'green',
+      },
+    },
+    {
+      id: 3,
+      quantity: 12,
+      values: {
+        size: 'large',
+        color: 'purple',
+        fabric:'cotton'
+      },
+    },
+  ];
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -114,7 +143,7 @@ const Index = ({navigation, route, ...props}) => {
           title={'              '}
           CartOnPress={() => navigation.navigate('Cart')}
         />
-        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
+        {/* <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'h-4'} />
           <Carousel
             data={carouselImage}
@@ -209,7 +238,9 @@ const Index = ({navigation, route, ...props}) => {
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}
           />
-        </ScrollView>
+        </ScrollView> */}
+
+        <Dropdown data={data1} />
       </SafeAreaView>
       <Alert
         isVisible={showAlert}
