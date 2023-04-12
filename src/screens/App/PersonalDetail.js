@@ -26,8 +26,8 @@ import {useSelector, useDispatch} from 'react-redux';
 const Index = ({navigation, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
   console.log(user.user);
-  const [userName, setUserName] = useState(user.user.username);
-  const [email, setEmail] = useState(user.user.email);
+  const [userName, setUserName] = useState(user?.user?.username);
+  const [email, setEmail] = useState(user?.user?.email);
 
   return (
     <>
@@ -57,10 +57,10 @@ const Index = ({navigation, ...props}) => {
               marginTop={height * 0.02}
             />
 
-            <ActionButton
+            {/* <ActionButton
               onPress={() => navigation.navigate('Checkout')}
               title={'save'}
-            />
+            /> */}
           </View>
         </ScrollView>
       </SafeAreaView>

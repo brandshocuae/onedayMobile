@@ -17,10 +17,10 @@ export default function Deal({image, title, subtitle, price, onPress}) {
       onPress={onPress}
       activeOpacity={0.7}
       style={{width: width * 0.9}}
-      className={'flex items-center mt-5 self-center'}>
+      className={'flex items-center mt-4 self-center'}>
       <View className={'rounded-lg overflow-hidden'}>
         <ImageBackground
-          source={image}
+          source={{uri:image}}
           className={'h-80'}
           style={{width: width * 0.9}}
           resizeMode={'stretch'}>

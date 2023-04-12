@@ -40,19 +40,21 @@ const Index = ({navigation, ...props}) => {
   const [mainBanner, setMainBanner] = useState('');
   const [quadroDeal, setQuadroDeal] = useState([]);
   const [shops, setShops] = useState([]);
+  const [products, setProducts] = useState([]);
 
   const getTodayDeal = () => {
     setIsLoader(true);
     axios
       .get(`${BaseURL.TODAYS_DEAL}?populate=deep`)
       .then(res => {
-        console.log('Data ===>', res.data.data[0].attributes);
+        console.log('Data ===>', res.data.data[0].attributes.products.data);
+        setProducts(res.data.data[0].attributes.products.data);
         setMainBanner(
           res.data.data[0].attributes.dealMainBanner.data.attributes.formats
             .large.url,
         );
-        setQuadroDeal(res.data.data[0].attributes.quadroDeal.data);
-        setShops(res.data.data[0].attributes.shops.data[0].attributes);
+        // setQuadroDeal(res.data.data[0].attributes.quadroDeal.data);
+        // setShops(res.data.data[0].attributes.shops.data[0].attributes);
         setIsLoader(false);
       })
       .catch(err => {
@@ -65,8 +67,8 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header isHome CartOnPress={() => navigation.navigate('Cart')}/>
-        <ScrollView contentContainerStyle={{paddingBottom: height * 0.7}}>
+        <Header isHome CartOnPress={() => navigation.navigate('Cart')} />
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.1}}>
           <View
             style={{width: width * 0.9}}
             className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
@@ -78,36 +80,118 @@ const Index = ({navigation, ...props}) => {
           </View>
           <View className={'flex self-center mt-1'}>
             {/* <FlatList
-              data={[1, 2]}
-              renderItem={({}) => {
-                return (
-                  <Deal
-                    image={Images.dress1}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
-                    onPress={() => navigation.navigate('ProductDetail')}
-                  />
-                );
+              data={products}
+              numColumns={2}
+              renderItem={({item, index}) => {
+                if (item.attributes.placement === 'large') {
+                  return (
+                    <Deal
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                } else if (item.attributes.placement === 'medium') {
+                  return (
+                    <DealsMedium
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                } else if (item.attributes.placement === 'small') {
+                  return (
+                    <DealsMedium
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                }
               }}
             /> */}
 
             <FlatList
-              data={quadroDeal}
-              renderItem={({item}) => {
-                return (
-                  <DealsMedium
-                    onPress={() =>
-                      navigation.navigate('ProductDetail', {
-                        data: item,
-                      })
-                    }
-                    image={item.attributes.productImages.data[0].attributes.url}
-                    title={item.attributes.productName}
-                    subtitle={item.attributes.productDescription}
-                    price={item.attributes.price.value}
-                  />
-                );
+              data={products}
+              renderItem={({item, index}) => {
+                if (item.attributes.placement === 'large') {
+                  return (
+                    <Deal
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                }
+              }}
+              contentContainerStyle={{
+                width: width * 0.9,
+                marginTop: height * 0.01,
+                alignSelf: 'center',
+              }}
+            />
+
+            <FlatList
+              data={products}
+              // numColumns={2}
+              renderItem={({item, index}) => {
+                if (
+                  item.attributes.placement === 'medium' ||
+                  item.attributes.placement === 'small'
+                ) {
+                  return (
+                    <DealsMedium
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                }
               }}
               contentContainerStyle={{
                 width: width * 0.9,
@@ -116,11 +200,11 @@ const Index = ({navigation, ...props}) => {
                 alignItems: 'center',
                 marginLeft: width * 0.025,
                 alignContent: 'center',
-                marginTop: height * 0.01,
+                // marginTop: height * 0.01,
                 alignSelf: 'center',
               }}
             />
-            <View style={{width: width}} className={'py-1'}>
+            {/* <View style={{width: width}} className={'py-1'}>
               <View className={'w-full bg-green-800 py-1'}>
                 <Text
                   className={
@@ -159,7 +243,7 @@ const Index = ({navigation, ...props}) => {
                 activeOpacity={0.7}
                 onPress={() =>
                   navigation.navigate('Shop', {
-                    data: shops
+                    data: shops,
                   })
                 }
                 className={
@@ -177,7 +261,7 @@ const Index = ({navigation, ...props}) => {
                   resizeMode={'contain'}
                 />
               </TouchableOpacity>
-            </View>
+            </View> */}
 
             {/* <FlatList
               data={[1, 2]}

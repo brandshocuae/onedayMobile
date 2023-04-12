@@ -10,8 +10,8 @@ export default StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.7)',
   },
   lModalView: {
-    height: height * 0.4,
-    width: width * 0.8,
+    height: height * 0.35,
+    width: width * 0.75,
     backgroundColor: 'white',
     justifyContent: 'space-evenly',
     alignItems: 'center',

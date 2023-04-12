@@ -58,6 +58,8 @@ const Index = ({navigation, ...props}) => {
       .catch(err => {
         console.log('Error ===>', err);
         setIsLoader(false);
+        setShowAlert(true)
+        setAlertText(err?.data?.error?.message);
       });
   };
 

@@ -26,6 +26,7 @@ import Alert from '../../components/Alert/index';
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
+import Markdown from 'react-native-markdown-display';
 
 //redux
 import {addCart} from '../../store/action/cart';
@@ -88,6 +89,20 @@ const Index = ({navigation, route, ...props}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
+  const markdown = `# About 
+  - Jelly bean style T shirt, best for parties and born fires
+  - wollen fur keeps you warn in cold winter nights at camp fires
+  
+  # Specification
+  - 100% pure sheep wool.
+  - machine washable
+  - no fritz or fur spread for 1 year **Guaranteed**
+  
+  # sizes
+  | small | medium | large |
+  | - | - | - | 
+  |40 Inches|50 Inches|60 Inches |`;
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -127,7 +142,9 @@ const Index = ({navigation, route, ...props}) => {
               {data.attributes.productDescription}
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
-              <Text className={'text-black font-bold text-xl'}>AED {data.attributes?.price?.value} </Text>
+              <Text className={'text-black font-bold text-xl'}>
+                AED {data.attributes?.price?.value}{' '}
+              </Text>
               <Text className={'text-sm text-slate-500 line-through'}>
                 AED 12,000
               </Text>
@@ -184,7 +201,7 @@ const Index = ({navigation, route, ...props}) => {
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}
           />
-          <View style={{width: width * 0.97}} className={'mt-5 ml-3'}>
+          {/* <View style={{width: width * 0.97}} className={'mt-5 ml-3'}>
             <Text className={'text-black font-bold text-lg'}>About</Text>
             <Text className={'text-slate-400 text-sm'}>
               At Fossil, we believe in the power of the moments that shape us.
@@ -219,26 +236,14 @@ const Index = ({navigation, route, ...props}) => {
                 <Text className={'text-slate-400 text-sm'}>{item.name}</Text>
               </View>
             ))}
-          </View>
-          {/* <View
-            style={{width: width * 0.98}}
-            className={'flex self-center ml-2'}>
-            <FlatList
-              data={[1, 2, 3, 4]}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              renderItem={({}) => {
-                return (
-                  <DealsMedium
-                    image={Images.dress5}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
-                  />
-                );
-              }}
-            />
           </View> */}
+          <View
+            className="description"
+            style={{width: width * 0.9, alignSelf: 'center'}}>
+            <Markdown style={{width: width * 0.9}}>
+              {markdown}
+            </Markdown>
+          </View>
         </ScrollView>
       </SafeAreaView>
       <Alert

@@ -26,6 +26,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
+  console.log('user ==>',user)
 
   const config = {
     headers: {
