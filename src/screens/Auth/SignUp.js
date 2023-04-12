@@ -72,6 +72,7 @@ const Index = ({navigation, ...props}) => {
         isTimer={false}
         _handleBack={() => navigation.goBack()}
         isBack
+        isCart
       />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>

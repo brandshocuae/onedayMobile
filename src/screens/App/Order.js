@@ -33,12 +33,7 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header
-          title={'Orders'}
-          isBack
-          _handleBack={() => navigation.goBack()}
-          isTimer={false}
-        />
+        <Header title={'Orders'} CartOnPress={() => navigation.navigate('Cart')}/>
         <ScrollView
           contentContainerStyle={{
             paddingBottom: height * 0.07,

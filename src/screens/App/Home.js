@@ -65,7 +65,7 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header isHome />
+        <Header isHome CartOnPress={() => navigation.navigate('Cart')}/>
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.7}}>
           <View
             style={{width: width * 0.9}}
@@ -105,7 +105,7 @@ const Index = ({navigation, ...props}) => {
                     image={item.attributes.productImages.data[0].attributes.url}
                     title={item.attributes.productName}
                     subtitle={item.attributes.productDescription}
-                    price={'5,000'}
+                    price={item.attributes.price.value}
                   />
                 );
               }}
@@ -149,7 +149,7 @@ const Index = ({navigation, ...props}) => {
                         }
                         title={item.attributes.productName}
                         subtitle={item.attributes.productDescription}
-                        price={'500'}
+                        price={item.attributes?.price?.value}
                       />
                     );
                   }}

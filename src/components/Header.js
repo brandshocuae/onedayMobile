@@ -16,6 +16,8 @@ const Header = ({
   isHome,
   isTimer = true,
   isBack,
+  CartOnPress,
+  isCart,
   ...props
 }) => {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft());
@@ -71,21 +73,32 @@ const Header = ({
           <Text className={'text-xl font-semibold text-white'}>{title}</Text>
         )}
       </TouchableOpacity>
-      {isTimer && (
-        <View className={'flex items-center py-1'}>
-          <Text className={'text-white uppercase text-xs font-normal'}>
-            Deals Expire in
-          </Text>
-          <Text
-            className={'text-white text-3xl font-bold'}>{`${timeLeft.hoursLeft
-            .toString()
-            .padStart(2, '0')}:${timeLeft.minutesLeft
-            .toString()
-            .padStart(2, '0')}:${timeLeft.secondsLeft
-            .toString()
-            .padStart(2, '0')}`}</Text>
-        </View>
-      )}
+      <View className={'flex flex-row items-center'}>
+        {isTimer && (
+          <View className={'flex items-center py-1'}>
+            <Text className={'text-white uppercase text-xs font-normal'}>
+              Deals Expire in
+            </Text>
+            <Text
+              className={'text-white text-3xl font-bold'}>{`${timeLeft.hoursLeft
+              .toString()
+              .padStart(2, '0')}:${timeLeft.minutesLeft
+              .toString()
+              .padStart(2, '0')}:${timeLeft.secondsLeft
+              .toString()
+              .padStart(2, '0')}`}</Text>
+          </View>
+        )}
+        {!isCart && (
+          <TouchableOpacity className={'w-8 h-8 ml-3'} onPress={CartOnPress}>
+            <Image
+              source={Images.ShoppingCart}
+              style={{width: '100%', height: '100%'}}
+              resizeMode={'contain'}
+            />
+          </TouchableOpacity>
+        )}
+      </View>
     </View>
   );
 };

@@ -38,6 +38,7 @@ const Index = ({navigation, ...props}) => {
           isBack
           _handleBack={() => navigation.goBack()}
           isTimer={false}
+          CartOnPress={() => navigation.navigate('Cart')}
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>

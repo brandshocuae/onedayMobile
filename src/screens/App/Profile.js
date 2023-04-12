@@ -37,12 +37,12 @@ const Index = ({navigation, ...props}) => {
       image: Images.Login,
       onPress: () => navigation.navigate('ProfileInfo'),
     },
-    {
-      id: 2,
-      name: 'Orders',
-      image: Images.Order,
-      onPress: () => navigation.navigate('Order'),
-    },
+    // {
+    //   id: 2,
+    //   name: 'Orders',
+    //   image: Images.Order,
+    //   onPress: () => navigation.navigate('Order'),
+    // },
 
     {
       id: 3,
@@ -68,7 +68,7 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header title={'Profile'} />
+        <Header title={'Profile'} CartOnPress={() => navigation.navigate('Cart')}/>
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <Image
             source={Images.Picture}

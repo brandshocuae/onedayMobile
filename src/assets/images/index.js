@@ -29,12 +29,16 @@ const Return = require('./Return.png');
 const Report = require('./Report.png');
 const Delete = require('./Delete.png');
 const Logout = require('./Logout.png');
+const UnOrder = require('./UnOrder.png');
 const Order = require('./Order.png');
 const ReturnProduct = require('./ReturnProduct.png');
 const Wallet = require('./Wallet.png');
+const ShoppingCart = require('./shopping-cart.png');
 
 export const Images = {
+  ShoppingCart,
   Logout,
+  UnOrder,
   Order,
   ReturnProduct,
   Wallet,

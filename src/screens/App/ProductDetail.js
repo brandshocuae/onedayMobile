@@ -8,7 +8,6 @@ import {
   ScrollView,
   Dimensions,
   FlatList,
-  Alert,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -22,6 +21,7 @@ import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import DealsMedium from '../../components/DealsMedium';
+import Alert from '../../components/Alert/index';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -77,10 +77,16 @@ const Index = ({navigation, route, ...props}) => {
       tempArr.push(data);
       console.log('tempArr ===>', tempArr);
       dispatch(addCart(tempArr));
+      setShowAlert(true);
+      setAlertText('Added in Cart');
     } else {
-      Alert.alert('Already in cart');
+      setShowAlert(true);
+      setAlertText('Already in Cart');
     }
   };
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   return (
     <>
@@ -91,6 +97,7 @@ const Index = ({navigation, route, ...props}) => {
           isTimer={false}
           _handleBack={() => navigation.goBack()}
           title={'              '}
+          CartOnPress={() => navigation.navigate('Cart')}
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'h-4'} />
@@ -120,7 +127,7 @@ const Index = ({navigation, route, ...props}) => {
               {data.attributes.productDescription}
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
-              <Text className={'text-black font-bold text-xl'}>AED 5,000 </Text>
+              <Text className={'text-black font-bold text-xl'}>AED {data.attributes?.price?.value} </Text>
               <Text className={'text-sm text-slate-500 line-through'}>
                 AED 12,000
               </Text>
@@ -234,6 +241,11 @@ const Index = ({navigation, route, ...props}) => {
           </View> */}
         </ScrollView>
       </SafeAreaView>
+      <Alert
+        isVisible={showAlert}
+        onPress={() => setShowAlert(false)}
+        message={alertText}
+      />
     </>
   );
 };

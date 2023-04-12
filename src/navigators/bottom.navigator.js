@@ -6,7 +6,7 @@ import {Images} from '../assets/images';
 
 //Screens
 import Home from '../screens/App/Home';
-import Cart from '../screens/App/Cart';
+// import Cart from '../screens/App/Cart';
 import Profile from '../screens/App/Profile';
 import Help from '../screens/App/Help';
 import ProfileInfo from '../screens/App/ProfileInfo';
@@ -18,6 +18,8 @@ import About from '../screens/App/About';
 import PrivacyPolicy from '../screens/App/PrivacyPolicy';
 import AboutReturn from '../screens/App/AboutReturn';
 import ReportBug from '../screens/App/ReportBug';
+import Order from '../screens/App/Order';
+import OrderDetail from '../screens/App/OrderDetail';
 
 // dimenstion
 const {width, height} = Dimensions.get('window');
@@ -65,14 +67,15 @@ export function HomeTab() {
   );
 }
 
-export function CartTab() {
+export function OrderTab() {
   return (
     <Stack.Navigator
-      initialRouteName="Cart"
+      initialRouteName="Order"
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Cart" component={Cart} />
+      <Stack.Screen name="Order" component={Order} />
+      <Stack.Screen name="OrderDetail" component={OrderDetail} />
     </Stack.Navigator>
   );
 }
@@ -138,11 +141,11 @@ export const BottomNavigator = ({}) => {
         component={HomeTab}
       />
       <Tab.Screen
-        name="Cart"
+        name="Order"
         options={{
-          tabBarIcon: TabImage('Cart'),
+          tabBarIcon: TabImage('Order'),
         }}
-        component={CartTab}
+        component={OrderTab}
       />
       <Tab.Screen
         name="Profile"
