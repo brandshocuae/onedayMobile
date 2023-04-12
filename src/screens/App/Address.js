@@ -19,12 +19,36 @@ import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import ActionButton from '../../components/ActionButton';
+import Alert from '../../components/Alert/index';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const [contactNo, setContactNo] = useState('');
+  const [location, setLocation] = useState('');
+  const [company, setCompany] = useState('');
+  const [street1, setStreet1] = useState('');
+  const [street2, setStreet2] = useState('');
+  const [deliveryInstruction, setDeliveryInstruction] = useState('');
+  const [zipCode, setZipCode] = useState('');
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
+
+  const _handleAddress = () => {
+    if (email === '' || contactNo === '' || street1 === '' || zipCode === '') {
+      setShowAlert(true);
+      setAlertText(
+        'Email, Contact Number, Street 1, Zip Code Fields are Required',
+      );
+    } else{
+      let params ={
+
+      }
+    }
+  };
 
   return (
     <>
@@ -40,68 +64,74 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
             <Input
-              title={'first name'}
-              placeholderText={'First Name'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              title={'email'}
+              placeholderText={'Email'}
+              value={email}
+              handleOnChangeTxt={text => setEmail(text)}
             />
-            <Input
-              title={'last name'}
-              placeholderText={'Last Name'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
-              marginTop={height * 0.02}
-            />
+
             <Input
               title={'contact number'}
               placeholderText={'+971 XXX-XXXX'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={contactNo}
+              handleOnChangeTxt={text => setContactNo(text)}
               marginTop={height * 0.02}
             />
             <Input
               title={'location nickname (optional)'}
               placeholderText={'Location Nickname'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={location}
+              handleOnChangeTxt={text => setLocation(text)}
               marginTop={height * 0.02}
             />
             <Input
               title={'company or building (optional)'}
               placeholderText={'Company or building'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={company}
+              handleOnChangeTxt={text => setCompany(text)}
               marginTop={height * 0.02}
             />
             <Input
               title={'street line 1'}
               placeholderText={'Street Line 1'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={street1}
+              handleOnChangeTxt={text => setStreet1(text)}
               marginTop={height * 0.02}
             />
             <Input
               title={'street line 2 (optional)'}
               placeholderText={'Street Line 2'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={street2}
+              handleOnChangeTxt={text => setStreet2(text)}
+              marginTop={height * 0.02}
+            />
+            <Input
+              title={'zip code'}
+              placeholderText={'Zip Code'}
+              value={zipCode}
+              handleOnChangeTxt={text => setZipCode(text)}
               marginTop={height * 0.02}
             />
             <Input
               title={'delivery instruction (optional)'}
               placeholderText={'Delivery instruction'}
-              // value={email}
-              // handleOnChangeTxt={text => setEmail(text)}
+              value={deliveryInstruction}
+              handleOnChangeTxt={text => setDeliveryInstruction(text)}
               marginTop={height * 0.02}
             />
-         
-            <ActionButton
-              onPress={() => navigation.navigate('Checkout')}
-              title={'save'}
-            />
+
+            <ActionButton onPress={() => _handleAddress()} title={'save'} />
           </View>
         </ScrollView>
       </SafeAreaView>
+      <Alert
+        isVisible={showAlert}
+        onPress={() => {
+          setShowAlert(false);
+          setAlertText('');
+        }}
+        message={alertText}
+      />
     </>
   );
 };

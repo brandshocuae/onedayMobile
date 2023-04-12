@@ -201,49 +201,14 @@ const Index = ({navigation, route, ...props}) => {
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}
           />
-          {/* <View style={{width: width * 0.97}} className={'mt-5 ml-3'}>
-            <Text className={'text-black font-bold text-lg'}>About</Text>
-            <Text className={'text-slate-400 text-sm'}>
-              At Fossil, we believe in the power of the moments that shape us.
-              Who we are today is informed by every past experience and dream of
-              the future. That’s why everything we create draws inspiration from
-              both vintage American style and forward-thinking design. Crafting
-              pieces to not only stand the test of time. But define it.
-            </Text>
-            <Text className={'text-slate-400 text-sm mt-4'}>
-              This 44mm Fenmore Midsize features a blue satin dial with Roman
-              numerals at the six- and 12-hour markers, multifunction movement
-              and a navy stainless steel bracelet.
-            </Text>
-            <Text className={'text-black font-bold text-lg mt-3'}>
-              Product Features
-            </Text>
-            {[
-              {name: 'Case Size: 44MM'},
-              {name: 'Water Resistant: 5 ATM'},
-              {name: 'Movement: Quartz Multifunction'},
-              {name: 'Platform: Fenmore Midsize'},
-              {name: 'Strap Material: Stainless Steel'},
-              {name: 'Water Resistance: 5 ATM'},
-              {name: 'Case Material: Stainless Steel'},
-              {name: 'Case Color: Blue'},
-              {name: 'Dial Color: Blue'},
-              {name: 'Strap Fashion Color: Navy'},
-              {name: 'Strap Width: 22MM'},
-            ].map((item, index) => (
-              <View className={'flex flex-row items-center mt-2'} key={index}>
-                <View className={'w-1 h-1 rounded-full bg-black mr-2'} />
-                <Text className={'text-slate-400 text-sm'}>{item.name}</Text>
-              </View>
-            ))}
-          </View> */}
-          <View
-            className="description"
-            style={{width: width * 0.9, alignSelf: 'center'}}>
-            <Markdown style={{width: width * 0.9}}>
-              {markdown}
-            </Markdown>
+
+          <View className="flex self-center mt-5" style={{width: width * 0.9}}>
+            <Markdown style={{width: width * 0.9}}>{markdown}</Markdown>
           </View>
+          <View
+            style={{borderBottomWidth: 1}}
+            className={'h-4 w-full border-slate-300'}
+          />
         </ScrollView>
       </SafeAreaView>
       <Alert

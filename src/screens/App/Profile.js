@@ -20,6 +20,7 @@ import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import MyStatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
+import Alert from '../../components/Alert/index';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -28,7 +29,8 @@ import {logout} from '../../store/action/user';
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
   const isLogin = useSelector(state => state.userReducer.isLogin);
-  console.log(isLogin);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   const [data, setData] = useState([
     {
@@ -37,19 +39,16 @@ const Index = ({navigation, ...props}) => {
       image: Images.Login,
       onPress: () => navigation.navigate('ProfileInfo'),
     },
-    // {
-    //   id: 2,
-    //   name: 'Orders',
-    //   image: Images.Order,
-    //   onPress: () => navigation.navigate('Order'),
-    // },
-
     {
       id: 3,
       name: 'Wallet',
       image: Images.Wallet,
-      onPress: () => navigation.navigate('MyWallet'),
+      onPress: () => {
+        setShowAlert(true);
+        setAlertText('Coming Soon');
+      },
     },
+    //navigation.navigate('MyWallet')
     {
       id: 4,
       name: 'Logout',
@@ -68,7 +67,10 @@ const Index = ({navigation, ...props}) => {
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
-        <Header title={'Profile'} CartOnPress={() => navigation.navigate('Cart')}/>
+        <Header
+          title={'Profile'}
+          CartOnPress={() => navigation.navigate('Cart')}
+        />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <Image
             source={Images.Picture}
@@ -160,6 +162,14 @@ const Index = ({navigation, ...props}) => {
           )}
         </ScrollView>
       </SafeAreaView>
+      <Alert
+        isVisible={showAlert}
+        onPress={() => {
+          setShowAlert(false);
+          setAlertText('');
+        }}
+        message={alertText}
+      />
     </>
   );
 };

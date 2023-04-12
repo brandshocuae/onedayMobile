@@ -43,6 +43,7 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'flex items-center mt-6'}>
             <Input
+              editable={false}
               title={'user name'}
               placeholderText={'User Name'}
               value={userName}
@@ -50,6 +51,7 @@ const Index = ({navigation, ...props}) => {
             />
 
             <Input
+              editable={false}
               title={'email address'}
               placeholderText={'Email Address'}
               value={email}
