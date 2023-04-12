@@ -18,7 +18,10 @@ import Alert from '../../components/Alert/index';
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
-const Index = ({navigation, ...props}) => {
+const Index = ({navigation, route, ...props}) => {
+  const isFromCheckout = route?.params?.fromCheckout;
+  console.log(isFromCheckout);
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +33,7 @@ const Index = ({navigation, ...props}) => {
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
       return true;
     }
-    setShowAlert(true)
+    setShowAlert(true);
     setAlertText('You have entered an invalid email address!');
     return false;
   }
@@ -50,15 +53,22 @@ const Index = ({navigation, ...props}) => {
         console.log('Data ===>', res.data);
         setIsLoader(false);
         dispatch(login(res.data));
-        navigation.reset({
-          index: 0,
-          routes: [{name: 'Splash'}],
-        });
+        if (isFromCheckout === 'fromCheckout') {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Cart'}],
+          });
+        } else {
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'Splash'}],
+          });
+        }
       })
       .catch(err => {
         console.log('Error ===>', err);
         setIsLoader(false);
-        setShowAlert(true)
+        setShowAlert(true);
         setAlertText(err?.data?.error?.message);
       });
   };

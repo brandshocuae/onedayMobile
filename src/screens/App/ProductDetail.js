@@ -89,18 +89,18 @@ const Index = ({navigation, route, ...props}) => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
-  const markdown = `# About 
+  const markdown = `# About
   - Jelly bean style T shirt, best for parties and born fires
   - wollen fur keeps you warn in cold winter nights at camp fires
-  
+
   # Specification
   - 100% pure sheep wool.
   - machine washable
   - no fritz or fur spread for 1 year **Guaranteed**
-  
+
   # sizes
   | small | medium | large |
-  | - | - | - | 
+  | - | - | - |
   |40 Inches|50 Inches|60 Inches |`;
 
   return (
@@ -139,7 +139,7 @@ const Index = ({navigation, route, ...props}) => {
               {data.attributes.productName}
             </Text>
             <Text className={'text-slate-500 text-sm'}>
-              {data.attributes.productDescription}
+              {data.attributes.productName}
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
               <Text className={'text-black font-bold text-xl'}>

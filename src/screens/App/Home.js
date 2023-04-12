@@ -154,7 +154,7 @@ const Index = ({navigation, ...props}) => {
                         item.attributes.productImages.data[0].attributes.url
                       }
                       title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
+                      subtitle={item.attributes.productName}
                       price={item.attributes.price.value}
                     />
                   );
@@ -187,7 +187,7 @@ const Index = ({navigation, ...props}) => {
                         item.attributes.productImages.data[0].attributes.url
                       }
                       title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
+                      subtitle={item.attributes.productName}
                       price={item.attributes.price.value}
                     />
                   );
