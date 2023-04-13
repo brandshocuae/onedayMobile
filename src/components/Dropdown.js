@@ -1,39 +1,68 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 
-const Dropdown = ({data}) => {
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColors, setSelectedColors] = useState([]);
+const {width, height} = Dimensions.get('window');
 
-  const uniqueSizes = [...new Set(data.map(item => item.values.size))];
+const VariantSelector = ({variants}) => {
+  const [selectedValues, setSelectedValues] = useState({});
+  const [availableOptions, setAvailableOptions] = useState({});
 
-  const handleSizeChange = itemValue => {
-    setSelectedSize(itemValue);
-    const selectedColors = data
-      .filter(item => item.values.size === itemValue)
-      .map(item => item.values.color);
-    setSelectedColors(selectedColors);
+  useEffect(() => {
+    const options = {};
+    variants.forEach(variant => {
+      Object.entries(variant.values).forEach(([key, value]) => {
+        if (!options[key]) {
+          options[key] = [];
+        }
+        if (!options[key].includes(value)) {
+          options[key].push(value);
+        }
+      });
+    });
+    setAvailableOptions(options);
+  }, []);
+
+  const handleValueChange = (value, key) => {
+    setSelectedValues(prevValues => ({
+      ...prevValues,
+      [key]: value,
+    }));
+  };
+
+  const renderPicker = (key, options) => {
+    const selectedValue = selectedValues[key] || '';
+    return (
+      <Picker
+        selectedValue={selectedValue}
+        onValueChange={itemValue => handleValueChange(itemValue, key)}
+        style={{width: width * 0.94}}>
+        <Picker.Item label={`Select ${key}`} value=""/>
+        {options.map((option, index) => (
+          <Picker.Item key={index} label={option} value={option} />
+        ))}
+      </Picker>
+    );
   };
 
   return (
-    <View>
-      <Text>Size:</Text>
-      <Picker selectedValue={selectedSize} onValueChange={handleSizeChange}>
-        {uniqueSizes.map(size => (
-          <Picker.Item key={size} label={size} value={size} />
-        ))}
-      </Picker>
-      {selectedColors.length > 0 && (
-        <View>
-          <Text>Colors:</Text>
-          {selectedColors.map(color => (
-            <Text key={color}>{color}</Text>
-          ))}
+    <View className={'mt-4'}>
+      {Object.keys(availableOptions).map((key, index) => (
+        <View key={index}>
+          <Text className={'text-lg font-semibold text-black'}>
+            {key.toUpperCase()}:
+          </Text>
+          {renderPicker(key, availableOptions[key])}
         </View>
-      )}
+      ))}
     </View>
   );
 };
 
-export default Dropdown;
+export default VariantSelector;

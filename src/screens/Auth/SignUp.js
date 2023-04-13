@@ -44,7 +44,7 @@ const Index = ({navigation, ...props}) => {
       email: email,
       username: userName,
       password: password,
-      role: 'seller',
+      role: 'customer',
     };
 
     axios

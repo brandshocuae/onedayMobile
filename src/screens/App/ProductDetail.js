@@ -22,7 +22,7 @@ import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import DealsMedium from '../../components/DealsMedium';
 import Alert from '../../components/Alert/index';
-import Dropdown from '../../components/Dropdown';
+import VariantSelector from '../../components/Dropdown';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -38,6 +38,7 @@ const Index = ({navigation, route, ...props}) => {
   const cartItems = useSelector(state => state.cartReducer.addCart);
 
   const data = route.params.data;
+  console.log('data ===>', data);
 
   const [carouselImage, setCarouselImage] = useState(
     data.attributes.productImages.data,
@@ -104,34 +105,6 @@ const Index = ({navigation, route, ...props}) => {
   | - | - | - |
   |40 Inches|50 Inches|60 Inches |`;
 
-  const data1 = [
-    {
-      id: 1,
-      quantity: 100,
-      values: {
-        size: 'small',
-        color: 'blue',
-      },
-    },
-    {
-      id: 2,
-      quantity: 10,
-      values: {
-        size: 'large',
-        color: 'green',
-      },
-    },
-    {
-      id: 3,
-      quantity: 12,
-      values: {
-        size: 'large',
-        color: 'purple',
-        fabric:'cotton'
-      },
-    },
-  ];
-
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -143,7 +116,7 @@ const Index = ({navigation, route, ...props}) => {
           title={'              '}
           CartOnPress={() => navigation.navigate('Cart')}
         />
-        {/* <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'h-4'} />
           <Carousel
             data={carouselImage}
@@ -214,6 +187,14 @@ const Index = ({navigation, route, ...props}) => {
                 </TouchableOpacity>
               </View>
             </View>
+            <VariantSelector
+              variants={
+                data?.attributes?.product_variants?.data.length === 0
+                  ? []
+                  : data?.attributes?.product_variants?.data?.[0]?.attributes
+                      ?.options
+              }
+            />
             <TouchableOpacity
               onPress={() => handleCart()}
               activeOpacity={0.7}
@@ -232,15 +213,16 @@ const Index = ({navigation, route, ...props}) => {
           />
 
           <View className="flex self-center mt-5" style={{width: width * 0.9}}>
-            <Markdown style={{width: width * 0.9}}>{markdown}</Markdown>
+            <Text className={'text-2xl font-semibold uppercase mb-4'}>Product Description:</Text>
+            <Markdown style={{width: width * 0.9}}>
+              {data.attributes.ProductDescription}
+            </Markdown>
           </View>
           <View
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}
           />
-        </ScrollView> */}
-
-        <Dropdown data={data1} />
+        </ScrollView>
       </SafeAreaView>
       <Alert
         isVisible={showAlert}
