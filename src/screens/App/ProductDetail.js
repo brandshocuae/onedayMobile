@@ -30,13 +30,10 @@ import Carousel from 'react-native-snap-carousel';
 import Markdown from 'react-native-markdown-display';
 
 //redux
-import {addCart} from '../../store/action/cart';
+import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 
 const Index = ({navigation, route, ...props}) => {
   const dispatch = useDispatch();
-
-  const cartItems = useSelector(state => state.cartReducer.addCart);
-
   const data = route.params.data;
   console.log('data ===>', data);
 
@@ -49,11 +46,13 @@ const Index = ({navigation, route, ...props}) => {
   const plus = () => {
     if (!(quantity >= 10)) {
       setQuantity(quantity + 1);
+      dispatch(handleAddItemToCart(data));
     }
   };
   const minus = () => {
     if (!(quantity <= 1)) {
       setQuantity(quantity - 1);
+      dispatch(handleRemoveItem(data));
     }
   };
 
@@ -72,38 +71,11 @@ const Index = ({navigation, route, ...props}) => {
   let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
 
   const handleCart = () => {
-    var tempArr = cartItems;
-    let items = cartItems.filter(x => x.id === data.id);
-    console.log(items);
-
-    if (items.length === 0) {
-      tempArr.push(data);
-      console.log('tempArr ===>', tempArr);
-      dispatch(addCart(tempArr));
-      setShowAlert(true);
-      setAlertText('Added in Cart');
-    } else {
-      setShowAlert(true);
-      setAlertText('Already in Cart');
-    }
+    dispatch(handleAddItemToCart(data));
   };
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
-
-  const markdown = `# About
-  - Jelly bean style T shirt, best for parties and born fires
-  - wollen fur keeps you warn in cold winter nights at camp fires
-
-  # Specification
-  - 100% pure sheep wool.
-  - machine washable
-  - no fritz or fur spread for 1 year **Guaranteed**
-
-  # sizes
-  | small | medium | large |
-  | - | - | - |
-  |40 Inches|50 Inches|60 Inches |`;
 
   return (
     <>
@@ -187,14 +159,14 @@ const Index = ({navigation, route, ...props}) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <VariantSelector
+            {/* <VariantSelector
               variants={
                 data?.attributes?.product_variants?.data.length === 0
                   ? []
                   : data?.attributes?.product_variants?.data?.[0]?.attributes
                       ?.options
               }
-            />
+            /> */}
             <TouchableOpacity
               onPress={() => handleCart()}
               activeOpacity={0.7}
@@ -213,7 +185,9 @@ const Index = ({navigation, route, ...props}) => {
           />
 
           <View className="flex self-center mt-5" style={{width: width * 0.9}}>
-            <Text className={'text-2xl font-semibold uppercase mb-4'}>Product Description:</Text>
+            <Text className={'text-2xl font-semibold uppercase mb-4'}>
+              Product Description:
+            </Text>
             <Markdown style={{width: width * 0.9}}>
               {data.attributes.ProductDescription}
             </Markdown>

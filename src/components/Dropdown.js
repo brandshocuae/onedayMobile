@@ -13,7 +13,8 @@ const {width, height} = Dimensions.get('window');
 const VariantSelector = ({variants}) => {
   const [selectedValues, setSelectedValues] = useState({});
   const [availableOptions, setAvailableOptions] = useState({});
-
+  console.log('selectedValues ===>', selectedValues);
+  console.log('availableOptions ===>', availableOptions);
   useEffect(() => {
     const options = {};
     variants.forEach(variant => {
@@ -43,7 +44,7 @@ const VariantSelector = ({variants}) => {
         selectedValue={selectedValue}
         onValueChange={itemValue => handleValueChange(itemValue, key)}
         style={{width: width * 0.94}}>
-        <Picker.Item label={`Select ${key}`} value=""/>
+        <Picker.Item label={`Select ${key}`} value="" />
         {options.map((option, index) => (
           <Picker.Item key={index} label={option} value={option} />
         ))}

@@ -1,49 +1,15 @@
-import {
-  ADD_CART,
-  ADD_QUANTITY,
-  ADD_SIZE,
-  REMOVE_CART,
-  REMOVE_QUANTITY,
-  REMOVE_SIZE,
-} from '../actionType';
+import {ADD_ITEM, REMOVE_ITEM} from '../actionType';
 
-export const addCart = (addCart, quantity) => {
+export const handleAddItemToCart = item => {
   return {
-    type: ADD_CART,
-    addCart,
-    quantity,
+    type: ADD_ITEM,
+    item,
   };
 };
 
-export const removeCart = removeCart => {
+export const handleRemoveItem = item => {
   return {
-    type: REMOVE_CART,
-    removeCart,
-  };
-};
-
-export const addQuantity = addQuantity => {
-  return {
-    type: ADD_QUANTITY,
-    addQuantity,
-  };
-};
-
-export const removeQuantity = removeQuantity => {
-  return {
-    type: REMOVE_QUANTITY,
-    removeQuantity,
-  };
-};
-export const addSize = addSize => {
-  return {
-    type: ADD_SIZE,
-    addSize,
-  };
-};
-export const removeSize = removeSize => {
-  return {
-    type: REMOVE_SIZE,
-    removeSize,
+    type: REMOVE_ITEM,
+    item,
   };
 };

@@ -22,41 +22,26 @@ import {useSelector, useDispatch} from 'react-redux';
 import MyStatusBar from '../../components/StatusBar';
 
 //redux
-import {addCart} from '../../store/action/cart';
+import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 
 const Index = ({navigation, ...props}) => {
   const isLogin = useSelector(state => state.userReducer.isLogin);
   console.log('isLogin ===>', isLogin);
   const dispatch = useDispatch();
-  const cart = useSelector(state => state.cartReducer.addCart);
-
-  const [allTotal, setAllTotal] = useState(0);
-
-  useEffect(() => {
-    console.log('Cart ====>', cart);
-    let price = cart.map(res => res.attributes.price.value);
-
-    let total = price.map(i => Number(i));
-    let productTotal = total.reduce((a, b) => a + b, 0);
-    console.log('productTotal ===>', productTotal);
-    setAllTotal(productTotal);
-    // console.log('price ===>', price.reduce((a, b) => a + b, 0));
-    // console.log('Total',
-    //   [1, 2, 3, 4].reduce((a, b) => a + b, 0)
-    // )
-  }, [cart, allTotal]);
-
-  const removeFromCart = id => {
-    console.log('id ===>', id);
-    const filteredArray = cart.filter(item => item.id !== id);
-
-    console.log(filteredArray);
-    dispatch(addCart(filteredArray));
-  };
+  const cart = useSelector(state => state.cartReducer.cart);
+  const total = useSelector(state => state.cartReducer.total);
+  console.log(cart);
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
   const [forLogin, setForLogin] = useState(false);
+
+  const addQuantity = item => {
+    dispatch(handleAddItemToCart(item));
+  };
+  const removeQuantity = item => {
+    dispatch(handleRemoveItem(item));
+  };
 
   return (
     <>
@@ -121,15 +106,18 @@ const Index = ({navigation, ...props}) => {
                         }>
                         <Text className={'text-slate-600 text-sm'}>Qty</Text>
                         <View className={'flex flex-row items-center'}>
-                          <TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={() => removeQuantity(item)}>
                             <Image
                               source={Images.Minus}
                               className={'w-3 h-3 mr-3'}
                               resizeMode={'contain'}
                             />
                           </TouchableOpacity>
-                          <Text className={'text-slate-600 text-sm'}>1</Text>
-                          <TouchableOpacity>
+                          <Text className={'text-slate-600 text-sm'}>
+                            {item.quantity}
+                          </Text>
+                          <TouchableOpacity onPress={() => addQuantity(item)}>
                             <Image
                               source={Images.Plus}
                               className={'w-3 h-3 ml-3'}
@@ -140,13 +128,13 @@ const Index = ({navigation, ...props}) => {
                       </View>
                     </View>
                     <View className={'flex justify-between'}>
-                      <TouchableOpacity onPress={() => removeFromCart(item.id)}>
+                      {/* <TouchableOpacity onPress={() => removeFromCart(item.id)}>
                         <Image
                           source={Images.Delete}
                           className={'w-4 h-4 flex self-end'}
                           resizeMode={'contain'}
                         />
-                      </TouchableOpacity>
+                      </TouchableOpacity> */}
 
                       <Text className={'text-black font-bold text-base'}>
                         AED {item.attributes?.price?.value}
@@ -174,9 +162,7 @@ const Index = ({navigation, ...props}) => {
               'flex flex-row justify-between items-center px-5 mb-1 mt-5'
             }>
             <Text className={'text-black text-sm font-light'}>Subtotal</Text>
-            <Text className={'text-black text-sm font-light'}>
-              AED {allTotal}
-            </Text>
+            <Text className={'text-black text-sm font-light'}>AED {total}</Text>
           </View>
           <View
             className={'flex flex-row justify-between items-center px-5 mb-1'}>
@@ -195,14 +181,12 @@ const Index = ({navigation, ...props}) => {
           <View
             className={'flex flex-row justify-between items-center px-5 mb-1'}>
             <Text className={'text-black text-lg font-bold'}>Total</Text>
-            <Text className={'text-black text-lg font-bold'}>
-              AED {allTotal}
-            </Text>
+            <Text className={'text-black text-lg font-bold'}>AED {total}</Text>
           </View>
 
           <ActionButton
             onPress={() => {
-              if (allTotal === 0) {
+              if (total === 0) {
                 setShowAlert(true);
                 setAlertText('Add Something in Cart');
               } else if (isLogin == true) {
