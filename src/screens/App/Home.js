@@ -38,8 +38,6 @@ const Index = ({navigation, ...props}) => {
   }, []);
 
   const [mainBanner, setMainBanner] = useState('');
-  const [quadroDeal, setQuadroDeal] = useState([]);
-  const [shops, setShops] = useState([]);
   const [products, setProducts] = useState([]);
 
   const getTodayDeal = () => {
@@ -71,7 +69,9 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.1}}>
           <View
             style={{width: width * 0.9}}
-            className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
+            className={
+              'h-24 felx self-center mt-3 rounded-md overflow-hidden'
+            }>
             <Image
               style={{width: '100%', height: '100%'}}
               resizeMode={'stretch'}
@@ -79,65 +79,6 @@ const Index = ({navigation, ...props}) => {
             />
           </View>
           <View className={'flex self-center mt-1'}>
-            {/* <FlatList
-              data={products}
-              numColumns={2}
-              renderItem={({item, index}) => {
-                if (item.attributes.placement === 'large') {
-                  return (
-                    <Deal
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                } else if (item.attributes.placement === 'medium') {
-                  return (
-                    <DealsMedium
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                } else if (item.attributes.placement === 'small') {
-                  return (
-                    <DealsMedium
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                }
-              }}
-            /> */}
-
             <FlatList
               data={products}
               renderItem={({item, index}) => {
@@ -352,4 +293,65 @@ export default Index;
     );
   }}
 />; */
+}
+
+{
+  /* <FlatList
+              data={products}
+              numColumns={2}
+              renderItem={({item, index}) => {
+                if (item.attributes.placement === 'large') {
+                  return (
+                    <Deal
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                } else if (item.attributes.placement === 'medium') {
+                  return (
+                    <DealsMedium
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                } else if (item.attributes.placement === 'small') {
+                  return (
+                    <DealsMedium
+                      key={index}
+                      onPress={() =>
+                        navigation.navigate('ProductDetail', {
+                          data: item,
+                        })
+                      }
+                      image={
+                        item.attributes.productImages.data[0].attributes.url
+                      }
+                      title={item.attributes.productName}
+                      subtitle={item.attributes.productDescription}
+                      price={item.attributes.price.value}
+                    />
+                  );
+                }
+              }}
+            /> */
 }

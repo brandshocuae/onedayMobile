@@ -24,30 +24,150 @@ import Alert from '../../components/Alert/index';
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
-const Index = ({navigation, ...props}) => {
-  const [email, setEmail] = useState('');
+const Index = ({navigation, route, ...props}) => {
+  const user = useSelector(state => state.userReducer.userData);
+  // console.log(user);
+  const fromCart = route?.params?.fromCart;
+  console.log('fromCart', fromCart);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ` + user.jwt,
+    },
+  };
+
   const [contactNo, setContactNo] = useState('');
   const [location, setLocation] = useState('');
   const [company, setCompany] = useState('');
   const [street1, setStreet1] = useState('');
   const [street2, setStreet2] = useState('');
-  const [deliveryInstruction, setDeliveryInstruction] = useState('');
   const [zipCode, setZipCode] = useState('');
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
+  const [customerID, setCustomerID] = useState(null);
 
   const _handleAddress = () => {
-    if (email === '' || contactNo === '' || street1 === '' || zipCode === '') {
+    setIsLoader(true);
+    console.log('created');
+    if (
+      contactNo === '' ||
+      street1 === '' ||
+      zipCode === '' ||
+      location === ''
+    ) {
       setShowAlert(true);
       setAlertText(
-        'Email, Contact Number, Street 1, Zip Code Fields are Required',
+        'Contact Number, Street 1, Zip Code, City Fields are Required',
       );
-    } else{
-      let params ={
-
-      }
+    } else {
+      let params = {
+        data: {
+          email: user.user.email,
+          city: location,
+          addressLine1: street1,
+          addressLine2: street2,
+          contact: contactNo,
+          zipCode: zipCode,
+          companyOrBuilding: company,
+          customer: customerID,
+        },
+      };
+      console.log(params);
+      axios
+        .post(`${BaseURL.ADDRESS_BOOK}`, params, config)
+        .then(response => {
+          console.log(response);
+          setShowAlert(true);
+          setAlertText('Address Created Successfully');
+          setIsLoader(false);
+          // navigation.goBack();
+        })
+        .catch(error => {
+          console.log(error);
+          setShowAlert(true);
+          setAlertText('Error');
+          setIsLoader(false);
+        });
     }
+  };
+
+  const _handleUpdateAddress = () => {
+    setIsLoader(true);
+    console.log('edit');
+    if (
+      contactNo === '' ||
+      street1 === '' ||
+      zipCode === '' ||
+      location === ''
+    ) {
+      setShowAlert(true);
+      setAlertText(
+        'Contact Number, Street 1, Zip Code, City Fields are Required',
+      );
+    } else {
+      let params = {
+        data: {
+          email: user.user.email,
+          city: location,
+          addressLine1: street1,
+          addressLine2: street2,
+          contact: contactNo,
+          zipCode: zipCode,
+          companyOrBuilding: company,
+          customer: customerID,
+        },
+      };
+      console.log(params);
+      axios
+        .put(`${BaseURL.ADDRESS_BOOK}/${addressID}`, params, config)
+        .then(response => {
+          console.log(response);
+          setShowAlert(true);
+          setAlertText('Address Edit Successfully');
+          setIsLoader(false);
+          // navigation.goBack();
+        })
+        .catch(error => {
+          console.log(error);
+          setShowAlert(true);
+          setAlertText('Error');
+          setIsLoader(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    getCustomerID();
+  }, []);
+
+  const [addressID, setAddressID] = useState(null);
+
+  const getCustomerID = () => {
+    setIsLoader(true);
+    axios
+      .get(
+        `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
+      )
+      .then(response => {
+        console.log(response.data);
+        if (response.data.customer.address_book !== null) {
+          setContactNo(response.data.customer.address_book.contact);
+          setLocation(response.data.customer.address_book.city);
+          setCompany(response.data.customer.address_book.companyOrBuilding);
+          setStreet1(response.data.customer.address_book.addressLine1);
+          setStreet2(response.data.customer.address_book.addressLine2);
+          setZipCode(response.data.customer.address_book.zipCode);
+          setAddressID(response.data.customer.address_book.id);
+        }
+        setIsLoader(false);
+        setCustomerID(response.data.customer.id);
+      })
+      .catch(error => {
+        console.log(error);
+        setIsLoader(false);
+      });
   };
 
   return (
@@ -61,13 +181,14 @@ const Index = ({navigation, ...props}) => {
           isTimer={false}
           CartOnPress={() => navigation.navigate('Cart')}
         />
-        <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
+        <ScrollView contentContainerStyle={{paddingBottom: height * 0.35}}>
           <View className={'flex items-center mt-6'}>
             <Input
+              editable={false}
               title={'email'}
               placeholderText={'Email'}
-              value={email}
-              handleOnChangeTxt={text => setEmail(text)}
+              value={user.user.email}
+              // handleOnChangeTxt={text => setEmail(text)}
             />
 
             <Input
@@ -76,10 +197,11 @@ const Index = ({navigation, ...props}) => {
               value={contactNo}
               handleOnChangeTxt={text => setContactNo(text)}
               marginTop={height * 0.02}
+              keyboardType={'numeric'}
             />
             <Input
-              title={'location nickname (optional)'}
-              placeholderText={'Location Nickname'}
+              title={'city'}
+              placeholderText={'City'}
               value={location}
               handleOnChangeTxt={text => setLocation(text)}
               marginTop={height * 0.02}
@@ -111,16 +233,19 @@ const Index = ({navigation, ...props}) => {
               value={zipCode}
               handleOnChangeTxt={text => setZipCode(text)}
               marginTop={height * 0.02}
-            />
-            <Input
-              title={'delivery instruction (optional)'}
-              placeholderText={'Delivery instruction'}
-              value={deliveryInstruction}
-              handleOnChangeTxt={text => setDeliveryInstruction(text)}
-              marginTop={height * 0.02}
+              keyboardType={'numeric'}
             />
 
-            <ActionButton onPress={() => _handleAddress()} title={'save'} />
+            <ActionButton
+              onPress={() => {
+                if (addressID == null) {
+                  _handleAddress();
+                } else {
+                  _handleUpdateAddress();
+                }
+              }}
+              title={'save'}
+            />
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -129,9 +254,13 @@ const Index = ({navigation, ...props}) => {
         onPress={() => {
           setShowAlert(false);
           setAlertText('');
+          if (fromCart == 'fromCart') {
+            navigation.navigate('Checkout');
+          }
         }}
         message={alertText}
       />
+      {isLoader && <Loader />}
     </>
   );
 };

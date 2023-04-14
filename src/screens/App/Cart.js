@@ -16,6 +16,8 @@ import {Images} from '../../assets/images';
 import Header from '../../components/Header';
 import ActionButton from '../../components/ActionButton';
 import Alert from '../../components/Alert/index';
+import axios from '../../utils/axios';
+import BaseURL from '../../constants/apiEndPoints';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
@@ -26,6 +28,7 @@ import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 
 const Index = ({navigation, ...props}) => {
   const isLogin = useSelector(state => state.userReducer.isLogin);
+  const user = useSelector(state => state.userReducer.userData);
   console.log('isLogin ===>', isLogin);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartReducer.cart);
@@ -41,6 +44,29 @@ const Index = ({navigation, ...props}) => {
   };
   const removeQuantity = item => {
     dispatch(handleRemoveItem(item));
+  };
+
+  useEffect(() => {
+    getCustomerID();
+  }, []);
+
+  const [addressID, setAddressID] = useState(null);
+
+  const getCustomerID = () => {
+    axios
+      .get(
+        `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
+      )
+      .then(response => {
+        console.log(response.data);
+        if (response.data.customer.address_book !== null) {
+          setAddressID(response.data.customer.address_book.id);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setIsLoader(false);
+      });
   };
 
   return (
@@ -190,7 +216,13 @@ const Index = ({navigation, ...props}) => {
                 setShowAlert(true);
                 setAlertText('Add Something in Cart');
               } else if (isLogin == true) {
-                navigation.navigate('Address');
+                if (addressID === null) {
+                  navigation.navigate('Address', {
+                    fromCart: 'fromCart',
+                  });
+                } else {
+                  navigation.navigate('Checkout');
+                }
               } else {
                 setShowAlert(true);
                 setAlertText('For Proceed to Checkout you have to login first');

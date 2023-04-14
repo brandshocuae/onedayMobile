@@ -1,14 +1,17 @@
 import {
-  StyleSheet,
   Dimensions,
   Text,
   TouchableOpacity,
   View,
   Image,
+  ImageBackground,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import {Images} from '../assets/images';
 const {width, height} = Dimensions.get('window');
+
+//redux
+import {useSelector, useDispatch} from 'react-redux';
 
 const Header = ({
   _handleBack,
@@ -45,6 +48,9 @@ const Header = ({
 
     return {hoursLeft, minutesLeft, secondsLeft};
   }
+
+  const cart = useSelector(state => state.cartReducer.cart);
+  // console.log('cart ===>', cart.length);
 
   return (
     <View
@@ -91,11 +97,21 @@ const Header = ({
         )}
         {!isCart && (
           <TouchableOpacity className={'w-8 h-8 ml-3'} onPress={CartOnPress}>
-            <Image
+            <ImageBackground
               source={Images.ShoppingCart}
               style={{width: '100%', height: '100%'}}
-              resizeMode={'contain'}
-            />
+              resizeMode={'contain'}>
+              {!cart.length == 0 ? (
+                <View
+                  className={
+                    'w-6 h-6 bg-red-600 rounded-full ml-4 -mt-5 flex items-center justify-center'
+                  }>
+                  <Text className={'text-base text-white font-semibold'}>
+                    {cart.length}
+                  </Text>
+                </View>
+              ) : null}
+            </ImageBackground>
           </TouchableOpacity>
         )}
       </View>

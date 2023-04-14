@@ -28,6 +28,7 @@ import VariantSelector from '../../components/Dropdown';
 import {useSelector, useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import Markdown from 'react-native-markdown-display';
+import {Picker} from '@react-native-picker/picker';
 
 //redux
 import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
@@ -71,11 +72,60 @@ const Index = ({navigation, route, ...props}) => {
   let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
 
   const handleCart = () => {
+    data.variants = selectedValues;
+    console.log('With Variants ===>', data);
     dispatch(handleAddItemToCart(data));
   };
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
+
+  // Picker
+
+  const renderPicker = (key, options) => {
+    const selectedValue = selectedValues[key] || '';
+    return (
+      <Picker
+        selectedValue={selectedValue}
+        onValueChange={itemValue => handleValueChange(itemValue, key)}
+        style={{width: width * 0.94}}>
+        <Picker.Item label={`Select ${key}`} value="" />
+        {options.map((option, index) => (
+          <Picker.Item key={index} label={option} value={option} />
+        ))}
+      </Picker>
+    );
+  };
+
+  const [selectedValues, setSelectedValues] = useState({});
+  const [availableOptions, setAvailableOptions] = useState({});
+  console.log('selectedValues ===>', selectedValues);
+  console.log('availableOptions ===>', availableOptions);
+  let variants =
+    data?.attributes?.product_variants?.data?.[0]?.attributes?.options;
+  useEffect(() => {
+    const options = {};
+    variants.forEach(variant => {
+      Object.entries(variant.values).forEach(([key, value]) => {
+        if (!options[key]) {
+          options[key] = [];
+        }
+        if (!options[key].includes(value)) {
+          options[key].push(value);
+        }
+      });
+    });
+    setAvailableOptions(options);
+  }, []);
+
+  const handleValueChange = (value, key) => {
+    setSelectedValues(prevValues => ({
+      ...prevValues,
+      [key]: value,
+    }));
+  };
+
+  // Picker
 
   return (
     <>
@@ -158,6 +208,17 @@ const Index = ({navigation, route, ...props}) => {
                   />
                 </TouchableOpacity>
               </View>
+            </View>
+
+            <View className={'mt-4'}>
+              {Object.keys(availableOptions).map((key, index) => (
+                <View key={index}>
+                  <Text className={'text-lg font-semibold text-black'}>
+                    {key.toUpperCase()}:
+                  </Text>
+                  {renderPicker(key, availableOptions[key])}
+                </View>
+              ))}
             </View>
             {/* <VariantSelector
               variants={

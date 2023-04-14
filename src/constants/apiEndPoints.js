@@ -5,6 +5,8 @@ const _Environments = {
     SIGN_UP: `api/auth/local/register`,
     CHANGE_PASSWORD: `api/auth/change-password`,
     TODAYS_DEAL: `api/todays-deals`,
+    GET_CUSTOMER_ID: `api/users`,
+    ADDRESS_BOOK: `api/address-books`,
   },
 };
 

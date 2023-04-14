@@ -48,9 +48,15 @@ const Index = ({navigation, ...props}) => {
         setAlertText('Coming Soon');
       },
     },
-    //navigation.navigate('MyWallet')
     {
       id: 4,
+      name: 'Address',
+      image: Images.FAQ,
+      onPress: () => navigation.navigate('Address'),
+    },
+
+    {
+      id: 5,
       name: 'Logout',
       image: Images.Logout,
       onPress: () => {
