@@ -22,7 +22,33 @@ import {useSelector, useDispatch} from 'react-redux';
 import MyStatusBar from '../../components/StatusBar';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+  const cart = useSelector(state => state.cartReducer.cart);
+  const total = useSelector(state => state.cartReducer.total);
+  const user = useSelector(state => state.userReducer.userData);
+
+  const [Location, setLocation] = useState('');
+  const [Street1, setStreet1] = useState('');
+  const [ZipCode, setZipCode] = useState('');
+
+  useEffect(() => {
+    getCustomerID();
+  }, []);
+
+  const getCustomerID = () => {
+    axios
+      .get(
+        `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
+      )
+      .then(response => {
+        console.log(response.data);
+        setLocation(response.data.customer.address_book.city);
+        setStreet1(response.data.customer.address_book.addressLine1);
+        setZipCode(response.data.customer.address_book.zipCode);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -42,8 +68,7 @@ const Index = ({navigation, ...props}) => {
           className={'w-full py-1 px-3 mt-4'}>
           <Text className={'text-black font-semibold text-lg'}>Address</Text>
           <Text className={'text-slate-600 text-sm'}>
-            1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai - United
-            Arab Emirates
+            {Location} {Street1} {ZipCode}
           </Text>
         </View>
 
@@ -70,7 +95,7 @@ const Index = ({navigation, ...props}) => {
               'flex flex-row justify-between items-center px-5 mb-1 mt-5'
             }>
             <Text className={'text-black text-sm font-light'}>Subtotal</Text>
-            <Text className={'text-black text-sm font-light'}>AED 5,000</Text>
+            <Text className={'text-black text-sm font-light'}>AED {total}</Text>
           </View>
           <View
             className={'flex flex-row justify-between items-center px-5 mb-1'}>
@@ -89,7 +114,7 @@ const Index = ({navigation, ...props}) => {
           <View
             className={'flex flex-row justify-between items-center px-5 mb-1'}>
             <Text className={'text-black text-lg font-bold'}>Total</Text>
-            <Text className={'text-black text-lg font-bold'}>AED 5,000</Text>
+            <Text className={'text-black text-lg font-bold'}>AED {total}</Text>
           </View>
           <TouchableOpacity
             onPress={() => navigation.navigate('Home')}
