@@ -23,12 +23,15 @@ import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import Deal from '../../components/Deals';
 import DealsMedium from '../../components/DealsMedium';
+import Alert from '../../components/Alert/index';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const [isLoader, setIsLoader] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   // const arrays = [];
   // const size = shop.length / 2;
@@ -58,6 +61,8 @@ const Index = ({navigation, ...props}) => {
       .catch(err => {
         console.log('Error ====>', err);
         setIsLoader(false);
+        setShowAlert(true);
+        setAlertText('Something Went Wrong');
       });
   };
 
@@ -69,9 +74,7 @@ const Index = ({navigation, ...props}) => {
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.1}}>
           <View
             style={{width: width * 0.9}}
-            className={
-              'h-24 felx self-center mt-3 rounded-md overflow-hidden'
-            }>
+            className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
             <Image
               style={{width: '100%', height: '100%'}}
               resizeMode={'stretch'}
@@ -244,6 +247,14 @@ const Index = ({navigation, ...props}) => {
         </ScrollView>
       </SafeAreaView>
       {isLoader && <Loader />}
+      <Alert
+        isVisible={showAlert}
+        onPress={() => {
+          setShowAlert(false);
+          setAlertText('');
+        }}
+        message={alertText}
+      />
     </>
   );
 };
