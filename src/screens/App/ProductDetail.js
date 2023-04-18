@@ -7,28 +7,20 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
-  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
 //local import
 import {Images} from '../../assets/images';
-import Input from '../../components/Input/index';
-import axios from '../../utils/axios';
-import BaseURL from '../../constants/apiEndPoints';
-import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
-import DealsMedium from '../../components/DealsMedium';
 import Alert from '../../components/Alert/index';
-import VariantSelector from '../../components/Dropdown';
 
 //third party library
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import Markdown from 'react-native-markdown-display';
-import {Picker} from '@react-native-picker/picker';
 
 //redux
 import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
@@ -75,6 +67,8 @@ const Index = ({navigation, route, ...props}) => {
     // data.variants = selectedValues;
     // console.log('With Variants ===>', data);
     dispatch(handleAddItemToCart(data));
+    setShowAlert(true);
+    setAlertText('Item Added');
   };
 
   const [showAlert, setShowAlert] = useState(false);

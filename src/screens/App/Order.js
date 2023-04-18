@@ -43,7 +43,10 @@ const Index = ({navigation, ...props}) => {
   };
 
   useEffect(() => {
-    getOrders();
+    const focusListener = navigation.addListener('focus', () => {
+      getOrders();
+    });
+    return focusListener;
   }, []);
 
   const getOrders = () => {
@@ -121,11 +124,13 @@ const Index = ({navigation, ...props}) => {
                   </View>
                   <View
                     className={`rounded-full ${
-                      !item.delivered ? 'bg-slate-500' : 'bg-green-600'
+                      !item.attributes?.delivered
+                        ? 'bg-slate-500'
+                        : 'bg-green-600'
                     }  flex items-center justify-center h-6 px-4`}>
                     <Text
                       className={'text-xs text-white font-semibold uppercase'}>
-                      {!item.attributes.delivered ? 'Pending' : 'Shipped'}
+                      {!item.attributes?.delivered ? 'Pending' : 'Shipped'}
                     </Text>
                   </View>
                 </TouchableOpacity>

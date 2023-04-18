@@ -8,14 +8,12 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  StyleSheet,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
 //local import
 import {Images} from '../../assets/images';
-import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
@@ -26,16 +24,12 @@ import DealsMedium from '../../components/DealsMedium';
 import Alert from '../../components/Alert/index';
 
 //third party library
-import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const [isLoader, setIsLoader] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
-  // const arrays = [];
-  // const size = shop.length / 2;
-  // while (shop.length > 0) arrays.push(shop.splice(0, size));
   useEffect(() => {
     getTodayDeal();
     getBanner();
@@ -260,23 +254,6 @@ const Index = ({navigation, ...props}) => {
 
 export default Index;
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//   },
-//   row: {
-//     flexDirection: 'row',
-//   },
-//   item: {
-//     padding: 10,
-//     margin: 5,
-//     backgroundColor: '#f0f0f0',
-//     borderRadius: 5,
-//   },
-// });
-
 {
   /* <FlatList
   data={shop}
@@ -303,65 +280,4 @@ export default Index;
     );
   }}
 />; */
-}
-
-{
-  /* <FlatList
-              data={products}
-              numColumns={2}
-              renderItem={({item, index}) => {
-                if (item.attributes.placement === 'large') {
-                  return (
-                    <Deal
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                } else if (item.attributes.placement === 'medium') {
-                  return (
-                    <DealsMedium
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                } else if (item.attributes.placement === 'small') {
-                  return (
-                    <DealsMedium
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productDescription}
-                      price={item.attributes.price.value}
-                    />
-                  );
-                }
-              }}
-            /> */
 }

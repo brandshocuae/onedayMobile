@@ -1,23 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {
-  StatusBar,
-  ImageBackground,
-  View,
-  Image,
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-  PermissionsAndroid,
-  Platform,
-  Dimensions,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
 //local import
-import {Images} from '../../assets/images';
 import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
@@ -26,9 +12,10 @@ import {login} from '../../store/action/user';
 import MyStatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
 import ActionButton from '../../components/ActionButton';
+import Alert from '../../components/Alert/index';
 
 //third party library
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const dispatch = useDispatch();
@@ -38,6 +25,8 @@ const Index = ({navigation, ...props}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoader, setIsLoader] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
 
   const _handleSignUp = () => {
     setIsLoader(true);
@@ -65,6 +54,8 @@ const Index = ({navigation, ...props}) => {
       .catch(err => {
         console.log(err);
         setIsLoader(false);
+        setShowAlert(true);
+        setAlertText('Something Went Wrong');
       });
   };
 
@@ -132,6 +123,11 @@ const Index = ({navigation, ...props}) => {
         </ScrollView>
       </SafeAreaView>
       {isLoader && <Loader />}
+      <Alert
+        isVisible={showAlert}
+        onPress={() => setShowAlert(false)}
+        message={alertText}
+      />
     </>
   );
 };

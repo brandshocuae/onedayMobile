@@ -4,7 +4,6 @@ import {View, SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
 
 //local import
-import {Images} from '../../assets/images';
 import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
@@ -16,7 +15,7 @@ import ActionButton from '../../components/ActionButton';
 import Alert from '../../components/Alert/index';
 
 //third party library
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 const Index = ({navigation, route, ...props}) => {
   const isFromCheckout = route?.params?.fromCheckout;

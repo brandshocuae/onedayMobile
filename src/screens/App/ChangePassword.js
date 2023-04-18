@@ -11,7 +11,6 @@ import {
 const {width, height} = Dimensions.get('window');
 
 //local import
-import {Images} from '../../assets/images';
 import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
