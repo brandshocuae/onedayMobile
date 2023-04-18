@@ -85,77 +85,14 @@ const Index = ({navigation, ...props}) => {
       });
   };
 
-  // const data = [
-  //   {
-  //     id: 127,
-  //     attributes: {
-  //       productName: 'Jelly beans T shirt',
-  //       placement: 'medium',
-  //       price: {
-  //         id: 35,
-  //         currency: 'USD',
-  //         value: '15',
-  //       },
-  //     },
-  //     quantity: 4,
-  //   },
-  //   {
-  //     id: 127,
-  //     attributes: {
-  //       productName: 'Jelly beans T shirt',
-  //       placement: 'medium',
-  //       price: {
-  //         id: 35,
-  //         currency: 'USD',
-  //         value: '15',
-  //       },
-  //     },
-  //     quantity: 4,
-  //   },
-  //   {
-  //     id: 127,
-  //     attributes: {
-  //       productName: 'Jelly beans T shirt',
-  //       placement: 'medium',
-  //       price: {
-  //         id: 35,
-  //         currency: 'USD',
-  //         value: '15',
-  //       },
-  //     },
-  //     quantity: 4,
-  //   },
-  //   {
-  //     id: 127,
-  //     attributes: {
-  //       productName: 'Jelly beans T shirt',
-  //       placement: 'medium',
-  //       price: {
-  //         id: 35,
-  //         currency: 'USD',
-  //         value: '15',
-  //       },
-  //     },
-  //     quantity: 4,
-  //   },
-  // ];
-
-  // const result = data.map(({id, attributes: {price}, quantity}) => ({
-  //   id,
-  //   price: parseFloat(price.value).toFixed(2),
-  //   quantity,
-  //   total: price.value * quantity,
-  //   discount: 12,
-  // }));
-
-  // console.log('result ====>', result);
-
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header isHome CartOnPress={() => navigation.navigate('Cart')} />
-        <ScrollView contentContainerStyle={{paddingBottom: height * 0.1}}>
+        <ScrollView
+          contentContainerStyle={{paddingBottom: height * 0.1}}
+          showsVerticalScrollIndicator={false}>
           <View
             style={{width: width * 0.9}}
             className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
@@ -184,7 +121,7 @@ const Index = ({navigation, ...props}) => {
                       title={item.attributes.productName}
                       subtitle={item.attributes.productName}
                       price={item.attributes.price.price}
-                      discount={item.attributes.price.discount}
+                      discount={item.attributes.price.discountPrice}
                     />
                   );
                 }
@@ -218,7 +155,7 @@ const Index = ({navigation, ...props}) => {
                       title={item.attributes.productName}
                       subtitle={item.attributes.productName}
                       price={item.attributes.price.price}
-                      discount={item.attributes.price.discount}
+                      discount={item.attributes.price.discountPrice}
                     />
                   );
                 }

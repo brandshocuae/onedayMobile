@@ -244,7 +244,7 @@ const Index = ({navigation, route, ...props}) => {
                   _handleUpdateAddress();
                 }
               }}
-              title={'save'}
+              title={addressID == null ? 'Add' : 'Update'}
             />
           </View>
         </ScrollView>

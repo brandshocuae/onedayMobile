@@ -10,8 +10,6 @@ import {
 const {width, height} = Dimensions.get('window');
 
 //local import
-import {Images} from '../../assets/images';
-import Input from '../../components/Input/index';
 import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
@@ -60,26 +58,33 @@ const Index = ({navigation, ...props}) => {
   };
 
   const proceedToCheckout = () => {
-    // const result = cart.map(({id, quantity}) => ({
-    //   id,
-    //   quantity,
-    // }));
+    setIsLoader(true);
+    const result = cart.map(({id, quantity}) => ({
+      product: id,
+      quantity,
+    }));
 
-    // let params = {
-    //   totalAmount: total,
-    //   order_items: result,
-    // };
-    // console.log('params ===>', params);
+    let params = {
+      data: {
+        totalAmount: total,
+        order_items: result,
+      },
+    };
+    console.log('params ===>', params);
 
-    // axios
-    //   .post(`${BaseURL.PLACE_ORDER}`, params, config)
-    //   .then(res => {
-    //     console.log(res.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    dispatch(handleEmptyCart());
+    axios
+      .post(`${BaseURL.PLACE_ORDER}`, params, config)
+      .then(res => {
+        setIsLoader(false);
+        console.log(res.data);
+        dispatch(handleEmptyCart());
+        setShowAlert(true);
+        setAlertText('Order Created');
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoader(false);
+      });
   };
 
   const [showAlert, setShowAlert] = useState(false);
@@ -169,7 +174,10 @@ const Index = ({navigation, ...props}) => {
       </SafeAreaView>
       <Alert
         isVisible={showAlert}
-        onPress={() => setShowAlert(false)}
+        onPress={() => {
+          setShowAlert(false);
+          navigation.navigate('Home');
+        }}
         message={alertText}
       />
       {isLoader && <Loader />}

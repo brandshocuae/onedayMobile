@@ -11,7 +11,15 @@ import {
 import {Images} from '../assets/images';
 const {width, height} = Dimensions.get('window');
 
-export default function Deal({image, title, subtitle, price, onPress,discount}) {
+export default function Deal({
+  image,
+  title,
+  subtitle,
+  price,
+  onPress,
+  discount,
+}) {
+  const discountPercentage = ((price - discount) / price) * 100;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -29,7 +37,7 @@ export default function Deal({image, title, subtitle, price, onPress,discount}) 
                 'bg-[#e50f62] w-16 h-10 flex items-center justify-center self-end mt-5 rounded-tl-md rounded-bl-md'
               }>
               <Text className={'text-white font-semibold text-sm'}>
-                {discount}%
+                {discountPercentage.toFixed(0)}%
               </Text>
             </View>
           ) : null}
@@ -43,7 +51,7 @@ export default function Deal({image, title, subtitle, price, onPress,discount}) 
           {subtitle}
         </Text>
         <Text numberOfLines={1} className={'text-black font-bold text-xl'}>
-          AED {price}
+          AED {discount}
         </Text>
       </View>
     </TouchableOpacity>

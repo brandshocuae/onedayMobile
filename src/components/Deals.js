@@ -20,6 +20,8 @@ export default function Deal({
   discount,
 }) {
   console.log('discount ===>', discount);
+
+  const discountPercentage = ((price - discount) / price) * 100;
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -38,7 +40,7 @@ export default function Deal({
                 'bg-[#e50f62] w-16 h-10 flex items-center justify-center self-end mt-5 rounded-tl-md rounded-bl-md'
               }>
               <Text className={'text-white font-semibold text-sm'}>
-                {discount}%
+                {discountPercentage.toFixed(0)}%
               </Text>
             </View>
           ) : null}
@@ -47,7 +49,7 @@ export default function Deal({
       <View className={'flex self-start mt-1'}>
         <Text className={'text-black font-semibold text-lg'}>{title}</Text>
         <Text className={'text-slate-500 text-sm'}>{subtitle}</Text>
-        <Text className={'text-black font-bold text-xl'}>AED {price}</Text>
+        <Text className={'text-black font-bold text-xl'}>AED {discount}</Text>
       </View>
     </TouchableOpacity>
   );

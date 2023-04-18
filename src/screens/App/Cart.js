@@ -62,7 +62,6 @@ const Index = ({navigation, ...props}) => {
       })
       .catch(error => {
         console.log(error);
-        setIsLoader(false);
       });
   };
 
@@ -161,7 +160,7 @@ const Index = ({navigation, ...props}) => {
                       </TouchableOpacity> */}
 
                       <Text className={'text-black font-bold text-base'}>
-                        AED {item.attributes?.price?.price}
+                        AED {item.attributes?.price?.discountPrice}
                       </Text>
                     </View>
                   </View>

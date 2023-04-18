@@ -127,12 +127,10 @@ const Index = ({navigation, route, ...props}) => {
 
   // Picker
 
-  console.log(
-    'Discount ===>',
-    (data.attributes.price.discount * data.attributes.price.price) / 100,
-  );
-
-  // const discountPercentage = ((actualPrice - discountPrice) / actualPrice) * 100;
+  const discountPercentage =
+    ((data.attributes?.price?.price - data.attributes?.price?.discountPrice) /
+      data.attributes?.price?.price) *
+    100;
 
   return (
     <>
@@ -174,22 +172,20 @@ const Index = ({navigation, route, ...props}) => {
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
               <Text className={'text-black font-bold text-xl'}>
-                AED {data.attributes?.price?.price}{' '}
+                AED {data.attributes?.price?.discountPrice}{' '}
               </Text>
               <Text className={'text-sm text-slate-500 line-through'}>
-                AED 12,000
+                AED {data.attributes?.price?.price}
               </Text>
             </View>
 
-            <Text className={'text-red-600 text-base font-bold'}>
-              -{data.attributes?.price?.discount}%
-            </Text>
+            <Text className={'text-red-600 text-base font-bold'}>{discountPercentage.toFixed(0)}%</Text>
             <Text className={'text-slate-600 text-xs'}>
               ETA: 3-5 working days.
             </Text>
-            <Text className={'text-slate-600 text-xs'}>
+            {/* <Text className={'text-slate-600 text-xs'}>
               Pay in 4 instalments from AED 112 with Payflex
-            </Text>
+            </Text> */}
             <View
               style={{
                 width: width * 0.94,

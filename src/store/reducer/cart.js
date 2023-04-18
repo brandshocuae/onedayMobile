@@ -26,7 +26,7 @@ export default reducer = (state = initState, action) => {
         oldObj.quantity += 1;
 
         // update price
-        tempPrice += parseInt(action.item.attributes.price.price);
+        tempPrice += parseInt(action.item.attributes.price.discountPrice);
         // putting back into cart
         tempCart[currentItemInd] = oldObj;
       } else {
@@ -37,7 +37,7 @@ export default reducer = (state = initState, action) => {
         tempCart.push(tempNewObj);
         // update price
 
-        tempPrice += parseInt(action.item.attributes.price.price);
+        tempPrice += parseInt(action.item.attributes.price.discountPrice);
       }
       console.log('WORKING 5 ==>');
       return {
@@ -59,7 +59,7 @@ export default reducer = (state = initState, action) => {
         let tempItemObj = {...tempCartR[currentItemIndR]};
 
         tempItemObj.quantity -= 1;
-        tempPriceR -= parseInt(action.item.attributes.price.price);
+        tempPriceR -= parseInt(action.item.attributes.price.discountPrice);
 
         // putting it back
         tempCartR[currentItemIndR] = tempItemObj;
@@ -79,6 +79,7 @@ export default reducer = (state = initState, action) => {
       return {
         ...state,
         cart: [],
+        total:0
       };
     default:
       return state;
