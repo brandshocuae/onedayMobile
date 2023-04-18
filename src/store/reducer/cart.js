@@ -1,4 +1,4 @@
-import {ADD_ITEM, REMOVE_ITEM} from '../actionType';
+import {ADD_ITEM, REMOVE_ITEM, EMPTY_CART} from '../actionType';
 
 // init state
 const initState = {
@@ -26,7 +26,7 @@ export default reducer = (state = initState, action) => {
         oldObj.quantity += 1;
 
         // update price
-        tempPrice += parseInt(action.item.attributes.price.value);
+        tempPrice += parseInt(action.item.attributes.price.price);
         // putting back into cart
         tempCart[currentItemInd] = oldObj;
       } else {
@@ -37,7 +37,7 @@ export default reducer = (state = initState, action) => {
         tempCart.push(tempNewObj);
         // update price
 
-        tempPrice += parseInt(action.item.attributes.price.value);
+        tempPrice += parseInt(action.item.attributes.price.price);
       }
       console.log('WORKING 5 ==>');
       return {
@@ -59,7 +59,7 @@ export default reducer = (state = initState, action) => {
         let tempItemObj = {...tempCartR[currentItemIndR]};
 
         tempItemObj.quantity -= 1;
-        tempPriceR -= parseInt(action.item.attributes.price.value);
+        tempPriceR -= parseInt(action.item.attributes.price.price);
 
         // putting it back
         tempCartR[currentItemIndR] = tempItemObj;
@@ -73,6 +73,12 @@ export default reducer = (state = initState, action) => {
         ...state,
         cart: tempCartR,
         total: tempPriceR,
+      };
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        cart: [],
       };
     default:
       return state;

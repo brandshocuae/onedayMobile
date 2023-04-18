@@ -16,15 +16,24 @@ import axios from '../../utils/axios';
 import BaseURL from '../../constants/apiEndPoints';
 import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
+import Alert from '../../components/Alert/index';
+import {handleEmptyCart} from '../../store/action/cart';
 
 //third party library
 import {useSelector, useDispatch} from 'react-redux';
 import MyStatusBar from '../../components/StatusBar';
 
 const Index = ({navigation, ...props}) => {
+  const dispatch = useDispatch();
   const cart = useSelector(state => state.cartReducer.cart);
   const total = useSelector(state => state.cartReducer.total);
   const user = useSelector(state => state.userReducer.userData);
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ` + user.jwt,
+    },
+  };
 
   const [Location, setLocation] = useState('');
   const [Street1, setStreet1] = useState('');
@@ -49,6 +58,33 @@ const Index = ({navigation, ...props}) => {
         console.log(error);
       });
   };
+
+  const proceedToCheckout = () => {
+    // const result = cart.map(({id, quantity}) => ({
+    //   id,
+    //   quantity,
+    // }));
+
+    // let params = {
+    //   totalAmount: total,
+    //   order_items: result,
+    // };
+    // console.log('params ===>', params);
+
+    // axios
+    //   .post(`${BaseURL.PLACE_ORDER}`, params, config)
+    //   .then(res => {
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    dispatch(handleEmptyCart());
+  };
+
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
+  const [isLoader, setIsLoader] = useState(false);
 
   return (
     <>
@@ -117,7 +153,9 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-black text-lg font-bold'}>AED {total}</Text>
           </View>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Home')}
+            onPress={() => {
+              proceedToCheckout();
+            }}
             activeOpacity={0.7}
             style={{width: width * 0.9}}
             className={
@@ -129,6 +167,12 @@ const Index = ({navigation, ...props}) => {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
+      <Alert
+        isVisible={showAlert}
+        onPress={() => setShowAlert(false)}
+        message={alertText}
+      />
+      {isLoader && <Loader />}
     </>
   );
 };

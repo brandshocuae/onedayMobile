@@ -29,12 +29,9 @@ import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 const Index = ({navigation, ...props}) => {
   const isLogin = useSelector(state => state.userReducer.isLogin);
   const user = useSelector(state => state.userReducer.userData);
-  console.log('isLogin ===>', isLogin);
   const dispatch = useDispatch();
   const cart = useSelector(state => state.cartReducer.cart);
   const total = useSelector(state => state.cartReducer.total);
-  console.log(cart);
-
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
   const [forLogin, setForLogin] = useState(false);
@@ -55,7 +52,7 @@ const Index = ({navigation, ...props}) => {
   const getCustomerID = () => {
     axios
       .get(
-        `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
+        `${BaseURL.GET_CUSTOMER_ID}/${user?.user?.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
         console.log(response.data);
@@ -69,6 +66,7 @@ const Index = ({navigation, ...props}) => {
       });
   };
 
+  console.log('Cart ====>', cart);
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -163,7 +161,7 @@ const Index = ({navigation, ...props}) => {
                       </TouchableOpacity> */}
 
                       <Text className={'text-black font-bold text-base'}>
-                        AED {item.attributes?.price?.value}
+                        AED {item.attributes?.price?.price}
                       </Text>
                     </View>
                   </View>

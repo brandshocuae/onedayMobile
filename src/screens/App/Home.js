@@ -38,6 +38,7 @@ const Index = ({navigation, ...props}) => {
   // while (shop.length > 0) arrays.push(shop.splice(0, size));
   useEffect(() => {
     getTodayDeal();
+    getBanner();
   }, []);
 
   const [mainBanner, setMainBanner] = useState('');
@@ -46,14 +47,14 @@ const Index = ({navigation, ...props}) => {
   const getTodayDeal = () => {
     setIsLoader(true);
     axios
-      .get(`${BaseURL.TODAYS_DEAL}?populate=deep`)
+      .get(`${BaseURL.GET_PRODUCT}`)
       .then(res => {
-        console.log('Data ===>', res.data.data[0].attributes.products.data);
-        setProducts(res.data.data[0].attributes.products.data);
-        setMainBanner(
-          res.data.data[0].attributes.dealMainBanner.data.attributes.formats
-            .large.url,
-        );
+        console.log('Data ===>', res.data.data);
+        setProducts(res.data.data);
+        // setMainBanner(
+        //   res.data.data[0].attributes.dealMainBanner.data.attributes.formats
+        //     .large.url,
+        // );
         // setQuadroDeal(res.data.data[0].attributes.quadroDeal.data);
         // setShops(res.data.data[0].attributes.shops.data[0].attributes);
         setIsLoader(false);
@@ -61,10 +62,93 @@ const Index = ({navigation, ...props}) => {
       .catch(err => {
         console.log('Error ====>', err);
         setIsLoader(false);
-        setShowAlert(true);
-        setAlertText('Something Went Wrong');
+        // setShowAlert(true);
+        // setAlertText('Something Went Wrong');
       });
   };
+
+  const getBanner = () => {
+    setIsLoader(true);
+    axios
+      .get(`${BaseURL.TODAYS_DEAL}?populate=deep`)
+      .then(res => {
+        setMainBanner(
+          res.data.data[0].attributes.dealMainBanner.data.attributes.formats
+            .large.url,
+        );
+
+        setIsLoader(false);
+      })
+      .catch(err => {
+        console.log('Error ====>', err);
+        setIsLoader(false);
+      });
+  };
+
+  // const data = [
+  //   {
+  //     id: 127,
+  //     attributes: {
+  //       productName: 'Jelly beans T shirt',
+  //       placement: 'medium',
+  //       price: {
+  //         id: 35,
+  //         currency: 'USD',
+  //         value: '15',
+  //       },
+  //     },
+  //     quantity: 4,
+  //   },
+  //   {
+  //     id: 127,
+  //     attributes: {
+  //       productName: 'Jelly beans T shirt',
+  //       placement: 'medium',
+  //       price: {
+  //         id: 35,
+  //         currency: 'USD',
+  //         value: '15',
+  //       },
+  //     },
+  //     quantity: 4,
+  //   },
+  //   {
+  //     id: 127,
+  //     attributes: {
+  //       productName: 'Jelly beans T shirt',
+  //       placement: 'medium',
+  //       price: {
+  //         id: 35,
+  //         currency: 'USD',
+  //         value: '15',
+  //       },
+  //     },
+  //     quantity: 4,
+  //   },
+  //   {
+  //     id: 127,
+  //     attributes: {
+  //       productName: 'Jelly beans T shirt',
+  //       placement: 'medium',
+  //       price: {
+  //         id: 35,
+  //         currency: 'USD',
+  //         value: '15',
+  //       },
+  //     },
+  //     quantity: 4,
+  //   },
+  // ];
+
+  // const result = data.map(({id, attributes: {price}, quantity}) => ({
+  //   id,
+  //   price: parseFloat(price.value).toFixed(2),
+  //   quantity,
+  //   total: price.value * quantity,
+  //   discount: 12,
+  // }));
+
+  // console.log('result ====>', result);
 
   return (
     <>
@@ -99,7 +183,8 @@ const Index = ({navigation, ...props}) => {
                       }
                       title={item.attributes.productName}
                       subtitle={item.attributes.productName}
-                      price={item.attributes.price.value}
+                      price={item.attributes.price.price}
+                      discount={item.attributes.price.discount}
                     />
                   );
                 }
@@ -132,7 +217,8 @@ const Index = ({navigation, ...props}) => {
                       }
                       title={item.attributes.productName}
                       subtitle={item.attributes.productName}
-                      price={item.attributes.price.value}
+                      price={item.attributes.price.price}
+                      discount={item.attributes.price.discount}
                     />
                   );
                 }

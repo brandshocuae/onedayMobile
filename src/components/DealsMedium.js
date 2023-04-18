@@ -11,7 +11,7 @@ import {
 import {Images} from '../assets/images';
 const {width, height} = Dimensions.get('window');
 
-export default function Deal({image, title, subtitle, price, onPress}) {
+export default function Deal({image, title, subtitle, price, onPress,discount}) {
   return (
     <TouchableOpacity
       onPress={onPress}
@@ -23,12 +23,16 @@ export default function Deal({image, title, subtitle, price, onPress}) {
           source={{uri: image}}
           className={'w-40 h-40'}
           resizeMode={'stretch'}>
-          <View
-            className={
-              'bg-[#e50f62] w-12 h-9 flex items-center justify-center self-end mt-5 rounded-tl-md rounded-bl-md'
-            }>
-            <Text className={'text-white font-semibold text-xs'}>-30%</Text>
-          </View>
+          {discount != null ? (
+            <View
+              className={
+                'bg-[#e50f62] w-16 h-10 flex items-center justify-center self-end mt-5 rounded-tl-md rounded-bl-md'
+              }>
+              <Text className={'text-white font-semibold text-sm'}>
+                {discount}%
+              </Text>
+            </View>
+          ) : null}
         </ImageBackground>
       </View>
       <View className={'flex self-start mt-1'}>

@@ -72,8 +72,8 @@ const Index = ({navigation, route, ...props}) => {
   let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
 
   const handleCart = () => {
-    data.variants = selectedValues;
-    console.log('With Variants ===>', data);
+    // data.variants = selectedValues;
+    // console.log('With Variants ===>', data);
     dispatch(handleAddItemToCart(data));
   };
 
@@ -82,50 +82,57 @@ const Index = ({navigation, route, ...props}) => {
 
   // Picker
 
-  const renderPicker = (key, options) => {
-    const selectedValue = selectedValues[key] || '';
-    return (
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={itemValue => handleValueChange(itemValue, key)}
-        style={{width: width * 0.94}}>
-        <Picker.Item label={`Select ${key}`} value="" />
-        {options.map((option, index) => (
-          <Picker.Item key={index} label={option} value={option} />
-        ))}
-      </Picker>
-    );
-  };
+  // const renderPicker = (key, options) => {
+  //   const selectedValue = selectedValues[key] || '';
+  //   return (
+  //     <Picker
+  //       selectedValue={selectedValue}
+  //       onValueChange={itemValue => handleValueChange(itemValue, key)}
+  //       style={{width: width * 0.94}}>
+  //       <Picker.Item label={`Select ${key}`} value="" />
+  //       {options.map((option, index) => (
+  //         <Picker.Item key={index} label={option} value={option} />
+  //       ))}
+  //     </Picker>
+  //   );
+  // };
 
-  const [selectedValues, setSelectedValues] = useState({});
-  const [availableOptions, setAvailableOptions] = useState({});
-  console.log('selectedValues ===>', selectedValues);
-  console.log('availableOptions ===>', availableOptions);
-  let variants =
-    data?.attributes?.product_variants?.data?.[0]?.attributes?.options;
-  useEffect(() => {
-    const options = {};
-    variants.forEach(variant => {
-      Object.entries(variant.values).forEach(([key, value]) => {
-        if (!options[key]) {
-          options[key] = [];
-        }
-        if (!options[key].includes(value)) {
-          options[key].push(value);
-        }
-      });
-    });
-    setAvailableOptions(options);
-  }, []);
+  // const [selectedValues, setSelectedValues] = useState({});
+  // const [availableOptions, setAvailableOptions] = useState({});
+  // console.log('selectedValues ===>', selectedValues);
+  // console.log('availableOptions ===>', availableOptions);
+  // let variants =
+  //   data?.attributes?.product_variants?.data?.[0]?.attributes?.options;
+  // useEffect(() => {
+  //   const options = {};
+  //   variants.forEach(variant => {
+  //     Object.entries(variant.values).forEach(([key, value]) => {
+  //       if (!options[key]) {
+  //         options[key] = [];
+  //       }
+  //       if (!options[key].includes(value)) {
+  //         options[key].push(value);
+  //       }
+  //     });
+  //   });
+  //   setAvailableOptions(options);
+  // }, []);
 
-  const handleValueChange = (value, key) => {
-    setSelectedValues(prevValues => ({
-      ...prevValues,
-      [key]: value,
-    }));
-  };
+  // const handleValueChange = (value, key) => {
+  //   setSelectedValues(prevValues => ({
+  //     ...prevValues,
+  //     [key]: value,
+  //   }));
+  // };
 
   // Picker
+
+  console.log(
+    'Discount ===>',
+    (data.attributes.price.discount * data.attributes.price.price) / 100,
+  );
+
+  // const discountPercentage = ((actualPrice - discountPrice) / actualPrice) * 100;
 
   return (
     <>
@@ -167,14 +174,16 @@ const Index = ({navigation, route, ...props}) => {
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
               <Text className={'text-black font-bold text-xl'}>
-                AED {data.attributes?.price?.value}{' '}
+                AED {data.attributes?.price?.price}{' '}
               </Text>
               <Text className={'text-sm text-slate-500 line-through'}>
                 AED 12,000
               </Text>
             </View>
 
-            <Text className={'text-red-600 text-base font-bold'}>-30%</Text>
+            <Text className={'text-red-600 text-base font-bold'}>
+              -{data.attributes?.price?.discount}%
+            </Text>
             <Text className={'text-slate-600 text-xs'}>
               ETA: 3-5 working days.
             </Text>
@@ -210,7 +219,7 @@ const Index = ({navigation, route, ...props}) => {
               </View>
             </View>
 
-            <View className={'mt-4'}>
+            {/* <View className={'mt-4'}>
               {Object.keys(availableOptions).map((key, index) => (
                 <View key={index}>
                   <Text className={'text-lg font-semibold text-black'}>
@@ -219,15 +228,8 @@ const Index = ({navigation, route, ...props}) => {
                   {renderPicker(key, availableOptions[key])}
                 </View>
               ))}
-            </View>
-            {/* <VariantSelector
-              variants={
-                data?.attributes?.product_variants?.data.length === 0
-                  ? []
-                  : data?.attributes?.product_variants?.data?.[0]?.attributes
-                      ?.options
-              }
-            /> */}
+            </View> */}
+
             <TouchableOpacity
               onPress={() => handleCart()}
               activeOpacity={0.7}
