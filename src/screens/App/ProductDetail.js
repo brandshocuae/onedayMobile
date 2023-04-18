@@ -132,6 +132,14 @@ const Index = ({navigation, route, ...props}) => {
       data.attributes?.price?.price) *
     100;
 
+  const MarkdownComponent = () => {
+    return (
+      <Markdown style={{width: width * 0.9}}>
+        {data.attributes.ProductDescription}
+      </Markdown>
+    );
+  };
+  // console.log(MarkdownComponent());
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -252,9 +260,8 @@ const Index = ({navigation, route, ...props}) => {
             <Text className={'text-2xl font-semibold uppercase mb-4'}>
               Product Description:
             </Text>
-            <Markdown style={{width: width * 0.9}}>
-              {data.attributes.ProductDescription}
-            </Markdown>
+
+            {MarkdownComponent()}
           </View>
           <View
             style={{borderBottomWidth: 1}}

@@ -39,6 +39,7 @@ const Index = ({navigation, ...props}) => {
   useEffect(() => {
     getTodayDeal();
     getBanner();
+    getShops();
   }, []);
 
   const [mainBanner, setMainBanner] = useState('');
@@ -49,21 +50,13 @@ const Index = ({navigation, ...props}) => {
     axios
       .get(`${BaseURL.GET_PRODUCT}`)
       .then(res => {
-        console.log('Data ===>', res.data.data);
         setProducts(res.data.data);
-        // setMainBanner(
-        //   res.data.data[0].attributes.dealMainBanner.data.attributes.formats
-        //     .large.url,
-        // );
-        // setQuadroDeal(res.data.data[0].attributes.quadroDeal.data);
-        // setShops(res.data.data[0].attributes.shops.data[0].attributes);
+
         setIsLoader(false);
       })
       .catch(err => {
-        console.log('Error ====>', err);
+        // console.log('Error ====>', err);
         setIsLoader(false);
-        // setShowAlert(true);
-        // setAlertText('Something Went Wrong');
       });
   };
 
@@ -80,6 +73,24 @@ const Index = ({navigation, ...props}) => {
         setIsLoader(false);
       })
       .catch(err => {
+        // console.log('Error ====>', err);
+        setIsLoader(false);
+      });
+  };
+
+  const [shopData, setShopData] = useState([]);
+  const [shopName, setShopName] = useState('');
+  const getShops = () => {
+    setIsLoader(true);
+    axios
+      .get(`${BaseURL.GET_SHOPS}`)
+      .then(res => {
+        setIsLoader(false);
+        console.log('Shops ===>', res.data.data[0].attributes);
+        setShopName(res.data.data[0].attributes.name);
+        setShopData(res.data.data[0].attributes.deals.data);
+      })
+      .catch(err => {
         console.log('Error ====>', err);
         setIsLoader(false);
       });
@@ -91,7 +102,7 @@ const Index = ({navigation, ...props}) => {
       <SafeAreaView className={'flex-1 bg-[#F9F9F9]'}>
         <Header isHome CartOnPress={() => navigation.navigate('Cart')} />
         <ScrollView
-          contentContainerStyle={{paddingBottom: height * 0.1}}
+          contentContainerStyle={{paddingBottom: height * 0.2}}
           showsVerticalScrollIndicator={false}>
           <View
             style={{width: width * 0.9}}
@@ -171,20 +182,21 @@ const Index = ({navigation, ...props}) => {
                 alignSelf: 'center',
               }}
             />
-            {/* <View style={{width: width}} className={'py-1'}>
+
+            <View style={{width: width}} className={'py-1'}>
               <View className={'w-full bg-green-800 py-1'}>
                 <Text
                   className={
                     'text-xl font-bold text-white uppercase flex text-center'
                   }>
-                  {shops.name}
+                  {shopName}
                 </Text>
               </View>
               <View
                 style={{width: width * 0.98}}
                 className={'flex self-center'}>
                 <FlatList
-                  data={shops?.deals?.data}
+                  data={shopData}
                   horizontal
                   showsHorizontalScrollIndicator={false}
                   renderItem={({item}) => {
@@ -200,7 +212,8 @@ const Index = ({navigation, ...props}) => {
                         }
                         title={item.attributes.productName}
                         subtitle={item.attributes.productDescription}
-                        price={item.attributes?.price?.value}
+                        price={item.attributes.price?.price}
+                        discount={item.attributes.price.discountPrice}
                       />
                     );
                   }}
@@ -210,7 +223,7 @@ const Index = ({navigation, ...props}) => {
                 activeOpacity={0.7}
                 onPress={() =>
                   navigation.navigate('Shop', {
-                    data: shops,
+                    data: shopData,
                   })
                 }
                 className={
@@ -220,7 +233,7 @@ const Index = ({navigation, ...props}) => {
                   className={
                     'text-xl font-bold text-white uppercase flex text-center'
                   }>
-                  see all 18 deals
+                  see all deals
                 </Text>
                 <Image
                   source={Images.back}
@@ -228,44 +241,7 @@ const Index = ({navigation, ...props}) => {
                   resizeMode={'contain'}
                 />
               </TouchableOpacity>
-            </View> */}
-
-            {/* <FlatList
-              data={[1, 2]}
-              renderItem={({}) => {
-                return (
-                  <Deal
-                    image={Images.dress3}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
-                  />
-                );
-              }}
-            /> */}
-            {/* <FlatList
-              data={[1, 2, 3, 4]}
-              renderItem={({}) => {
-                return (
-                  <DealsMedium
-                    image={Images.dress5}
-                    title={'Wedding Dress'}
-                    subtitle={'Color, detail, and gold.'}
-                    price={'5,000'}
-                  />
-                );
-              }}
-              contentContainerStyle={{
-                width: width * 0.9,
-                flexWrap: 'wrap',
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginLeft: width * 0.025,
-                alignContent: 'center',
-                marginTop: height * 0.01,
-                alignSelf: 'center',
-              }}
-            /> */}
+            </View>
           </View>
         </ScrollView>
       </SafeAreaView>

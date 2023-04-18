@@ -9,6 +9,7 @@ const _Environments = {
     ADDRESS_BOOK: `api/address-books`,
     GET_PRODUCT: `api/products?populate=*`,
     PLACE_ORDER: `api/orders`,
+    GET_SHOPS: `api/shops?populate[0]=shopBanner&populate[1]=deals&populate[2]=deals.productImages&populate[3]=deals.price`,
   },
 };
 

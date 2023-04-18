@@ -55,7 +55,7 @@ const Header = ({
   return (
     <View
       className={
-        'w-full bg-[#0283c3] py-1 flex flex-row justify-between px-3 items-center'
+        'w-full bg-[#0283c3] py-2 flex flex-row justify-between px-3 items-center'
       }>
       <TouchableOpacity
         activeOpacity={1}
@@ -96,7 +96,7 @@ const Header = ({
           </View>
         )}
         {!isCart && (
-          <TouchableOpacity className={'w-8 h-8 ml-3'} onPress={CartOnPress}>
+          <TouchableOpacity className={'w-8 h-8 ml-3 mt-2'} onPress={CartOnPress}>
             <ImageBackground
               source={Images.ShoppingCart}
               style={{width: '100%', height: '100%'}}
