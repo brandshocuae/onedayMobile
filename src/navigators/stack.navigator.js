@@ -13,6 +13,7 @@ import Checkout from '../screens/App/Checkout';
 import MyWallet from '../screens/App/MyWallet';
 import Shop from '../screens/App/Shop';
 import Cart from '../screens/App/Cart';
+import PaymentMethod from '../screens/App/PaymentMethod';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -35,6 +36,7 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="MyWallet" component={MyWallet} />
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="Cart" component={Cart} />
+      <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

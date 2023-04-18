@@ -7,7 +7,7 @@ const _Environments = {
     TODAYS_DEAL: `api/todays-deals`,
     GET_CUSTOMER_ID: `api/users`,
     ADDRESS_BOOK: `api/address-books`,
-    GET_PRODUCT: `api/products?populate=*`,
+    GET_PRODUCT: `api/products?populate[0]=productImages&populate[1]=price&populate[2]=description&populate[3]=description.feature`,
     PLACE_ORDER: `api/orders`,
     GET_SHOPS: `api/shops?populate[0]=shopBanner&populate[1]=deals&populate[2]=deals.productImages&populate[3]=deals.price`,
   },

@@ -1,5 +1,5 @@
 const Logo = require('./Logo.png');
-const LogoVertical = require('./LogoVertical.jpg');
+const LogoVertical = require('./LogoVertical.png');
 const LogoWhiteBackground = require('./LogoWhiteBackground.png');
 const Home = require('./Home.png');
 const UnHome = require('./UnHome.png');

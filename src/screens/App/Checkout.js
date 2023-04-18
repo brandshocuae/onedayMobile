@@ -104,29 +104,36 @@ const Index = ({navigation, ...props}) => {
         />
         <View className={'h-2'} />
 
-        <View
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('Address')}
           style={{borderBottomWidth: 1, borderBottomColor: '#D4D4D4'}}
           className={'w-full py-1 px-3 mt-4'}>
           <Text className={'text-black font-semibold text-lg'}>Address</Text>
           <Text className={'text-slate-600 text-sm'}>
             {Location} {Street1} {ZipCode}
           </Text>
-        </View>
+        </TouchableOpacity>
 
-        <View
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('PaymentMethod')}
           style={{borderBottomWidth: 1, borderBottomColor: '#D4D4D4'}}
           className={'w-full py-1 px-3 mt-4'}>
           <Text className={'text-black font-semibold text-lg'}>Payment</Text>
           <Text className={'text-slate-600 text-sm'}>Cash On Delivery</Text>
-        </View>
-        <View
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => navigation.navigate('Help')}
           style={{borderBottomWidth: 1, borderBottomColor: '#D4D4D4'}}
           className={'w-full py-1 px-3 mt-4'}>
           <Text className={'text-black font-semibold text-lg'}>
             Having any problem?
           </Text>
           <Text className={'text-slate-600 text-sm underline'}>Contact Us</Text>
-        </View>
+        </TouchableOpacity>
 
         <View
           style={{position: 'absolute', bottom: 0}}

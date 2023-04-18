@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -249,18 +250,43 @@ const Index = ({navigation, route, ...props}) => {
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}
           />
+          {data?.attributes?.description != null ? (
+            <View
+              className="flex self-center mt-5"
+              style={{width: width * 0.9}}>
+              <Text className={'text-2xl font-semibold uppercase mb-2'}>
+                Product Description:
+              </Text>
 
-          <View className="flex self-center mt-5" style={{width: width * 0.9}}>
-            <Text className={'text-2xl font-semibold uppercase mb-4'}>
-              Product Description:
-            </Text>
-
-            {MarkdownComponent()}
-          </View>
-          <View
-            style={{borderBottomWidth: 1}}
-            className={'h-4 w-full border-slate-300'}
-          />
+              <FlatList
+                data={data?.attributes?.description?.feature}
+                renderItem={({item}) => {
+                  return (
+                    <>
+                      <Text
+                        className={
+                          'text-2xl text-black font-semibold uppercase mb-2 mt-2'
+                        }>
+                        {item.title}:
+                      </Text>
+                      <FlatList
+                        data={item.values}
+                        renderItem={({item, index}) => {
+                          return (
+                            <View>
+                              <Text className={'text-lg text-black'}>
+                                {index + 1}. {item}
+                              </Text>
+                            </View>
+                          );
+                        }}
+                      />
+                    </>
+                  );
+                }}
+              />
+            </View>
+          ) : null}
         </ScrollView>
       </SafeAreaView>
       <Alert
