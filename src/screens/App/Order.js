@@ -131,6 +131,13 @@ const Index = ({navigation, ...props}) => {
                 </TouchableOpacity>
               );
             }}
+            ListEmptyComponent={
+              <View className={'flex self-center mt-12'}>
+                <Text className={'text-black font-semibold text-2xl'}>
+                  No list Found
+                </Text>
+              </View>
+            }
           />
         </ScrollView>
       </SafeAreaView>

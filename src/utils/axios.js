@@ -27,12 +27,10 @@ apiRequest.interceptors.response.use(
 
     // todo for login
     if (error.response.status == 401) {
-      store.dispatch(logout()); //Temporarily disabled this as other 401 calls logs out the user
-      setTimeout(() => {
-        RNRestart.Restart();
-      }, 500);
-
-      // RNRestart.restart();
+      // store.dispatch(logout()); //Temporarily disabled this as other 401 calls logs out the user
+      // setTimeout(() => {
+      //   RNRestart.Restart();
+      // }, 500);
     }
     return Promise.reject(error.response);
   },

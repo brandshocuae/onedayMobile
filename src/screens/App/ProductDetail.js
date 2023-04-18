@@ -141,7 +141,10 @@ const Index = ({navigation, route, ...props}) => {
           isTimer={false}
           _handleBack={() => navigation.goBack()}
           title={'              '}
-          CartOnPress={() => navigation.navigate('Cart')}
+          CartOnPress={() => {
+            navigation.navigate('Cart');
+            setQuantity(1);
+          }}
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.07}}>
           <View className={'h-4'} />
@@ -179,7 +182,9 @@ const Index = ({navigation, route, ...props}) => {
               </Text>
             </View>
 
-            <Text className={'text-red-600 text-base font-bold'}>{discountPercentage.toFixed(0)}%</Text>
+            <Text className={'text-red-600 text-base font-bold'}>
+              {discountPercentage.toFixed(0)}%
+            </Text>
             <Text className={'text-slate-600 text-xs'}>
               ETA: 3-5 working days.
             </Text>

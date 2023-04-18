@@ -170,7 +170,7 @@ const Index = ({navigation, ...props}) => {
             ListEmptyComponent={
               <View className={'flex self-center mt-12'}>
                 <Text className={'text-2xl text-black font-bold'}>
-                  No List Found
+                  Cart is empty
                 </Text>
               </View>
             }

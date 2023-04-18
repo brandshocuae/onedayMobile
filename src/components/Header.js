@@ -101,12 +101,12 @@ const Header = ({
               source={Images.ShoppingCart}
               style={{width: '100%', height: '100%'}}
               resizeMode={'contain'}>
-              {!cart.length == 0 ? (
+              {!cart?.length == 0 ? (
                 <View
                   className={
-                    'w-6 h-6 bg-red-600 rounded-full ml-4 -mt-5 flex items-center justify-center'
+                    'w-5 h-5 bg-red-600 rounded-full ml-4 -mt-4 flex items-center justify-center'
                   }>
-                  <Text className={'text-base text-white font-semibold'}>
+                  <Text className={'text-sm text-white font-semibold'}>
                     {cart.length}
                   </Text>
                 </View>
