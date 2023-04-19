@@ -6,24 +6,22 @@ import {
   Dimensions,
   View,
   Image,
+  FlatList,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
 //local import
 import {Images} from '../../assets/images';
-import Input from '../../components/Input/index';
-import axios from '../../utils/axios';
-import BaseURL from '../../constants/apiEndPoints';
-import Loader from '../../components/Loader.component';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 
 //third party library
-import {useSelector, useDispatch} from 'react-redux';
+import moment from 'moment';
 
-const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
+const Index = ({navigation, route, ...props}) => {
+  const data = route.params.data;
+  console.log('Data ===>', data);
 
   return (
     <>
@@ -46,10 +44,15 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-black font-semibold text-xl'}>
               Delivery to
             </Text>
-            <Text className={'text-slate-500 text-base'}>
-              1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai -
-              United Arab Emirates
-            </Text>
+            {data.attributes.deliveryAddress != null ? (
+              <Text className={'text-slate-500 text-base'}>
+                {data.attributes.deliveryAddress.city}{' '}
+                {data.attributes.deliveryAddress.addressLine1}{' '}
+                {data.attributes.deliveryAddress.companyOrBuilding}
+                {'\n'}
+                {data.attributes.deliveryAddress.zipCode}
+              </Text>
+            ) : null}
           </View>
 
           <View
@@ -60,7 +63,9 @@ const Index = ({navigation, ...props}) => {
             </Text>
             <Text className={'text-slate-500 text-base'}>
               Order placed{'          '}{' '}
-              <Text className={'text-black'}>10-03-23</Text>
+              <Text className={'text-black'}>
+                {moment(data.attributes.publishedAt).format('MM/DD/YYYY')}
+              </Text>
             </Text>
             <Text className={'text-black font-bold mt-5 text-base'}>
               To be shipped
@@ -68,33 +73,53 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-black font-bold mb-5 text-base'}>
               ETA: 5-10 working days from order date
             </Text>
-            <View className={'flex flex-row'}>
-              <View
-                className={
-                  'h-28 w-28 overflow-hidden bg-red-200 rounded-md mr-2'
-                }>
-                <Image
-                  source={Images.dress1}
-                  className={'w-[100%] h-[100%]'}
-                  resizeMode={'stretch'}
-                />
-              </View>
-              <View>
-                <Text className={'text-base text-black font-semibold'}>
-                  Wedding dress
-                </Text>
-                <Text className={'text-base text-slate-500 font-semibold'}>
-                  Color, detail, and gold.
-                </Text>
-                <Text className={'text-base text-slate-500 font-semibold'}>
-                  Item{' '}
-                  <Text className={'text-base text-black font-semibold'}>2</Text>
-                </Text>
-                <Text className={'text-base text-slate-500 font-semibold'}>
-                  AED 5,000 x1
-                </Text>
-              </View>
-            </View>
+            <FlatList
+              data={data.attributes.order_items.data}
+              renderItem={({item}) => {
+                return (
+                  <View className={'flex flex-row mt-4'}>
+                    <View
+                      className={
+                        'h-28 w-28 overflow-hidden bg-red-200 rounded-md mr-2'
+                      }>
+                      <Image
+                        source={{
+                          uri: item.attributes.product.data.attributes
+                            .productImages.data[0].attributes.url,
+                        }}
+                        className={'w-[100%] h-[100%]'}
+                        resizeMode={'stretch'}
+                      />
+                    </View>
+                    <View>
+                      <Text className={'text-base text-black font-semibold'}>
+                        {item.attributes.product.data.attributes.productName}
+                      </Text>
+                      <Text
+                        className={'text-base text-slate-500 font-semibold'}>
+                        {item.attributes.product.data.attributes.productName}
+                      </Text>
+                      <Text
+                        className={'text-base text-slate-500 font-semibold'}>
+                        Item{' '}
+                        <Text className={'text-base text-black font-semibold'}>
+                          {item.attributes.quantity}
+                        </Text>
+                      </Text>
+                      <Text
+                        className={'text-base text-slate-500 font-semibold'}>
+                        AED{' '}
+                        {
+                          item.attributes.product.data.attributes.price
+                            .discountPrice
+                        }{' '}
+                        x{item.attributes.quantity}
+                      </Text>
+                    </View>
+                  </View>
+                );
+              }}
+            />
           </View>
           <View
             style={{width: width * 0.95, borderBottomWidth: 1}}
@@ -102,24 +127,28 @@ const Index = ({navigation, ...props}) => {
             <Text className={'text-black font-semibold text-xl'}>Payment</Text>
             <View className={'flex flex-row w-52 justify-between'}>
               <Text className={'text-slate-500 text-base'}>Subtotal</Text>
-              <Text className={'text-black font-bold text-base'}>AED 2,000</Text>
+              <Text className={'text-black font-bold text-base'}>
+                AED {data.attributes.totalAmount}
+              </Text>
             </View>
-            <View className={'flex flex-row w-52 justify-between'}>
+            {/* <View className={'flex flex-row w-52 justify-between'}>
               <Text className={'text-slate-500 text-base'}>Vat(incl.)</Text>
               <Text className={'text-black font-bold text-base'}>AED 100</Text>
-            </View>
-            <View className={'flex flex-row w-52 justify-between'}>
+            </View> */}
+            {/* <View className={'flex flex-row w-52 justify-between'}>
               <Text className={'text-slate-500 text-base'}>Delivery</Text>
               <Text className={'text-black font-bold text-base'}>AED 140</Text>
-            </View>
+            </View> */}
             <View className={'flex flex-row w-52 justify-between'}>
               <Text className={'text-slate-500 text-base'}>Total</Text>
-              <Text className={'text-black font-bold text-base'}>AED 2,500</Text>
+              <Text className={'text-black font-bold text-base'}>
+                AED {data.attributes.totalAmount}
+              </Text>
             </View>
-            <View className={'flex flex-row w-52 justify-between'}>
+            {/* <View className={'flex flex-row w-52 justify-between'}>
               <Text className={'text-slate-500 text-base'}>Paid via</Text>
               <Text className={'text-black font-bold text-base'}>EFT</Text>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </SafeAreaView>

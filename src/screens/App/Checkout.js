@@ -33,12 +33,18 @@ const Index = ({navigation, ...props}) => {
     },
   };
 
-  const [Location, setLocation] = useState('');
-  const [Street1, setStreet1] = useState('');
-  const [ZipCode, setZipCode] = useState('');
+  const [contactNo, setContactNo] = useState('');
+  const [location, setLocation] = useState('');
+  const [company, setCompany] = useState('');
+  const [street1, setStreet1] = useState('');
+  const [street2, setStreet2] = useState('');
+  const [zipCode, setZipCode] = useState('');
 
   useEffect(() => {
-    getCustomerID();
+    const focusListener = navigation.addListener('focus', () => {
+      getCustomerID();
+    });
+    return focusListener;
   }, []);
 
   const getCustomerID = () => {
@@ -48,8 +54,11 @@ const Index = ({navigation, ...props}) => {
       )
       .then(response => {
         console.log(response.data);
+        setContactNo(response.data.customer.address_book.contact);
         setLocation(response.data.customer.address_book.city);
+        setCompany(response.data.customer.address_book.companyOrBuilding);
         setStreet1(response.data.customer.address_book.addressLine1);
+        setStreet2(response.data.customer.address_book.addressLine2);
         setZipCode(response.data.customer.address_book.zipCode);
       })
       .catch(error => {
@@ -68,6 +77,14 @@ const Index = ({navigation, ...props}) => {
       data: {
         totalAmount: total,
         order_items: result,
+        deliveryAddress: {
+          addressLine1: street1,
+          addressLine2: street2,
+          city: location,
+          contact: contactNo,
+          zipCode: zipCode,
+          companyOrBuilding: company,
+        },
       },
     };
     console.log('params ===>', params);
@@ -111,7 +128,7 @@ const Index = ({navigation, ...props}) => {
           className={'w-full py-1 px-3 mt-4'}>
           <Text className={'text-black font-semibold text-lg'}>Address</Text>
           <Text className={'text-slate-600 text-sm'}>
-            {Location} {Street1} {ZipCode}
+            {location} {street1} {zipCode}
           </Text>
         </TouchableOpacity>
 

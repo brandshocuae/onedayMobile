@@ -34,7 +34,7 @@ const Index = ({navigation, ...props}) => {
   const [data, setData] = useState([]);
 
   const user = useSelector(state => state.userReducer.userData);
-  console.log('user ==>', user);
+  // console.log('user ==>', user);
 
   const config = {
     headers: {
@@ -52,7 +52,10 @@ const Index = ({navigation, ...props}) => {
   const getOrders = () => {
     setIsLoader(true);
     axios
-      .get(`${BaseURL.PLACE_ORDER}?populate[0]=order_items`, config)
+      .get(
+        `${BaseURL.PLACE_ORDER}?populate[0]=order_items&populate[1]=order_items.product&populate[2]=order_items.product.price&populate[3]=order_items.product.productImages&populate[4]=deliveryAddress&sort=id:desc`,
+        config,
+      )
       .then(res => {
         console.log('Data ===>', res.data.data);
         setData(res.data.data);
@@ -90,7 +93,11 @@ const Index = ({navigation, ...props}) => {
               return (
                 <TouchableOpacity
                   activeOpacity={0.7}
-                  // onPress={() => navigation.navigate('OrderDetail')}
+                  onPress={() =>
+                    navigation.navigate('OrderDetail', {
+                      data: item,
+                    })
+                  }
                   style={{width: width * 0.95, borderBottomWidth: 1}}
                   className={
                     'flex self-center flex-row justify-between py-3 border-[#D4D4D4] mt-4'
