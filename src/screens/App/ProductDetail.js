@@ -127,7 +127,6 @@ const Index = ({navigation, route, ...props}) => {
       data.attributes?.price?.price) *
     100;
 
-
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -247,7 +246,8 @@ const Index = ({navigation, route, ...props}) => {
             <View
               className="flex self-center mt-5"
               style={{width: width * 0.9}}>
-              <Text className={'text-2xl font-semibold uppercase mb-2'}>
+              <Text
+                className={'text-2xl font-semibold uppercase mb-2 text-black'}>
                 Product Description:
               </Text>
 

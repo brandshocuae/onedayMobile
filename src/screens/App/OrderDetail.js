@@ -92,11 +92,16 @@ const Index = ({navigation, route, ...props}) => {
                       />
                     </View>
                     <View>
-                      <Text className={'text-base text-black font-semibold'}>
+                      <Text
+                        numberOfLines={1}
+                        className={'text-base text-black font-semibold w-64'}>
                         {item.attributes.product.data.attributes.productName}
                       </Text>
                       <Text
-                        className={'text-base text-slate-500 font-semibold'}>
+                        numberOfLines={1}
+                        className={
+                          'text-base text-slate-500 font-semibold w-64'
+                        }>
                         {item.attributes.product.data.attributes.productName}
                       </Text>
                       <Text
