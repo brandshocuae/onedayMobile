@@ -26,7 +26,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, route, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
-  // console.log(user);
+  console.log(user.user.id);
   const fromCart = route?.params?.fromCart;
   console.log('fromCart', fromCart);
 
@@ -148,10 +148,10 @@ const Index = ({navigation, route, ...props}) => {
     setIsLoader(true);
     axios
       .get(
-        `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
+        `${BaseURL.GET_CUSTOMER_ID}/${user?.user?.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
-        console.log(response.data);
+        console.log('Response ===>', response.data);
         if (response.data.customer.address_book !== null) {
           setContactNo(response.data.customer.address_book.contact);
           setLocation(response.data.customer.address_book.city);
@@ -165,7 +165,7 @@ const Index = ({navigation, route, ...props}) => {
         setCustomerID(response.data.customer.id);
       })
       .catch(error => {
-        console.log(error);
+        console.log('Error ===>', error);
         setIsLoader(false);
       });
   };
