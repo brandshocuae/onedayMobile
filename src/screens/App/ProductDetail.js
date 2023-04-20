@@ -22,6 +22,8 @@ import Alert from '../../components/Alert/index';
 import {useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import SelectDropdown from 'react-native-select-dropdown';
+import axios from '../../utils/axios';
+import BaseURL from '../../constants/apiEndPoints';
 
 //redux
 import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
@@ -29,6 +31,8 @@ import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 const Index = ({navigation, route, ...props}) => {
   const dispatch = useDispatch();
   const data = route.params.data;
+
+  console.log('data ========>', data.attributes.attributes);
 
   const [carouselImage, setCarouselImage] = useState(
     data.attributes.productImages.data,
@@ -157,7 +161,7 @@ const Index = ({navigation, route, ...props}) => {
       ],
     },
   ];
-  const newDropdown = dropdown.map(item => ({
+  const newDropdown = data.attributes.attributes.map(item => ({
     name: item.name,
     options: item.options.map(option => option.value),
   }));
@@ -170,7 +174,7 @@ const Index = ({navigation, route, ...props}) => {
 
   useEffect(() => {
     const defaultValues = {};
-    dropdown.forEach(item => {
+    data.attributes.attributes.forEach(item => {
       defaultValues[item.name] = item.options[0].value;
     });
     setSelectedOptions(defaultValues);
@@ -193,6 +197,19 @@ const Index = ({navigation, route, ...props}) => {
 
     console.log('displayString ===>', displayString);
   };
+
+  // useEffect(() => {
+  //   getVariant();
+  // }, []);
+
+  // const getVariant = () => {
+  //   axios
+  //     .get(`${BaseURL.GET_VARIANT}${data.id}`)
+  //     .then(res => {
+  //       // console.log('RESPONSE ===>', res.data.data[0].attributes.product.data.attributes.attributes.);
+  //     })
+  //     .catch(err => {});
+  // };
 
   return (
     <>
