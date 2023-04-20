@@ -21,7 +21,7 @@ import Alert from '../../components/Alert/index';
 //third party library
 import {useDispatch} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
-import Markdown from 'react-native-markdown-display';
+import SelectDropdown from 'react-native-select-dropdown';
 
 //redux
 import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
@@ -68,6 +68,7 @@ const Index = ({navigation, route, ...props}) => {
     dispatch(handleAddItemToCart(data));
     setShowAlert(true);
     setAlertText('Item Added');
+    displayObject(selectedOptions);
   };
 
   const [showAlert, setShowAlert] = useState(false);
@@ -77,6 +78,121 @@ const Index = ({navigation, route, ...props}) => {
     ((data.attributes?.price?.price - data.attributes?.price?.discountPrice) /
       data.attributes?.price?.price) *
     100;
+
+  const dropdown = [
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'sm',
+          label: 'small t-shirt',
+        },
+        {
+          value: 'md',
+          label: 'medium t-shirt',
+        },
+        {
+          value: 'lg',
+          label: 'large t-shirt',
+        },
+        {
+          value: 'xl-lg',
+          label: 'large t-shirt',
+        },
+      ],
+    },
+    {
+      name: 'color',
+      options: [
+        {
+          value: 'red',
+          label: 'burnt red t-shirt',
+        },
+        {
+          value: 'blue',
+          label: 'sky blue t-shirt',
+        },
+        {
+          value: 'green',
+          label: 'hunter green t-shirt',
+        },
+        {
+          value: 'purple',
+          label: 'hunter green t-shirt',
+        },
+        {
+          value: 'orange',
+          label: 'hunter green t-shirt',
+        },
+      ],
+    },
+    {
+      name: 'quality',
+      options: [
+        {
+          value: 'cotton',
+          label: 'cotton fabric',
+        },
+        {
+          value: 'silk',
+          label: 'silk fabric',
+        },
+        {
+          value: 'Polo',
+          label: 'Polo fabric',
+        },
+        {
+          value: 'chicken',
+          label: 'chicken fabric',
+        },
+      ],
+    },
+    {
+      name: 'capacity',
+      options: [
+        {
+          value: '5 liter',
+          label: '5 liter',
+        },
+      ],
+    },
+  ];
+  const newDropdown = dropdown.map(item => ({
+    name: item.name,
+    options: item.options.map(option => option.value),
+  }));
+
+  const [selectedOptions, setSelectedOptions] = useState({});
+
+  const handleDropdownChange = (name, value) => {
+    setSelectedOptions(prevState => ({...prevState, [name]: value}));
+  };
+
+  useEffect(() => {
+    const defaultValues = {};
+    dropdown.forEach(item => {
+      defaultValues[item.name] = item.options[0].value;
+    });
+    setSelectedOptions(defaultValues);
+    displayObject(defaultValues);
+  }, []);
+
+  const displayObject = obj => {
+    let displayString = '';
+
+    for (const prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        displayString += `${obj[prop]}-`;
+      }
+    }
+
+    // Remove the last "-" separator if it exists
+    if (displayString.endsWith('-')) {
+      displayString = displayString.slice(0, -1);
+    }
+
+    console.log('displayString ===>', displayString);
+  };
 
   return (
     <>
@@ -166,16 +282,46 @@ const Index = ({navigation, route, ...props}) => {
               </View>
             </View>
 
-            {/* <View className={'mt-4'}>
-              {Object.keys(availableOptions).map((key, index) => (
+            <View className={'w-full mt-3'}>
+              {newDropdown.map((item, index) => (
                 <View key={index}>
-                  <Text className={'text-lg font-semibold text-black'}>
-                    {key.toUpperCase()}:
+                  <Text
+                    className={
+                      'text-lg text-black font-medium mb-2 ml-5 uppercase underline'
+                    }>
+                    {item.name}:
                   </Text>
-                  {renderPicker(key, availableOptions[key])}
+
+                  <SelectDropdown
+                    data={item.options}
+                    defaultValueByIndex={0}
+                    onSelect={(selectedItem, index) => {
+                      handleDropdownChange(item.name, selectedItem);
+                    }}
+                    buttonTextAfterSelection={(selectedItem, index) => {
+                      return selectedItem;
+                    }}
+                    rowTextForSelection={(item, index) => {
+                      return item;
+                    }}
+                    buttonStyle={{
+                      backgroundColor: 'white',
+                      width: width * 0.85,
+                      alignSelf: 'center',
+                      borderWidth: 1,
+                      borderRadius: 2,
+                      borderColor: 'gray',
+                    }}
+                    dropdownStyle={{
+                      backgroundColor: 'white',
+                      borderWidth: 1,
+                      borderColor: 'gray',
+                    }}
+                    // dropdownOverlayColor="transparent"
+                  />
                 </View>
               ))}
-            </View> */}
+            </View>
 
             <TouchableOpacity
               onPress={() => handleCart()}
@@ -189,6 +335,7 @@ const Index = ({navigation, route, ...props}) => {
               </Text>
             </TouchableOpacity>
           </View>
+
           <View
             style={{borderBottomWidth: 1}}
             className={'h-4 w-full border-slate-300'}

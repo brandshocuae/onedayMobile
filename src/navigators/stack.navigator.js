@@ -24,7 +24,7 @@ const Stack = createNativeStackNavigator();
 export const RootNavigator = ({}) => {
   return (
     <Stack.Navigator
-      initialRouteName="DropDown"
+      initialRouteName="Splash"
       screenOptions={{
         headerShown: false,
       }}>

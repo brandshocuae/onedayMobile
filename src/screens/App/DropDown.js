@@ -15,7 +15,6 @@ import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 
 //third party library
-import {Picker} from '@react-native-picker/picker';
 import SelectDropdown from 'react-native-select-dropdown';
 
 const Index = ({navigation, ...props}) => {
