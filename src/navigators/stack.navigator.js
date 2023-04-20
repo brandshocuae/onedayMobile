@@ -14,6 +14,7 @@ import MyWallet from '../screens/App/MyWallet';
 import Shop from '../screens/App/Shop';
 import Cart from '../screens/App/Cart';
 import PaymentMethod from '../screens/App/PaymentMethod';
+import DropDown from '../screens/App/DropDown';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -23,7 +24,7 @@ const Stack = createNativeStackNavigator();
 export const RootNavigator = ({}) => {
   return (
     <Stack.Navigator
-      initialRouteName="Splash"
+      initialRouteName="DropDown"
       screenOptions={{
         headerShown: false,
       }}>
@@ -37,6 +38,7 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
+      <Stack.Screen name="DropDown" component={DropDown} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />
