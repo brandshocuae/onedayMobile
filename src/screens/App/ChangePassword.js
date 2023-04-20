@@ -25,7 +25,6 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
-  console.log('user ==>',user)
 
   const config = {
     headers: {
@@ -52,14 +51,12 @@ const Index = ({navigation, ...props}) => {
       axios
         .post(`${BaseURL.CHANGE_PASSWORD}`, params, config)
         .then(res => {
-          console.log('Data ===>', res.data);
           setIsLoader(false);
           setShowAlert(true);
           setAlertText('Password Changed');
           navigation.goBack();
         })
         .catch(err => {
-          console.log('Error ===>', err);
           setIsLoader(false);
           setShowAlert(true);
           setAlertText('The provided current password is invalid');

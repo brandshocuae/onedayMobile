@@ -43,7 +43,6 @@ const Index = ({navigation, ...props}) => {
     axios
       .post(`${BaseURL.SIGN_UP}`, params)
       .then(res => {
-        console.log(res.data);
         setIsLoader(false);
         dispatch(login(res.data));
         navigation.reset({
@@ -52,7 +51,6 @@ const Index = ({navigation, ...props}) => {
         });
       })
       .catch(err => {
-        console.log(err);
         setIsLoader(false);
         setShowAlert(true);
         setAlertText('Something Went Wrong');

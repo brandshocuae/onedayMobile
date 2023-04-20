@@ -9,17 +9,12 @@ const initState = {
 export default reducer = (state = initState, action) => {
   switch (action.type) {
     case ADD_ITEM:
-      console.log('ACTION ==>', action);
-
       // make a copy
       const tempCart = [...state.cart];
       let tempPrice = state.total;
-      console.log('WORKING 1 ==>');
       // find the current obj Ind
       let currentItemInd = tempCart.findIndex(i => i.id === action.item.id);
-      console.log('WORKING 2 ==>');
       if (currentItemInd !== -1) {
-        console.log('WORKING 3 ==>');
         // already exists
         let oldObj = {...tempCart[currentItemInd]};
         // update quantity
@@ -30,7 +25,6 @@ export default reducer = (state = initState, action) => {
         // putting back into cart
         tempCart[currentItemInd] = oldObj;
       } else {
-        console.log('WORKING 4 ==>');
         // add a quantity property
         let tempNewObj = {...action.item, quantity: 1};
         // this item is new one just push
@@ -39,7 +33,6 @@ export default reducer = (state = initState, action) => {
 
         tempPrice += parseInt(action.item.attributes.price.discountPrice);
       }
-      console.log('WORKING 5 ==>');
       return {
         ...state,
         cart: tempCart,
@@ -47,8 +40,6 @@ export default reducer = (state = initState, action) => {
       };
 
     case REMOVE_ITEM:
-      console.log('ACTION ==>', action);
-
       // make a copy
       let tempCartR = [...state.cart];
       let tempPriceR = state.total;
@@ -79,7 +70,7 @@ export default reducer = (state = initState, action) => {
       return {
         ...state,
         cart: [],
-        total:0
+        total: 0,
       };
     default:
       return state;

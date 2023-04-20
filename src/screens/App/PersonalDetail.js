@@ -25,7 +25,6 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
-  console.log(user.user);
   const [userName, setUserName] = useState(user?.user?.username);
   const [email, setEmail] = useState(user?.user?.email);
 

@@ -55,17 +55,13 @@ const Index = ({navigation, ...props}) => {
         `${BaseURL.GET_CUSTOMER_ID}/${user?.user?.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
-        console.log(response.data);
         if (response.data.customer.address_book !== null) {
           setAddressID(response.data.customer.address_book.id);
         }
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 
-  console.log('Cart ====>', cart);
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />

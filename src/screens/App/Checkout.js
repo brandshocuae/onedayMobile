@@ -53,7 +53,6 @@ const Index = ({navigation, ...props}) => {
         `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
-        console.log(response.data);
         setContactNo(response.data.customer.address_book.contact);
         setLocation(response.data.customer.address_book.city);
         setCompany(response.data.customer.address_book.companyOrBuilding);
@@ -61,9 +60,7 @@ const Index = ({navigation, ...props}) => {
         setStreet2(response.data.customer.address_book.addressLine2);
         setZipCode(response.data.customer.address_book.zipCode);
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(error => {});
   };
 
   const proceedToCheckout = () => {
@@ -87,19 +84,16 @@ const Index = ({navigation, ...props}) => {
         },
       },
     };
-    console.log('params ===>', params);
 
     axios
       .post(`${BaseURL.PLACE_ORDER}`, params, config)
       .then(res => {
         setIsLoader(false);
-        console.log(res.data);
         dispatch(handleEmptyCart());
         setShowAlert(true);
         setAlertText('Order Created');
       })
       .catch(err => {
-        console.log(err);
         setIsLoader(false);
       });
   };

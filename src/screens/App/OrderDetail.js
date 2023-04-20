@@ -21,7 +21,6 @@ import moment from 'moment';
 
 const Index = ({navigation, route, ...props}) => {
   const data = route.params.data;
-  console.log('Data ===>', data);
 
   return (
     <>

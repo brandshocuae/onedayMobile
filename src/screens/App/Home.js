@@ -49,7 +49,6 @@ const Index = ({navigation, ...props}) => {
         setIsLoader(false);
       })
       .catch(err => {
-        // console.log('Error ====>', err);
         setIsLoader(false);
       });
   };
@@ -67,7 +66,6 @@ const Index = ({navigation, ...props}) => {
         setIsLoader(false);
       })
       .catch(err => {
-        // console.log('Error ====>', err);
         setIsLoader(false);
       });
   };
@@ -80,12 +78,10 @@ const Index = ({navigation, ...props}) => {
       .get(`${BaseURL.GET_SHOPS}`)
       .then(res => {
         setIsLoader(false);
-        console.log('Shops ===>', res.data.data[0].attributes);
         setShopName(res.data.data[0].attributes.name);
         setShopData(res.data.data[0].attributes.deals.data);
       })
       .catch(err => {
-        console.log('Error ====>', err);
         setIsLoader(false);
       });
   };

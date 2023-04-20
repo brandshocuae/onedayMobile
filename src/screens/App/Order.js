@@ -34,7 +34,6 @@ const Index = ({navigation, ...props}) => {
   const [data, setData] = useState([]);
 
   const user = useSelector(state => state.userReducer.userData);
-  // console.log('user ==>', user);
 
   const config = {
     headers: {
@@ -57,13 +56,11 @@ const Index = ({navigation, ...props}) => {
         config,
       )
       .then(res => {
-        console.log('Data ===>', res.data.data);
         setData(res.data.data);
 
         setIsLoader(false);
       })
       .catch(err => {
-        console.log('Error ====>', err);
         setIsLoader(false);
       });
   };

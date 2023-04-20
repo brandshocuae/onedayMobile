@@ -26,9 +26,7 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, route, ...props}) => {
   const user = useSelector(state => state.userReducer.userData);
-  console.log(user.user.id);
   const fromCart = route?.params?.fromCart;
-  console.log('fromCart', fromCart);
 
   const config = {
     headers: {
@@ -50,7 +48,6 @@ const Index = ({navigation, route, ...props}) => {
 
   const _handleAddress = () => {
     setIsLoader(true);
-    console.log('created');
     if (
       contactNo === '' ||
       street1 === '' ||
@@ -74,18 +71,15 @@ const Index = ({navigation, route, ...props}) => {
           customer: customerID,
         },
       };
-      console.log(params);
       axios
         .post(`${BaseURL.ADDRESS_BOOK}`, params, config)
         .then(response => {
-          console.log(response);
           setShowAlert(true);
           setAlertText('Address Created Successfully');
           setIsLoader(false);
           // navigation.goBack();
         })
         .catch(error => {
-          console.log(error);
           setShowAlert(true);
           setAlertText('Error');
           setIsLoader(false);
@@ -95,7 +89,6 @@ const Index = ({navigation, route, ...props}) => {
 
   const _handleUpdateAddress = () => {
     setIsLoader(true);
-    console.log('edit');
     if (
       contactNo === '' ||
       street1 === '' ||
@@ -119,18 +112,15 @@ const Index = ({navigation, route, ...props}) => {
           customer: customerID,
         },
       };
-      console.log(params);
       axios
         .put(`${BaseURL.ADDRESS_BOOK}/${addressID}`, params, config)
         .then(response => {
-          console.log(response);
           setShowAlert(true);
           setAlertText('Address Edit Successfully');
           setIsLoader(false);
           // navigation.goBack();
         })
         .catch(error => {
-          console.log(error);
           setShowAlert(true);
           setAlertText('Error');
           setIsLoader(false);
@@ -151,7 +141,6 @@ const Index = ({navigation, route, ...props}) => {
         `${BaseURL.GET_CUSTOMER_ID}/${user?.user?.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
-        console.log('Response ===>', response.data);
         if (response.data.customer.address_book !== null) {
           setContactNo(response.data.customer.address_book.contact);
           setLocation(response.data.customer.address_book.city);
@@ -165,7 +154,6 @@ const Index = ({navigation, route, ...props}) => {
         setCustomerID(response.data.customer.id);
       })
       .catch(error => {
-        console.log('Error ===>', error);
         setIsLoader(false);
       });
   };

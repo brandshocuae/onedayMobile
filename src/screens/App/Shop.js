@@ -25,7 +25,6 @@ import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, route, ...props}) => {
   const data = route.params.data;
-  console.log('Data from shop ===>', data);
 
   return (
     <>

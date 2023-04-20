@@ -25,10 +25,6 @@ import Header from '../../components/Header';
 import {useSelector, useDispatch} from 'react-redux';
 
 const Index = ({navigation, ...props}) => {
-  const dispatch = useDispatch();
-  const isLogin = useSelector(state => state.userReducer.isLogin);
-  console.log(isLogin);
-
   const [data, setData] = useState([
     {
       id: 1,

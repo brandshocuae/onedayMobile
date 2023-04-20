@@ -29,7 +29,6 @@ import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 const Index = ({navigation, route, ...props}) => {
   const dispatch = useDispatch();
   const data = route.params.data;
-  console.log('data ===>', data);
 
   const [carouselImage, setCarouselImage] = useState(
     data.attributes.productImages.data,
@@ -66,7 +65,6 @@ const Index = ({navigation, route, ...props}) => {
 
   const handleCart = () => {
     // data.variants = selectedValues;
-    // console.log('With Variants ===>', data);
     dispatch(handleAddItemToCart(data));
     setShowAlert(true);
     setAlertText('Item Added');
@@ -74,53 +72,6 @@ const Index = ({navigation, route, ...props}) => {
 
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
-
-  // Picker
-
-  // const renderPicker = (key, options) => {
-  //   const selectedValue = selectedValues[key] || '';
-  //   return (
-  //     <Picker
-  //       selectedValue={selectedValue}
-  //       onValueChange={itemValue => handleValueChange(itemValue, key)}
-  //       style={{width: width * 0.94}}>
-  //       <Picker.Item label={`Select ${key}`} value="" />
-  //       {options.map((option, index) => (
-  //         <Picker.Item key={index} label={option} value={option} />
-  //       ))}
-  //     </Picker>
-  //   );
-  // };
-
-  // const [selectedValues, setSelectedValues] = useState({});
-  // const [availableOptions, setAvailableOptions] = useState({});
-  // console.log('selectedValues ===>', selectedValues);
-  // console.log('availableOptions ===>', availableOptions);
-  // let variants =
-  //   data?.attributes?.product_variants?.data?.[0]?.attributes?.options;
-  // useEffect(() => {
-  //   const options = {};
-  //   variants.forEach(variant => {
-  //     Object.entries(variant.values).forEach(([key, value]) => {
-  //       if (!options[key]) {
-  //         options[key] = [];
-  //       }
-  //       if (!options[key].includes(value)) {
-  //         options[key].push(value);
-  //       }
-  //     });
-  //   });
-  //   setAvailableOptions(options);
-  // }, []);
-
-  // const handleValueChange = (value, key) => {
-  //   setSelectedValues(prevValues => ({
-  //     ...prevValues,
-  //     [key]: value,
-  //   }));
-  // };
-
-  // Picker
 
   const discountPercentage =
     ((data.attributes?.price?.price - data.attributes?.price?.discountPrice) /

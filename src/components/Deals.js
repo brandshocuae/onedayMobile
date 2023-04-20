@@ -19,8 +19,6 @@ export default function Deal({
   onPress,
   discount,
 }) {
-  console.log('discount ===>', discount);
-
   const discountPercentage = ((price - discount) / price) * 100;
   return (
     <TouchableOpacity

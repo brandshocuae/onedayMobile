@@ -19,7 +19,6 @@ import {useDispatch} from 'react-redux';
 
 const Index = ({navigation, route, ...props}) => {
   const isFromCheckout = route?.params?.fromCheckout;
-  console.log(isFromCheckout);
 
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
@@ -38,7 +37,6 @@ const Index = ({navigation, route, ...props}) => {
   }
 
   const _handleLogin = () => {
-    console.log('working');
     setIsLoader(true);
 
     let params = {
@@ -49,7 +47,6 @@ const Index = ({navigation, route, ...props}) => {
     axios
       .post(`${BaseURL.LOGIN}`, params)
       .then(res => {
-        console.log('Data ===>', res.data);
         setIsLoader(false);
         dispatch(login(res.data));
         if (isFromCheckout === 'fromCheckout') {
@@ -65,7 +62,6 @@ const Index = ({navigation, route, ...props}) => {
         }
       })
       .catch(err => {
-        console.log('Error ===>', err);
         setIsLoader(false);
         setShowAlert(true);
         setAlertText(err?.data?.error?.message);

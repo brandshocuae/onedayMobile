@@ -50,7 +50,6 @@ const Header = ({
   }
 
   const cart = useSelector(state => state.cartReducer.cart);
-  // console.log('cart ===>', cart.length);
 
   return (
     <View
@@ -96,7 +95,9 @@ const Header = ({
           </View>
         )}
         {!isCart && (
-          <TouchableOpacity className={'w-8 h-8 ml-3 mt-2'} onPress={CartOnPress}>
+          <TouchableOpacity
+            className={'w-8 h-8 ml-3 mt-2'}
+            onPress={CartOnPress}>
             <ImageBackground
               source={Images.ShoppingCart}
               style={{width: '100%', height: '100%'}}
