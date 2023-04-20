@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, Dimensions, View, ScrollView} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  Dimensions,
+  View,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -9,6 +16,7 @@ import MyStatusBar from '../../components/StatusBar';
 
 //third party library
 import {Picker} from '@react-native-picker/picker';
+import SelectDropdown from 'react-native-select-dropdown';
 
 const Index = ({navigation, ...props}) => {
   const dropdown = [
@@ -27,6 +35,10 @@ const Index = ({navigation, ...props}) => {
           value: 'lg',
           label: 'large t-shirt',
         },
+        {
+          value: 'xl-lg',
+          label: 'large t-shirt',
+        },
       ],
     },
     {
@@ -42,6 +54,14 @@ const Index = ({navigation, ...props}) => {
         },
         {
           value: 'green',
+          label: 'hunter green t-shirt',
+        },
+        {
+          value: 'purple',
+          label: 'hunter green t-shirt',
+        },
+        {
+          value: 'orange',
           label: 'hunter green t-shirt',
         },
       ],
@@ -67,7 +87,20 @@ const Index = ({navigation, ...props}) => {
         },
       ],
     },
+    {
+      name: 'capacity',
+      options: [
+        {
+          value: '5 liter',
+          label: '5 liter',
+        },
+      ],
+    },
   ];
+  const newDropdown = dropdown.map(item => ({
+    name: item.name,
+    options: item.options.map(option => option.value),
+  }));
 
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -81,9 +114,29 @@ const Index = ({navigation, ...props}) => {
       defaultValues[item.name] = item.options[0].value;
     });
     setSelectedOptions(defaultValues);
+    displayObject(defaultValues);
   }, []);
 
-  console.log('SelectedOptions ===>', selectedOptions.Electricwatt);
+  const displayObject = obj => {
+    let displayString = '';
+
+    for (const prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        displayString += `${obj[prop]}-`;
+      }
+    }
+
+    // Remove the last "-" separator if it exists
+    if (displayString.endsWith('-')) {
+      displayString = displayString.slice(0, -1);
+    }
+
+    console.log('displayString ===>', displayString);
+  };
+
+  const displayOption = () => {
+    displayObject(selectedOptions);
+  };
 
   return (
     <>
@@ -98,10 +151,12 @@ const Index = ({navigation, ...props}) => {
         />
         <ScrollView contentContainerStyle={{paddingBottom: height * 0.3}}>
           <View>
-            {dropdown.map((item, index) => (
+            {newDropdown.map((item, index) => (
               <View key={index}>
-                <Text>{item.name}</Text>
-                <Picker
+                <Text className={'text-2xl text-black font-semibold mb-4'}>
+                  {item.name}
+                </Text>
+                {/* <Picker
                   selectedValue={
                     selectedOptions[item.name] || item.options[0].value
                   }
@@ -115,12 +170,48 @@ const Index = ({navigation, ...props}) => {
                       value={option.value}
                     />
                   ))}
-                </Picker>
+                </Picker> */}
+                <SelectDropdown
+                  data={item.options}
+                  defaultValueByIndex={0}
+                  onSelect={(selectedItem, index) => {
+                    handleDropdownChange(item.name, selectedItem);
+                  }}
+                  buttonTextAfterSelection={(selectedItem, index) => {
+                    return selectedItem;
+                  }}
+                  rowTextForSelection={(item, index) => {
+                    return item;
+                  }}
+                  buttonStyle={{
+                    backgroundColor: 'white',
+                    width: width * 0.9,
+                    alignSelf: 'center',
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    borderColor: 'gray',
+                  }}
+                  dropdownStyle={{
+                    backgroundColor: 'white',
+                    borderWidth: 1,
+                    borderColor: 'gray',
+                  }}
+                  // dropdownOverlayColor="transparent"
+                />
               </View>
             ))}
             <Text>Selected Options:</Text>
             <Text>{JSON.stringify(selectedOptions)}</Text>
           </View>
+          <TouchableOpacity
+            onPress={() => displayOption()}
+            className={
+              'w-80 py-4 bg-blue-600 flex justify-center items-center self-center mt-12'
+            }>
+            <Text className={'text-white font-semibold text-lg'}>
+              Generate Slug
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     </>
