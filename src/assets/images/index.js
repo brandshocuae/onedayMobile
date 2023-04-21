@@ -34,8 +34,10 @@ const Order = require('./Order.png');
 const ReturnProduct = require('./ReturnProduct.png');
 const Wallet = require('./Wallet.png');
 const ShoppingCart = require('./shopping-cart.png');
+const DropDownArrow = require('./DropDownArrow.png');
 
 export const Images = {
+  DropDownArrow,
   ShoppingCart,
   Logout,
   UnOrder,

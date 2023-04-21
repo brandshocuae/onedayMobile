@@ -20,23 +20,101 @@ import SelectDropdown from 'react-native-select-dropdown';
 const Index = ({navigation, ...props}) => {
   const dropdown = [
     {
+      name: 'color',
+      options: [
+        {
+          value: 'blue',
+        },
+        {
+          value: 'purple',
+        },
+        {
+          value: 'orange',
+        },
+      ],
+    },
+    {
       name: 'size',
       options: [
         {
-          value: 'sm',
-          label: 'small t-shirt',
+          value: 'SM',
         },
         {
-          value: 'md',
-          label: 'medium t-shirt',
+          value: 'MD',
         },
         {
-          value: 'lg',
-          label: 'large t-shirt',
+          value: 'XL',
         },
         {
-          value: 'xl-lg',
-          label: 'large t-shirt',
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
         },
       ],
     },
@@ -44,54 +122,197 @@ const Index = ({navigation, ...props}) => {
       name: 'color',
       options: [
         {
-          value: 'red',
-          label: 'burnt red t-shirt',
-        },
-        {
           value: 'blue',
-          label: 'sky blue t-shirt',
-        },
-        {
-          value: 'green',
-          label: 'hunter green t-shirt',
         },
         {
           value: 'purple',
-          label: 'hunter green t-shirt',
         },
         {
           value: 'orange',
-          label: 'hunter green t-shirt',
         },
       ],
     },
     {
-      name: 'quality',
+      name: 'size',
       options: [
         {
-          value: 'cotton',
-          label: 'cotton fabric',
+          value: 'SM',
         },
         {
-          value: 'silk',
-          label: 'silk fabric',
+          value: 'MD',
         },
         {
-          value: 'Polo',
-          label: 'Polo fabric',
+          value: 'XL',
         },
         {
-          value: 'chicken',
-          label: 'chicken fabric',
+          value: 'XXL',
         },
       ],
     },
     {
-      name: 'capacity',
+      name: 'size',
       options: [
         {
-          value: '5 liter',
-          label: '5 liter',
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'color',
+      options: [
+        {
+          value: 'blue',
+        },
+        {
+          value: 'purple',
+        },
+        {
+          value: 'orange',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
+        },
+      ],
+    },
+    {
+      name: 'size',
+      options: [
+        {
+          value: 'SM',
+        },
+        {
+          value: 'MD',
+        },
+        {
+          value: 'XL',
+        },
+        {
+          value: 'XXL',
         },
       ],
     },

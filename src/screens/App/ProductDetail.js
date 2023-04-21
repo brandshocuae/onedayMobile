@@ -113,8 +113,6 @@ const Index = ({navigation, route, ...props}) => {
     if (displayString.endsWith('-')) {
       displayString = displayString.slice(0, -1);
     }
-
-    console.log('displayString From UseEffect ===>', displayString);
   }, []);
 
   //handle cart
@@ -132,9 +130,7 @@ const Index = ({navigation, route, ...props}) => {
       displayString = displayString.slice(0, -1);
     }
 
-    console.log('displayString ===>', displayString);
     data.variantSlug = displayString;
-    console.log('Data =====>', data);
     dispatch(handleAddItemToCart(data));
     setShowAlert(true);
     setAlertText('Item Added');
@@ -155,9 +151,7 @@ const Index = ({navigation, route, ...props}) => {
       displayString = displayString.slice(0, -1);
     }
 
-    console.log('displayString ===>', displayString);
     data.variantSlug = displayString;
-    console.log('Data =====>', data);
     dispatch(handleAddItemToCart(data));
   };
 
@@ -271,6 +265,18 @@ const Index = ({navigation, route, ...props}) => {
                       }}
                       rowTextForSelection={(item, index) => {
                         return item;
+                      }}
+                      renderDropdownIcon={isOpened => {
+                        // console.log('isOpened ====>', isOpened);
+                        return (
+                          <Image
+                            source={Images.DropDownArrow}
+                            className={`w-4 h-4 ${
+                              isOpened ? 'rotate-180' : ''
+                            }`}
+                            resizeMode={'contain'}
+                          />
+                        );
                       }}
                       buttonStyle={{
                         backgroundColor: 'white',
