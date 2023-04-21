@@ -36,6 +36,8 @@ const Index = ({navigation, ...props}) => {
   const [alertText, setAlertText] = useState('');
   const [forLogin, setForLogin] = useState(false);
 
+  console.log('Cart ===>', cart);
+
   const addQuantity = item => {
     dispatch(handleAddItemToCart(item));
   };

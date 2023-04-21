@@ -43,7 +43,7 @@ const Index = ({navigation, route, ...props}) => {
   const plus = () => {
     if (!(quantity >= 10)) {
       setQuantity(quantity + 1);
-      dispatch(handleAddItemToCart(data));
+      displayObjectPlusMinus(selectedOptions);
     }
   };
   const minus = () => {
@@ -69,9 +69,9 @@ const Index = ({navigation, route, ...props}) => {
 
   const handleCart = () => {
     // data.variants = selectedValues;
-    dispatch(handleAddItemToCart(data));
-    setShowAlert(true);
-    setAlertText('Item Added');
+    // dispatch(handleAddItemToCart(data));
+    // setShowAlert(true);
+    // setAlertText('Item Added');
     displayObject(selectedOptions);
   };
 
@@ -100,9 +100,24 @@ const Index = ({navigation, route, ...props}) => {
       defaultValues[item.name] = item.options[0].value;
     });
     setSelectedOptions(defaultValues);
-    displayObject(defaultValues);
+
+    let displayString = '';
+
+    for (const prop in defaultValues) {
+      if (defaultValues.hasOwnProperty(prop)) {
+        displayString += `${defaultValues[prop]}-`;
+      }
+    }
+
+    // Remove the last "-" separator if it exists
+    if (displayString.endsWith('-')) {
+      displayString = displayString.slice(0, -1);
+    }
+
+    console.log('displayString From UseEffect ===>', displayString);
   }, []);
 
+  //handle cart
   const displayObject = obj => {
     let displayString = '';
 
@@ -118,6 +133,32 @@ const Index = ({navigation, route, ...props}) => {
     }
 
     console.log('displayString ===>', displayString);
+    data.variantSlug = displayString;
+    console.log('Data =====>', data);
+    dispatch(handleAddItemToCart(data));
+    setShowAlert(true);
+    setAlertText('Item Added');
+  };
+
+  //handle plus minus
+  const displayObjectPlusMinus = obj => {
+    let displayString = '';
+
+    for (const prop in obj) {
+      if (obj.hasOwnProperty(prop)) {
+        displayString += `${obj[prop]}-`;
+      }
+    }
+
+    // Remove the last "-" separator if it exists
+    if (displayString.endsWith('-')) {
+      displayString = displayString.slice(0, -1);
+    }
+
+    console.log('displayString ===>', displayString);
+    data.variantSlug = displayString;
+    console.log('Data =====>', data);
+    dispatch(handleAddItemToCart(data));
   };
 
   return (
