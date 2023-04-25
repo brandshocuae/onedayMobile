@@ -32,7 +32,7 @@ const Index = ({navigation, route, ...props}) => {
   const dispatch = useDispatch();
   const data = route.params.data;
 
-  console.log('data ========>', data.attributes.attributes);
+  console.log('data ========>', data.attributes);
 
   const [carouselImage, setCarouselImage] = useState(
     data.attributes.productImages.data,
@@ -43,13 +43,11 @@ const Index = ({navigation, route, ...props}) => {
   const plus = () => {
     if (!(quantity >= 10)) {
       setQuantity(quantity + 1);
-      displayObjectPlusMinus(selectedOptions);
     }
   };
   const minus = () => {
     if (!(quantity <= 1)) {
       setQuantity(quantity - 1);
-      dispatch(handleRemoveItem(data));
     }
   };
 
@@ -68,10 +66,6 @@ const Index = ({navigation, route, ...props}) => {
   let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
 
   const handleCart = () => {
-    // data.variants = selectedValues;
-    // dispatch(handleAddItemToCart(data));
-    // setShowAlert(true);
-    // setAlertText('Item Added');
     displayObject(selectedOptions);
   };
 
@@ -131,28 +125,9 @@ const Index = ({navigation, route, ...props}) => {
     }
 
     data.variantSlug = displayString;
-    dispatch(handleAddItemToCart(data));
+    dispatch(handleAddItemToCart(data, quantity));
     setShowAlert(true);
     setAlertText('Item Added');
-  };
-
-  //handle plus minus
-  const displayObjectPlusMinus = obj => {
-    let displayString = '';
-
-    for (const prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        displayString += `${obj[prop]}-`;
-      }
-    }
-
-    // Remove the last "-" separator if it exists
-    if (displayString.endsWith('-')) {
-      displayString = displayString.slice(0, -1);
-    }
-
-    data.variantSlug = displayString;
-    dispatch(handleAddItemToCart(data));
   };
 
   return (

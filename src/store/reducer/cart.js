@@ -12,13 +12,14 @@ export default reducer = (state = initState, action) => {
       // make a copy
       const tempCart = [...state.cart];
       let tempPrice = state.total;
+
       // find the current obj Ind
       let currentItemInd = tempCart.findIndex(i => i.id === action.item.id);
       if (currentItemInd !== -1) {
         // already exists
         let oldObj = {...tempCart[currentItemInd]};
         // update quantity
-        oldObj.quantity += 1;
+        oldObj.quantity += action.quantity;
 
         // update price
         tempPrice += parseInt(action.item.attributes.price.discountPrice);
@@ -26,12 +27,14 @@ export default reducer = (state = initState, action) => {
         tempCart[currentItemInd] = oldObj;
       } else {
         // add a quantity property
-        let tempNewObj = {...action.item, quantity: 1};
+        let tempNewObj = {...action.item, quantity: action.quantity};
         // this item is new one just push
         tempCart.push(tempNewObj);
         // update price
 
-        tempPrice += parseInt(action.item.attributes.price.discountPrice);
+        tempPrice +=
+          parseInt(action.item.attributes.price.discountPrice) *
+          action.quantity;
       }
       return {
         ...state,

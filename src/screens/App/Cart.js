@@ -39,7 +39,7 @@ const Index = ({navigation, ...props}) => {
   console.log('Cart ===>', cart);
 
   const addQuantity = item => {
-    dispatch(handleAddItemToCart(item));
+    dispatch(handleAddItemToCart(item, 1));
   };
   const removeQuantity = item => {
     dispatch(handleRemoveItem(item));
