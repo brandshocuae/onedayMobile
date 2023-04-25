@@ -22,7 +22,9 @@ export default reducer = (state = initState, action) => {
         oldObj.quantity += action.quantity;
 
         // update price
-        tempPrice += parseInt(action.item.attributes.price.discountPrice);
+        tempPrice +=
+          parseInt(action.item.attributes.price.discountPrice) *
+          action.quantity;
         // putting back into cart
         tempCart[currentItemInd] = oldObj;
       } else {

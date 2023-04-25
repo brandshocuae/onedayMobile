@@ -92,8 +92,8 @@ const Index = ({navigation, ...props}) => {
                     <View className={'w-28 h-28 rounded-md overflow-hidden'}>
                       <Image
                         source={{
-                          uri: item.attributes.productImages.data[0].attributes
-                            .url,
+                          uri: item?.attributes?.productImages?.data[0]
+                            ?.attributes?.url,
                         }}
                         style={{width: '100%', height: '100%'}}
                         resizeMode={'stretch'}
@@ -102,15 +102,14 @@ const Index = ({navigation, ...props}) => {
                     <View className={'flex justify-between'}>
                       <View>
                         <Text
-                          className={'text-black font-semibold text-lg w-36'}
-                          numberOfLines={1}>
-                          {item.attributes.productName}
+                          style={{width: width * 0.49}}
+                          className={'text-black font-semibold text-lg'}>
+                          {/* {item?.attributes?.productName} */}
+                          {item?.attributes?.name == undefined
+                            ? item?.attributes?.productName
+                            : item?.attributes?.name}
                         </Text>
-                        <Text
-                          className={'text-slate-500 text-sm w-36'}
-                          numberOfLines={1}>
-                          {item.attributes.productDescription}
-                        </Text>
+
                         <Text className={'text-slate-600 text-xs'}>
                           ETA: 3-5 working days.
                         </Text>
@@ -149,14 +148,6 @@ const Index = ({navigation, ...props}) => {
                       </View>
                     </View>
                     <View className={'flex justify-between'}>
-                      {/* <TouchableOpacity onPress={() => removeFromCart(item.id)}>
-                        <Image
-                          source={Images.Delete}
-                          className={'w-4 h-4 flex self-end'}
-                          resizeMode={'contain'}
-                        />
-                      </TouchableOpacity> */}
-
                       <Text className={'text-black font-bold text-base'}>
                         AED {item.attributes?.price?.discountPrice}
                       </Text>

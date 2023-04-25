@@ -48,6 +48,7 @@ const Index = ({navigation, ...props}) => {
   }, []);
 
   const getCustomerID = () => {
+    setIsLoader(true);
     axios
       .get(
         `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
@@ -59,17 +60,22 @@ const Index = ({navigation, ...props}) => {
         setStreet1(response.data.customer.address_book.addressLine1);
         setStreet2(response.data.customer.address_book.addressLine2);
         setZipCode(response.data.customer.address_book.zipCode);
+        setIsLoader(false);
       })
-      .catch(error => {});
+      .catch(error => {
+        setIsLoader(false);
+      });
   };
+
+  console.log('Cart =====>', cart);
 
   const proceedToCheckout = () => {
     setIsLoader(true);
-    const result = cart.map(({id, quantity}) => ({
-      product: id,
-      quantity,
+    const result = cart.map(({id, quantity, productId}) => ({
+      product: productId == undefined ? id : productId,
+      variation: productId == undefined ? 0 : id,
+      quantity: quantity,
     }));
-
     let params = {
       data: {
         totalAmount: total,
@@ -84,7 +90,6 @@ const Index = ({navigation, ...props}) => {
         },
       },
     };
-
     axios
       .post(`${BaseURL.PLACE_ORDER}`, params, config)
       .then(res => {
@@ -95,6 +100,7 @@ const Index = ({navigation, ...props}) => {
       })
       .catch(err => {
         setIsLoader(false);
+        console.log(err)
       });
   };
 

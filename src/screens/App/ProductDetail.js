@@ -17,6 +17,7 @@ import {Images} from '../../assets/images';
 import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import Alert from '../../components/Alert/index';
+import Loader from '../../components/Loader.component';
 
 //third party library
 import {useDispatch} from 'react-redux';
@@ -32,6 +33,8 @@ const Index = ({navigation, route, ...props}) => {
   const dispatch = useDispatch();
   const data = route.params.data;
 
+  const [isLoader, setIsLoader] = useState(false);
+
   console.log('data ========>', data.attributes);
 
   const [carouselImage, setCarouselImage] = useState(
@@ -40,14 +43,25 @@ const Index = ({navigation, route, ...props}) => {
 
   const [quantity, setQuantity] = useState(1);
 
+  const [stock, setStock] = useState(false);
+
   const plus = () => {
     if (!(quantity >= 10)) {
-      setQuantity(quantity + 1);
+      setQuantity(prevState => (prevState += 1));
+    }
+    if (quantity >= variantSlug[0]?.attributes?.stock) {
+      setStock(true);
+      console.log('quantity =====>', quantity);
     }
   };
+
   const minus = () => {
     if (!(quantity <= 1)) {
       setQuantity(quantity - 1);
+      if (quantity <= variantSlug[0]?.attributes?.stock) {
+        setStock(false);
+        console.log('quantity =====>', quantity);
+      }
     }
   };
 
@@ -65,10 +79,6 @@ const Index = ({navigation, route, ...props}) => {
   ];
   let alphabet = numberAplhabet.filter(x => x.numeric == quantity);
 
-  const handleCart = () => {
-    displayObject(selectedOptions);
-  };
-
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
 
@@ -85,8 +95,35 @@ const Index = ({navigation, route, ...props}) => {
   const [selectedOptions, setSelectedOptions] = useState({});
 
   const handleDropdownChange = (name, value) => {
+    console.log('Value =====>', value);
     setSelectedOptions(prevState => ({...prevState, [name]: value}));
   };
+
+  //get variant
+  useEffect(() => {
+    getVariant();
+  }, []);
+
+  const [selectVariant, setSelectVariant] = useState([]);
+
+  const getVariant = () => {
+    setIsLoader(true);
+    axios
+      .get(BaseURL.GET_VARIANT + data.id)
+      .then(res => {
+        console.log('GET_VARIANT ===>', res.data.data);
+        setSelectVariant(res.data.data);
+        setIsLoader(false);
+      })
+      .catch(err => {
+        console.log(err);
+        setIsLoader(false);
+      });
+  };
+
+  console.log('selectedOptions ====>', selectedOptions);
+
+  //variant slug selection ====>
 
   useEffect(() => {
     const defaultValues = {};
@@ -109,25 +146,52 @@ const Index = ({navigation, route, ...props}) => {
     }
   }, []);
 
-  //handle cart
-  const displayObject = obj => {
-    let displayString = '';
+  let displayString = '';
+  for (const prop in selectedOptions) {
+    if (selectedOptions.hasOwnProperty(prop)) {
+      displayString += `${selectedOptions[prop]}-`;
+    }
+  }
+  // Remove the last "-" separator if it exists
+  if (displayString.endsWith('-')) {
+    displayString = displayString.slice(0, -1);
+  }
 
-    for (const prop in obj) {
-      if (obj.hasOwnProperty(prop)) {
-        displayString += `${obj[prop]}-`;
-      }
+  let slug = (
+    data.attributes.slug +
+    '-' +
+    displayString.replace(/ /g, '-')
+  ).toLowerCase();
+
+  // console.log('displayString123 ====>', slug);
+
+  let variantSlug = selectVariant.filter(x => x.attributes.slug === slug);
+  console.log('variantSlug ====>', variantSlug[0]);
+
+  useEffect(() => {
+    console.log('variantSlug[0]?.attributes?.stock ');
+  }, []);
+
+  setTimeout(() => {
+    if (variantSlug[0]?.attributes?.stock == 0 || data.attributes.stock == null) {
+      setStock(true);
+    }
+  }, 1000);
+
+  const handleCart = () => {
+    if (selectVariant.length == 0) {
+      dispatch(handleAddItemToCart(data, quantity));
+    } else {
+      let productData = variantSlug[0];
+      productData.productId = data.id;
+      productData.attributes.productImages = data.attributes.productImages;
+      productData.attributes.productName = data.attributes.productName;
+      console.log('productData ====>', productData);
+      dispatch(handleAddItemToCart(productData, quantity));
     }
 
-    // Remove the last "-" separator if it exists
-    if (displayString.endsWith('-')) {
-      displayString = displayString.slice(0, -1);
-    }
-
-    data.variantSlug = displayString;
-    dispatch(handleAddItemToCart(data, quantity));
-    setShowAlert(true);
-    setAlertText('Item Added');
+    // setShowAlert(true);
+    // setAlertText('Item Added');
   };
 
   return (
@@ -138,7 +202,7 @@ const Index = ({navigation, route, ...props}) => {
           isBack
           isTimer={false}
           _handleBack={() => navigation.goBack()}
-          title={'              '}
+          title={'          '}
           CartOnPress={() => {
             navigation.navigate('Cart');
             setQuantity(1);
@@ -173,10 +237,16 @@ const Index = ({navigation, route, ...props}) => {
             </Text>
             <View className={'flex flex-row items-end mt-2'}>
               <Text className={'text-black font-bold text-xl'}>
-                AED {data.attributes?.price?.discountPrice}{' '}
+                AED{' '}
+                {selectVariant.length === 0
+                  ? data?.attributes?.price?.discountPrice
+                  : variantSlug[0]?.attributes?.price?.discountPrice}{' '}
               </Text>
               <Text className={'text-sm text-slate-500 line-through'}>
-                AED {data.attributes?.price?.price}
+                AED{' '}
+                {selectVariant.length === 0
+                  ? data?.attributes?.price?.price
+                  : variantSlug[0]?.attributes?.price?.price}
               </Text>
             </View>
 
@@ -217,6 +287,9 @@ const Index = ({navigation, route, ...props}) => {
                 </TouchableOpacity>
               </View>
             </View>
+            <Text className={'text-lg text-red-600 font-medium uppercase'}>
+              {stock == false ? '' : 'out of stock'}
+            </Text>
 
             {data.attributes.attributes != null ? (
               <View className={'w-full mt-3'}>
@@ -234,6 +307,7 @@ const Index = ({navigation, route, ...props}) => {
                       defaultValueByIndex={0}
                       onSelect={(selectedItem, index) => {
                         handleDropdownChange(item.name, selectedItem);
+                        // console.log('Selected Item ===>', selectedItem);
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;
@@ -274,12 +348,16 @@ const Index = ({navigation, route, ...props}) => {
             ) : null}
 
             <TouchableOpacity
-              onPress={() => handleCart()}
+              onPress={() => {
+                if (stock == false) {
+                  handleCart();
+                }
+              }}
               activeOpacity={0.7}
               style={{width: width * 0.95}}
-              className={
-                'pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center bg-[#8ecc2d]'
-              }>
+              className={`pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center ${
+                stock == false ? 'bg-[#8ecc2d]' : 'bg-[#777c6f]'
+              } `}>
               <Text className={'text-lg text-white font-semibold uppercase'}>
                 i want {alphabet[0]?.alphabet}
               </Text>
@@ -330,6 +408,7 @@ const Index = ({navigation, route, ...props}) => {
           ) : null}
         </ScrollView>
       </SafeAreaView>
+      {isLoader && <Loader />}
       <Alert
         isVisible={showAlert}
         onPress={() => setShowAlert(false)}

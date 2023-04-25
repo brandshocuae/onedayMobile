@@ -83,6 +83,7 @@ const Index = ({navigation, route, ...props}) => {
           setShowAlert(true);
           setAlertText('Error');
           setIsLoader(false);
+          console.log(error);
         });
     }
   };
@@ -124,6 +125,7 @@ const Index = ({navigation, route, ...props}) => {
           setShowAlert(true);
           setAlertText('Error');
           setIsLoader(false);
+          console.log(error);
         });
     }
   };
@@ -155,6 +157,7 @@ const Index = ({navigation, route, ...props}) => {
       })
       .catch(error => {
         setIsLoader(false);
+        console.log(error);
       });
   };
 
