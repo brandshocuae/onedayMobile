@@ -37,41 +37,46 @@ const Index = ({navigation, ...props}) => {
           <Text
             style={{width: width * 0.95}}
             className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            To return an item from your order, go to your orders page, select
+            the relevant order, and click the "log a return" button at the
+            bottom of the page. Follow the steps here to submit your return
+            request. Our customer service team will review and approve your
+            return before it is processed. Note that returns are only accepted
+            with prior authorization and are subject to our terms and
+            conditions, which can be found here.
           </Text>
           <Text
             style={{width: width * 0.95}}
             className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            Products received more than 7 days ago Products that have been used
+            or are missing any parts or accessories Products that have been
+            opened or unsealed, including but not limited to: swimwear,
+            underwear, lingerie, bodysuits, beauty and cosmetic items and
+            devices, fragrances, linen, bedding, towels, DVD’s, CD’s, games,
+            software, foodstuffs, supplements, adult toys and accessories,
+            animal feed, cleaning products, medical equipment, personal
+            protective equipment, certain jewelry items, pillows, earphones, and
+            electronics. Vouchers such as service-related vouchers, travel deals
+            or other digital downloads OneDayOnly Gift Vouchers Personalized
+            products or products that have been made to the customer’s
+            specifications A product where the customer has already registered
+            the warranty.
           </Text>
           <Text
             style={{width: width * 0.95}}
             className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+            For products that are damaged or faulty, our standard warranty
+            period is 6 months from the date of receipt. In some cases, there
+            may be an extended supplier warranty. If you're unsure of the
+            warranty period, please log your return and we'll assist. If your
+            return is approved, you will be eligible for a refund. If you paid
+            via EFT, SnapScan, Zapper, Ozow, eBucks or Discovery Miles, please
+            remember to send your bank details so we can process your refund. A
+            bank transfer refund could take up to 5 working days to reflect,
+            while a refund to your credit card can take up to 2 weeks, depending
+            on your bank. We may also process your refund as a store credit, but
+            you can always request a cash refund instead. If you're still
+            waiting after this time, please contact us and we’ll assist.
           </Text>
         </ScrollView>
       </SafeAreaView>

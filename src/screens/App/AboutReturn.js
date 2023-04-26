@@ -32,46 +32,53 @@ const Index = ({navigation, ...props}) => {
         <ScrollView
           contentContainerStyle={{
             paddingBottom: height * 0.07,
-            alignItems: 'center',
+            marginLeft: width * 0.04,
           }}>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+          <Text className={'font-semibold text-base text-black mt-5'}>
+            How to log a return
           </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            If you are not entirely satisfied with your order or product
+            received, you can log a return on this page
           </Text>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy text
-            ever since the 1500s, when an unknown printer took a galley of type
-            and scrambled it to make a type specimen book. It has survived not
-            only five centuries, but also the leap into electronic typesetting,
-            remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages,
-            and more recently with desktop publishing software like Aldus
-            PageMaker including versions of Lorem Ipsum.
+
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            1. Find your order and click through to the order detail
+          </Text>
+
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            2 Click the big 'log a return' button at the bottom
+          </Text>
+
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            3. Select the products(s) you would like to return and click
+            'continue'{' '}
+          </Text>
+
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            4. Follow the steps to submit{' '}
+          </Text>
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            Once your return is logged, our customer service team will evaluate
+            and validate your return for eligibility before it is processed. No
+            returns will be accepted without prior authorisation being obtained.{' '}
+          </Text>
+
+          <Text className={'text-sm text-slate-600 mt-2'}>Please note:</Text>
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            • Standard returns must be submitted within 7 days of receipt of the
+            item
+          </Text>
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            • Due to their nature, certain hygiene and other products are not
+            eligible for return{' '}
+          </Text>
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            • Returns are subject to our T&C's which you can find here.
+          </Text>
+          <Text className={'text-sm text-slate-600 mt-2'}>
+            • Please refer to our returns page for further information.
           </Text>
         </ScrollView>
       </SafeAreaView>
