@@ -350,8 +350,6 @@ const Index = ({navigation, ...props}) => {
     if (displayString.endsWith('-')) {
       displayString = displayString.slice(0, -1);
     }
-
-    console.log('displayString ===>', displayString);
   };
 
   const displayOption = () => {

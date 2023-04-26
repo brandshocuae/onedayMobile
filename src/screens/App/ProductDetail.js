@@ -35,8 +35,6 @@ const Index = ({navigation, route, ...props}) => {
 
   const [isLoader, setIsLoader] = useState(false);
 
-  console.log('data ========>', data.attributes);
-
   const [carouselImage, setCarouselImage] = useState(
     data.attributes.productImages.data,
   );
@@ -51,7 +49,6 @@ const Index = ({navigation, route, ...props}) => {
     }
     if (quantity >= variantSlug[0]?.attributes?.stock) {
       setStock(true);
-      console.log('quantity =====>', quantity);
     }
   };
 
@@ -60,7 +57,6 @@ const Index = ({navigation, route, ...props}) => {
       setQuantity(quantity - 1);
       if (quantity <= variantSlug[0]?.attributes?.stock) {
         setStock(false);
-        console.log('quantity =====>', quantity);
       }
     }
   };
@@ -95,7 +91,6 @@ const Index = ({navigation, route, ...props}) => {
   const [selectedOptions, setSelectedOptions] = useState({});
 
   const handleDropdownChange = (name, value) => {
-    console.log('Value =====>', value);
     setSelectedOptions(prevState => ({...prevState, [name]: value}));
   };
 
@@ -111,17 +106,13 @@ const Index = ({navigation, route, ...props}) => {
     axios
       .get(BaseURL.GET_VARIANT + data.id)
       .then(res => {
-        console.log('GET_VARIANT ===>', res.data.data);
         setSelectVariant(res.data.data);
         setIsLoader(false);
       })
       .catch(err => {
-        console.log(err);
         setIsLoader(false);
       });
   };
-
-  console.log('selectedOptions ====>', selectedOptions);
 
   //variant slug selection ====>
 
@@ -163,17 +154,10 @@ const Index = ({navigation, route, ...props}) => {
     displayString.replace(/ /g, '-')
   ).toLowerCase();
 
-  // console.log('displayString123 ====>', slug);
-
   let variantSlug = selectVariant.filter(x => x.attributes.slug === slug);
-  console.log('variantSlug ====>', variantSlug[0]);
-
-  useEffect(() => {
-    console.log('variantSlug[0]?.attributes?.stock ');
-  }, []);
 
   setTimeout(() => {
-    if (variantSlug[0]?.attributes?.stock == 0 || data.attributes.stock == null) {
+    if (variantSlug[0]?.attributes?.stock == 0 || data.attributes.stock == 0) {
       setStock(true);
     }
   }, 1000);
@@ -186,7 +170,6 @@ const Index = ({navigation, route, ...props}) => {
       productData.productId = data.id;
       productData.attributes.productImages = data.attributes.productImages;
       productData.attributes.productName = data.attributes.productName;
-      console.log('productData ====>', productData);
       dispatch(handleAddItemToCart(productData, quantity));
     }
 
@@ -307,7 +290,6 @@ const Index = ({navigation, route, ...props}) => {
                       defaultValueByIndex={0}
                       onSelect={(selectedItem, index) => {
                         handleDropdownChange(item.name, selectedItem);
-                        // console.log('Selected Item ===>', selectedItem);
                       }}
                       buttonTextAfterSelection={(selectedItem, index) => {
                         return selectedItem;
@@ -316,7 +298,6 @@ const Index = ({navigation, route, ...props}) => {
                         return item;
                       }}
                       renderDropdownIcon={isOpened => {
-                        // console.log('isOpened ====>', isOpened);
                         return (
                           <Image
                             source={Images.DropDownArrow}

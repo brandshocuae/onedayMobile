@@ -67,8 +67,6 @@ const Index = ({navigation, ...props}) => {
       });
   };
 
-  console.log('Cart =====>', cart);
-
   const proceedToCheckout = () => {
     setIsLoader(true);
     const result = cart.map(({id, quantity, productId}) => ({
@@ -76,6 +74,7 @@ const Index = ({navigation, ...props}) => {
       variation: productId == undefined ? 0 : id,
       quantity: quantity,
     }));
+    console.log(result);
     let params = {
       data: {
         totalAmount: total,
@@ -100,7 +99,6 @@ const Index = ({navigation, ...props}) => {
       })
       .catch(err => {
         setIsLoader(false);
-        console.log(err)
       });
   };
 
