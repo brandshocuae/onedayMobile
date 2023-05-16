@@ -1,5 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {View, SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  Text,
+  ScrollView,
+  Dimensions,
+  Button,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -16,6 +23,7 @@ import Alert from '../../components/Alert/index';
 
 //third party library
 import {useDispatch} from 'react-redux';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const Index = ({navigation, route, ...props}) => {
   const isFromCheckout = route?.params?.fromCheckout;
@@ -112,6 +120,32 @@ const Index = ({navigation, route, ...props}) => {
               }}
               title={'login'}
             />
+            <Button
+              title={'Sign in with Google'}
+              onPress={() => {
+                GoogleSignin.configure({
+                  iosClientId:
+                    '96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j.apps.googleusercontent.com',
+                  androidClientId:
+                    '96488899777-qih1l2mkjb1ir0vq61sbla05dopukrps.apps.googleusercontent.com',
+                });
+                GoogleSignin.hasPlayServices()
+                  .then(hasPlayService => {
+                    if (hasPlayService) {
+                      GoogleSignin.signIn()
+                        .then(userInfo => {
+                          console.log(JSON.stringify(userInfo));
+                        })
+                        .catch(e => {
+                          console.log('ERROR IS: ' + JSON.stringify(e));
+                        });
+                    }
+                  })
+                  .catch(e => {
+                    console.log('ERROR IS: ' + JSON.stringify(e));
+                  });
+              }}
+            />
             <Text
               onPress={() => navigation.navigate('SignUp')}
               className={'text-base text-slate-600 mt-2'}>
@@ -137,3 +171,7 @@ const Index = ({navigation, route, ...props}) => {
 };
 
 export default Index;
+// IOS 96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j.apps.googleusercontent.com
+// 96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j.apps.googleusercontent.com
+
+// ANDROID 96488899777-qih1l2mkjb1ir0vq61sbla05dopukrps.apps.googleusercontent.com
