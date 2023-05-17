@@ -51,6 +51,12 @@ const Header = ({
 
   const cart = useSelector(state => state.cartReducer.cart);
 
+  let sum = 0;
+
+  cart.forEach(item => {
+    sum += parseInt(item.quantity);
+  });
+
   return (
     <View
       className={
@@ -108,7 +114,7 @@ const Header = ({
                     'w-5 h-5 bg-red-600 rounded-full ml-4 -mt-4 flex items-center justify-center'
                   }>
                   <Text className={'text-sm text-white font-semibold'}>
-                    {cart.length}
+                    {sum}
                   </Text>
                 </View>
               ) : null}

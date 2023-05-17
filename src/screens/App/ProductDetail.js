@@ -18,9 +18,10 @@ import Header from '../../components/Header';
 import MyStatusBar from '../../components/StatusBar';
 import Alert from '../../components/Alert/index';
 import Loader from '../../components/Loader.component';
+import CheckoutModal from '../../components/CheckoutModal/index';
 
 //third party library
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Carousel from 'react-native-snap-carousel';
 import SelectDropdown from 'react-native-select-dropdown';
 import axios from '../../utils/axios';
@@ -30,6 +31,7 @@ import BaseURL from '../../constants/apiEndPoints';
 import {handleAddItemToCart, handleRemoveItem} from '../../store/action/cart';
 
 const Index = ({navigation, route, ...props}) => {
+  const isLogin = useSelector(state => state.userReducer.isLogin);
   const dispatch = useDispatch();
   const data = route.params.data;
 
@@ -39,25 +41,19 @@ const Index = ({navigation, route, ...props}) => {
     data.attributes.productImages.data,
   );
 
-  const [quantity, setQuantity] = useState(1);
+  const [isCart, setIsCart] = useState(false);
 
-  const [stock, setStock] = useState(false);
+  const [quantity, setQuantity] = useState(1);
 
   const plus = () => {
     if (!(quantity >= 10)) {
       setQuantity(prevState => (prevState += 1));
-    }
-    if (quantity >= variantSlug[0]?.attributes?.stock) {
-      setStock(true);
     }
   };
 
   const minus = () => {
     if (!(quantity <= 1)) {
       setQuantity(quantity - 1);
-      if (quantity <= variantSlug[0]?.attributes?.stock) {
-        setStock(false);
-      }
     }
   };
 
@@ -156,21 +152,17 @@ const Index = ({navigation, route, ...props}) => {
 
   let variantSlug = selectVariant.filter(x => x.attributes.slug === slug);
 
-  setTimeout(() => {
-    if (variantSlug[0]?.attributes?.stock == 0 || data.attributes.stock == 0) {
-      setStock(true);
-    }
-  }, 1000);
-
   const handleCart = () => {
     if (selectVariant.length == 0) {
       dispatch(handleAddItemToCart(data, quantity));
+      setIsCart(true);
     } else {
       let productData = variantSlug[0];
       productData.productId = data.id;
       productData.attributes.productImages = data.attributes.productImages;
       productData.attributes.productName = data.attributes.productName;
       dispatch(handleAddItemToCart(productData, quantity));
+      setIsCart(true);
     }
 
     // setShowAlert(true);
@@ -270,9 +262,6 @@ const Index = ({navigation, route, ...props}) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <Text className={'text-lg text-red-600 font-medium uppercase'}>
-              {stock == false ? '' : 'out of stock'}
-            </Text>
 
             {data.attributes.attributes != null ? (
               <View className={'w-full mt-3'}>
@@ -330,15 +319,11 @@ const Index = ({navigation, route, ...props}) => {
 
             <TouchableOpacity
               onPress={() => {
-                if (stock == false) {
-                  handleCart();
-                }
+                handleCart();
               }}
               activeOpacity={0.7}
               style={{width: width * 0.95}}
-              className={`pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center ${
-                stock == false ? 'bg-[#8ecc2d]' : 'bg-[#777c6f]'
-              } `}>
+              className={`pt-2 pb-2 w-full rounded-lg mt-5 cursor-pointer flex items-center justify-center bg-[#8ecc2d]`}>
               <Text className={'text-lg text-white font-semibold uppercase'}>
                 i want {alphabet[0]?.alphabet}
               </Text>
@@ -365,7 +350,7 @@ const Index = ({navigation, route, ...props}) => {
                     <>
                       <Text
                         className={
-                          'text-2xl text-black font-semibold uppercase mb-2 mt-2'
+                          'text-lg text-black font-semibold uppercase mb-2 mt-2'
                         }>
                         {item.title}:
                       </Text>
@@ -374,7 +359,7 @@ const Index = ({navigation, route, ...props}) => {
                         renderItem={({item, index}) => {
                           return (
                             <View>
-                              <Text className={'text-lg text-black'}>
+                              <Text className={'text-sm text-black'}>
                                 {index + 1}. {item}
                               </Text>
                             </View>
@@ -394,6 +379,19 @@ const Index = ({navigation, route, ...props}) => {
         isVisible={showAlert}
         onPress={() => setShowAlert(false)}
         message={alertText}
+      />
+      <CheckoutModal
+        isVisible={isCart}
+        message={isLogin == true ? 'Go to cart' : 'Login'}
+        modalIsClosed={() => setIsCart(false)}
+        onPress={() => {
+          setIsCart(false);
+          if (isLogin == true) {
+            navigation.navigate('Checkout');
+          } else {
+            navigation.navigate('SignIn');
+          }
+        }}
       />
     </>
   );

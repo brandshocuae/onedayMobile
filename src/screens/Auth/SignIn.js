@@ -76,6 +76,25 @@ const Index = ({navigation, route, ...props}) => {
       });
   };
 
+  // const handleFBLogin = async () => {
+  //   try {
+  //     const result = await LoginManager.logInWithPermissions([
+  //       'public_profile',
+  //       'email',
+  //     ]);
+
+  //     if (result.isCancelled) {
+  //       console.log('Login cancelled');
+  //     } else {
+  //       const accessToken = await AccessToken.getCurrentAccessToken();
+  //       console.log('Logged in successfully!', accessToken);
+  //     }
+  //   } catch (error) {
+  //     console.log('Login error:', error);
+  //   }
+  // };
+
+  // Settings.setAppID('1440158213191276');
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -119,6 +138,7 @@ const Index = ({navigation, route, ...props}) => {
                 }
               }}
               title={'login'}
+              marginBottom={height * 0.03}
             />
             <Button
               title={'Sign in with Google'}
@@ -145,7 +165,9 @@ const Index = ({navigation, route, ...props}) => {
                     console.log('ERROR IS: ' + JSON.stringify(e));
                   });
               }}
+              c
             />
+
             <Text
               onPress={() => navigation.navigate('SignUp')}
               className={'text-base text-slate-600 mt-2'}>

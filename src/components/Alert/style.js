@@ -20,7 +20,7 @@ export default StyleSheet.create({
 
   msgText: {
     fontSize: width * 0.04,
-    width: width * 0.75,
+    width: width * 0.7,
     color: '#0283c3',
     textAlign: 'center',
     marginBottom: height * 0.03,

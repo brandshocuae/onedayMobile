@@ -54,12 +54,12 @@ const Index = ({navigation, ...props}) => {
         `${BaseURL.GET_CUSTOMER_ID}/${user.user.id}?populate[0]=customer&populate[1]=customer.address_book`,
       )
       .then(response => {
-        setContactNo(response.data.customer.address_book.contact);
-        setLocation(response.data.customer.address_book.city);
-        setCompany(response.data.customer.address_book.companyOrBuilding);
-        setStreet1(response.data.customer.address_book.addressLine1);
-        setStreet2(response.data.customer.address_book.addressLine2);
-        setZipCode(response.data.customer.address_book.zipCode);
+        setContactNo(response?.data?.customer?.address_book?.contact);
+        setLocation(response?.data?.customer?.address_book?.city);
+        setCompany(response?.data?.customer?.address_book?.companyOrBuilding);
+        setStreet1(response?.data?.customer?.address_book?.addressLine1);
+        setStreet2(response?.data?.customer?.address_book?.addressLine2);
+        setZipCode(response?.data?.customer?.address_book?.zipCode);
         setIsLoader(false);
       })
       .catch(error => {
@@ -74,7 +74,6 @@ const Index = ({navigation, ...props}) => {
       variation: productId == undefined ? 0 : id,
       quantity: quantity,
     }));
-    console.log(result);
     let params = {
       data: {
         totalAmount: total,
@@ -94,11 +93,16 @@ const Index = ({navigation, ...props}) => {
       .then(res => {
         setIsLoader(false);
         dispatch(handleEmptyCart());
-        setShowAlert(true);
-        setAlertText('Order Created');
+        console.log(res.data);
+        navigation.navigate('OrderConfirm', {
+          data: res?.data?.data?.id,
+        });
       })
       .catch(err => {
         setIsLoader(false);
+        console.log(err.data.error.details.message);
+        setShowAlert(true);
+        setAlertText(err.data.error.details.message);
       });
   };
 
@@ -198,7 +202,6 @@ const Index = ({navigation, ...props}) => {
         isVisible={showAlert}
         onPress={() => {
           setShowAlert(false);
-          navigation.navigate('Home');
         }}
         message={alertText}
       />

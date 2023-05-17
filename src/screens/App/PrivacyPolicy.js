@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {SafeAreaView, Text, ScrollView, Dimensions} from 'react-native';
+import {
+  SafeAreaView,
+  Text,
+  ScrollView,
+  Dimensions,
+  FlatList,
+} from 'react-native';
 
 const {width, height} = Dimensions.get('window');
 
@@ -10,6 +16,19 @@ import MyStatusBar from '../../components/StatusBar';
 //third party library
 
 const Index = ({navigation, ...props}) => {
+  const data = [
+    '1.1 We may collect the following information: ',
+    'a) Name',
+    'b) Contact information including email address',
+    'c) Demographic information such as postcode, preferences and interests ',
+    'd) Other information relevant to customer surveys and/or offers',
+    '•	www.oneday.ae promise to keep your personal information confidential and not share it with any third party, except as outlined in this policy or required by law. If there is a fraudulent online payment, Snatcher may need to disclose personal information to help with a criminal investigation or to meet any other legal obligations.',
+    '1.2 Although we will take reasonable measures to safeguard your privacy rights, we cannot assure or take responsibility for any unauthorized or illegal sharing of your personal information by third parties not under our authority, except in cases where such sharing is due to our gross negligence.',
+    '1.3 If you give us permission, we may send you emails about our store, including new products and other updates.',
+    '1.4 The website may use cookie and tracking technology depending on its features. These tools are helpful in collecting data such as the type of browser and operating system, monitoring the number of visitors and understanding their behavior on the site. Cookies can also be used to customize the site for visitors. While personal information cannot be collected through cookies and tracking technology, if you have previously provided personally identifiable information, cookies may be associated with that information. Third parties may receive aggregated cookie and tracking information.',
+    '1.5 We will make sure that anyone who has access to your personal information, including our employees, third-party service providers, divisions, and partners, and their respective employees and third-party service providers, are legally obligated to maintain the confidentiality of your information and refrain from using it for any other purposes.',
+    "1.6 Third-party service providers who work with us will collect, use, and disclose your information only as necessary for them to perform their services. However, some third-party providers, such as payment gateways and processors, have their own privacy policies regarding the information required for your purchase-related transactions. We suggest that you review their privacy policies to understand how these providers will handle your personal information. It's important to note that some providers may be located in different jurisdictions than you or us, and if you proceed with a transaction involving their services, your information may be subject to the laws of those jurisdictions. Once you leave our website or are redirected to a third-party website, you are no longer governed by our Privacy Policy or Terms of Service. When you click on links on our website, you may be directed to another site, and we are not responsible for their privacy practices, so we encourage you to read their privacy statements.",
+  ];
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -26,44 +45,18 @@ const Index = ({navigation, ...props}) => {
             paddingBottom: height * 0.07,
             alignItems: 'center',
           }}>
-          <Text
-            style={{width: width * 0.95}}
-            className={'mt-3 text-black text-base'}>
-            It was brought to our attention that, since we're capturing your
-            details, we should have a privacy policy in place. Fair enough.
-            OneDayOnly respects your privacy and is committed to the protection
-            of your Personal Information. We had a look around and found two
-            options: we {'\n'}1) copy/paste someone else's, and replace some
-            other company's name with ours or {'\n'}2) get a legal firm to draft
-            one for us. Option one is lame and option two bloody expensive. And
-            we're all about not being lame and being cheap. So, here's our best
-            effort at explaining what data we capture, what we do with it and
-            –more importantly- what we don't do with it. This is not a legal
-            document, but rather an explanation in laymen's terms of what we do
-            and don't do. A Privacy Policy suitable to the good viewers of
-            Sesame Street, if you will. OneDayOnly’s Privacy Policy sets out how
-            OneDayOnly uses and processes your Personal Information in
-            compliance with the Promotion of Access to Information Act 2 of 2000
-            (“PAIA”) and the Protection of Personal Information Act 4 of 2013
-            (“POPIA”). Our Privacy Policy applies to all Users of our website,
-            related mobi-sites and software applications, collectively referred
-            to as our “Platforms”, which are accessed by Users in order to
-            purchase products and services. By making use of our Platforms,
-            Users agree to this Privacy Policy together with our other Terms and
-            Conditions. By agreeing to this Privacy Policy, you provide us with
-            your express consent and agreement that we may collect, get,
-            receive, record, organise, collate, store, update, change, retrieve,
-            read, process, consult, use and share your Personal Information in
-            the manner set out in this Privacy Policy. Users that are below the
-            age of 18 have to obtain consent from their parent or guardian
-            before accessing our Platforms or provide us with Personal
-            Information. We may request confirmation from your parent or
-            guardian that they have given such consent and contact them to
-            verify the information provided by you. Where we cannot obtain such
-            confirmation or verify your information provided, you are not
-            entitled to make use of our Platforms and we will not use or retain
-            your Personal Information.
-          </Text>
+          <FlatList
+            data={data}
+            renderItem={({item, index}) => {
+              return (
+                <Text
+                  key={index}
+                  className={'ml-4 text-base font-montserrat text-gray-800 mt-3'}>
+                  {item}
+                </Text>
+              );
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
     </>

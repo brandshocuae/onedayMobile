@@ -10,8 +10,7 @@ import {
 import styles from './style';
 import {Images} from '../../assets/images';
 
-const Index = ({navigation, ...props}) => {
-  const {isVisible, onPress, message} = props;
+const Index = ({navigation, isVisible, onPress, message, ...props}) => {
   return (
     <Modal animationType="fade" transparent={true} visible={isVisible}>
       <View style={styles.centeredView}>

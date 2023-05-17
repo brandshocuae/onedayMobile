@@ -38,6 +38,7 @@ const Index = ({navigation, ...props}) => {
 
   const [mainBanner, setMainBanner] = useState('');
   const [products, setProducts] = useState([]);
+  const [placementLarge, setPlacementLarge] = useState([]);
 
   const getTodayDeal = () => {
     setIsLoader(true);
@@ -45,7 +46,12 @@ const Index = ({navigation, ...props}) => {
       .get(`${BaseURL.GET_PRODUCT}`)
       .then(res => {
         setProducts(res.data.data);
-
+        console.log(res.data.data);
+        let placement = res.data.data.filter(
+          x => x.attributes.placement === 'large',
+        );
+        console.log('placement ===>', placement);
+        setPlacementLarge(placement);
         setIsLoader(false);
       })
       .catch(err => {
@@ -59,8 +65,7 @@ const Index = ({navigation, ...props}) => {
       .get(`${BaseURL.TODAYS_DEAL}?populate=deep`)
       .then(res => {
         setMainBanner(
-          res.data.data[0].attributes.dealMainBanner.data.attributes.formats
-            .large.url,
+          res.data.data[0].attributes.dealMainBanner.data.attributes.url,
         );
 
         setIsLoader(false);
@@ -105,27 +110,25 @@ const Index = ({navigation, ...props}) => {
           </View>
           <View className={'flex self-center mt-1'}>
             <FlatList
-              data={products}
+              data={placementLarge}
               renderItem={({item, index}) => {
-                if (item.attributes.placement === 'large') {
-                  return (
-                    <Deal
-                      key={index}
-                      onPress={() =>
-                        navigation.navigate('ProductDetail', {
-                          data: item,
-                        })
-                      }
-                      image={
-                        item.attributes.productImages.data[0].attributes.url
-                      }
-                      title={item.attributes.productName}
-                      subtitle={item.attributes.productName}
-                      price={item.attributes.price.price}
-                      discount={item.attributes.price.discountPrice}
-                    />
-                  );
-                }
+                return (
+                  <Deal
+                    key={index}
+                    onPress={() =>
+                      navigation.navigate('ProductDetail', {
+                        data: item,
+                      })
+                    }
+                    image={
+                      item?.attributes?.productImages?.data[0]?.attributes?.url
+                    }
+                    title={item?.attributes?.productName}
+                    subtitle={item?.attributes?.productName}
+                    price={item?.attributes?.price?.price}
+                    discount={item?.attributes?.price?.discountPrice}
+                  />
+                );
               }}
               contentContainerStyle={{
                 width: width * 0.9,

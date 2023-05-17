@@ -14,7 +14,7 @@ import MyWallet from '../screens/App/MyWallet';
 import Shop from '../screens/App/Shop';
 import Cart from '../screens/App/Cart';
 import PaymentMethod from '../screens/App/PaymentMethod';
-import DropDown from '../screens/App/DropDown';
+import OrderConfirm from '../screens/App/OrderConfirm';
 
 //bottom tab
 import {BottomNavigator} from './bottom.navigator';
@@ -38,7 +38,7 @@ export const RootNavigator = ({}) => {
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="PaymentMethod" component={PaymentMethod} />
-      <Stack.Screen name="DropDown" component={DropDown} />
+      <Stack.Screen name="OrderConfirm" component={OrderConfirm} />
 
       {/* BOTTOM TAB */}
       <Stack.Screen name="BottomNavigator" component={BottomNavigator} />

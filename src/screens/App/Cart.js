@@ -100,8 +100,8 @@ const Index = ({navigation, ...props}) => {
                     <View className={'flex justify-between'}>
                       <View>
                         <Text
-                          style={{width: width * 0.49}}
-                          className={'text-black font-semibold text-lg'}>
+                          style={{width: width * 0.4}}
+                          className={'text-black font-semibold text-base'}>
                           {/* {item?.attributes?.productName} */}
                           {item?.attributes?.name == undefined
                             ? item?.attributes?.productName
