@@ -6,6 +6,8 @@ import {
   ScrollView,
   Dimensions,
   Button,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 
 const {width, height} = Dimensions.get('window');
@@ -24,6 +26,14 @@ import Alert from '../../components/Alert/index';
 //third party library
 import {useDispatch} from 'react-redux';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {
+  LoginManager,
+  LoginButton,
+  AccessToken,
+  GraphRequest,
+  GraphRequestManager,
+} from 'react-native-fbsdk-next';
+import {Images} from '../../assets/images';
 
 const Index = ({navigation, route, ...props}) => {
   const isFromCheckout = route?.params?.fromCheckout;
@@ -76,25 +86,65 @@ const Index = ({navigation, route, ...props}) => {
       });
   };
 
-  // const handleFBLogin = async () => {
-  //   try {
-  //     const result = await LoginManager.logInWithPermissions([
-  //       'public_profile',
-  //       'email',
-  //     ]);
+  const handleFacebookLogin = () => {
+    LoginManager.logInWithPermissions(['public_profile', 'email']).then(
+      result => {
+        if (result.isCancelled) {
+          console.log('Login cancelled');
+        } else {
+          console.log(
+            'Login success with permissions: ' + JSON.stringify(result),
+          );
+          fetchdata();
+        }
+      },
+      error => {
+        console.log('Login fail with error: ' + error);
+      },
+    );
+  };
 
-  //     if (result.isCancelled) {
-  //       console.log('Login cancelled');
-  //     } else {
-  //       const accessToken = await AccessToken.getCurrentAccessToken();
-  //       console.log('Logged in successfully!', accessToken);
-  //     }
-  //   } catch (error) {
-  //     console.log('Login error:', error);
-  //   }
-  // };
+  const fetchdata = () => {
+    const infoRequest = new GraphRequest(
+      '/me?fields=name,picture.type(large),email',
+      null,
+      _responseInfoCallback,
+    );
+    new GraphRequestManager().addRequest(infoRequest).start();
+  };
 
-  // Settings.setAppID('1440158213191276');
+  const _responseInfoCallback = (error, result) => {
+    if (error) {
+      console.log('Error fetching data: ' + error);
+    } else {
+      console.log('Success fetching data: ' + JSON.stringify(result.email));
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    GoogleSignin.configure({
+      iosClientId:
+        '96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j.apps.googleusercontent.com',
+      androidClientId:
+        '96488899777-qih1l2mkjb1ir0vq61sbla05dopukrps.apps.googleusercontent.com',
+    });
+    GoogleSignin.hasPlayServices()
+      .then(hasPlayService => {
+        if (hasPlayService) {
+          GoogleSignin.signIn()
+            .then(userInfo => {
+              console.log(JSON.stringify(userInfo));
+            })
+            .catch(e => {
+              console.log('ERROR IS: ' + JSON.stringify(e));
+            });
+        }
+      })
+      .catch(e => {
+        console.log('ERROR IS: ' + JSON.stringify(e));
+      });
+  };
+
   return (
     <>
       <MyStatusBar backgroundColor={'#0283c3'} />
@@ -140,33 +190,43 @@ const Index = ({navigation, route, ...props}) => {
               title={'login'}
               marginBottom={height * 0.03}
             />
-            <Button
-              title={'Sign in with Google'}
+
+            <TouchableOpacity
               onPress={() => {
-                GoogleSignin.configure({
-                  iosClientId:
-                    '96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j.apps.googleusercontent.com',
-                  androidClientId:
-                    '96488899777-qih1l2mkjb1ir0vq61sbla05dopukrps.apps.googleusercontent.com',
-                });
-                GoogleSignin.hasPlayServices()
-                  .then(hasPlayService => {
-                    if (hasPlayService) {
-                      GoogleSignin.signIn()
-                        .then(userInfo => {
-                          console.log(JSON.stringify(userInfo));
-                        })
-                        .catch(e => {
-                          console.log('ERROR IS: ' + JSON.stringify(e));
-                        });
-                    }
-                  })
-                  .catch(e => {
-                    console.log('ERROR IS: ' + JSON.stringify(e));
-                  });
+                handleFacebookLogin();
               }}
-              c
-            />
+              style={{width: width * 0.9}}
+              className="mb-3 flex items-center justify-center flex-row bg-[#4a6ebb] rounded px-7 pt-3 pb-2.5">
+              <Image
+                source={Images.Facebook}
+                className={'w-8 h-8 mr-3'}
+                resizeMode={'contain'}
+              />
+              <Text
+                className={
+                  'text-center text-sm font-montserrat font-medium uppercase leading-normal text-white'
+                }>
+                Continue with Facebook
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                handleGoogleLogin();
+              }}
+              style={{width: width * 0.9}}
+              className="mb-3 flex bg-white items-center flex-row justify-center rounded px-7 pt-3 pb-2.5">
+              <Image
+                source={Images.Google}
+                className={'w-8 h-8 mr-3'}
+                resizeMode={'contain'}
+              />
+              <Text
+                className={
+                  'text-center text-sm font-montserrat font-medium uppercase leading-normal text-[#444444]'
+                }>
+                Continue with Google
+              </Text>
+            </TouchableOpacity>
 
             <Text
               onPress={() => navigation.navigate('SignUp')}

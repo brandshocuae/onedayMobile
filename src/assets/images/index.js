@@ -36,8 +36,12 @@ const Wallet = require('./Wallet.png');
 const ShoppingCart = require('./shopping-cart.png');
 const DropDownArrow = require('./DropDownArrow.png');
 const Close = require('./close.png');
+const Google = require('./Google.png');
+const Facebook = require('./Facebook.png');
 
 export const Images = {
+  Google,
+  Facebook,
   Close,
   DropDownArrow,
   ShoppingCart,

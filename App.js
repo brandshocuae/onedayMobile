@@ -9,11 +9,15 @@ import {store, persistor} from './src/store/store';
 
 //third party
 // import messaging from '@react-native-firebase/messaging';
+import { Settings } from 'react-native-fbsdk-next';
 
 export default App = () => {
   console.disableYellowBox = true;
 
   // CDM
+
+  Settings.setAppID('1440158213191276');
+  Settings.initializeSDK()
 
   return (
     <>

@@ -101,7 +101,7 @@ const Index = ({navigation, ...props}) => {
           showsVerticalScrollIndicator={false}>
           <View
             style={{width: width * 0.9}}
-            className={'h-24 felx self-center mt-3 rounded-md overflow-hidden'}>
+            className={'flex h-36 self-center mt-3 rounded-md overflow-hidden'}>
             <Image
               style={{width: '100%', height: '100%'}}
               resizeMode={'stretch'}

@@ -30,9 +30,19 @@
 				<string>com.googleusercontent.apps.96488899777-i0627dh7tq6huvfiigobg4j4848t7d6j</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb1440158213191276</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookClientToken</key>
+	<string>b22aa9b0848eee95dcea632637fd9d49</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
